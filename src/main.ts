@@ -1,48 +1,88 @@
 import "./style.css";
+import "./zoom.css";
 import { animate, inView, stagger } from "motion";
+import Lenis from "lenis";
+import "lenis/dist/lenis.css";
+import { mountZoom } from "./zoom";
+import { setupTheme } from "./theme";
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const root = document.documentElement;
+const asset = (p: string) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
 
-/* ── theme toggle (light by default) ────────────────────────────────────── */
-const themeBtn = document.getElementById("theme")!;
-const metaTheme = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')!;
-const applyTheme = (dark: boolean) => {
-  root.dataset.theme = dark ? "dark" : "light";
-  metaTheme.content = dark ? "#0a0a0a" : "#f6f6f4";
-  themeBtn.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
-};
-
-/* swap clip sources to match the theme */
+/* ── theme + media sync ───────────────────────────────────────────────── */
 function syncMedia() {
   const dark = root.dataset.theme === "dark";
   document.querySelectorAll<HTMLVideoElement>("video[data-light]").forEach((v) => {
-    const src = (dark ? v.dataset.dark : v.dataset.light)!;
+    const src = asset((dark ? v.dataset.dark : v.dataset.light)!);
+    const poster = asset((dark ? v.dataset.posterDark : v.dataset.posterLight) ?? "");
+    v.poster = poster;
+    v.addEventListener("error", () => { v.controls = true; }, { once: true });
     if (!v.src.endsWith(src)) {
-      if (reduced) v.removeAttribute("autoplay");
       v.src = src;
       v.load();
       const r = v.getBoundingClientRect();
-      if (!reduced && r.bottom > 0 && r.top < innerHeight) v.play().catch(() => {});
+      if (!reduced && r.bottom > 0 && r.top < innerHeight)
+        v.play().catch(() => { v.controls = true; });
     }
   });
 }
 
-applyTheme(root.dataset.theme === "dark");
+setupTheme(reduced, syncMedia);
 syncMedia();
-themeBtn.addEventListener("click", () => {
-  const dark = root.dataset.theme !== "dark";
-  const freeze = document.createElement("style");
-  freeze.textContent = "*,*::before,*::after{transition:none!important}";
-  document.head.append(freeze);
-  applyTheme(dark);
-  localStorage.setItem("theme", dark ? "dark" : "light");
-  syncMedia();
-  void document.body.offsetHeight;
-  requestAnimationFrame(() => freeze.remove());
-});
 
-/* ── split headlines into words ─────────────────────────────────────────── */
+/* ── scroll-driven zoom stage ─────────────────────────────────────────── */
+mountZoom(reduced);
+
+/* ── smooth scroll ────────────────────────────────────────────────────── */
+if (!reduced) {
+  const lenis = new Lenis({ lerp: 0.1, anchors: { offset: -96 } });
+  const raf = (t: number) => {
+    lenis.raf(t);
+    requestAnimationFrame(raf);
+  };
+  requestAnimationFrame(raf);
+}
+
+/* ── latest release badge ─────────────────────────────────────────────── */
+(async () => {
+  try {
+    const res = await fetch("https://api.github.com/repos/fireflylabss/abstract/releases/latest", {
+      headers: { Accept: "application/vnd.github+json" },
+    });
+    if (!res.ok) return;
+    const { tag_name } = (await res.json()) as { tag_name?: string };
+    if (!tag_name) return;
+    document.querySelectorAll(".ver").forEach((el) => { el.textContent = tag_name; });
+  } catch {
+    /* badge stays empty */
+  }
+})();
+
+/* ── active nav link ──────────────────────────────────────────────────── */
+{
+  const links = [...document.querySelectorAll<HTMLAnchorElement>(".topnav a[href^='#']")];
+  const byId = new Map(links.map((a) => [a.hash.slice(1), a]));
+  const spy = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        const link = byId.get(e.target.id);
+        if (!link) continue;
+        if (e.isIntersecting) {
+          links.forEach((a) => a.removeAttribute("aria-current"));
+          link.setAttribute("aria-current", "true");
+        }
+      }
+    },
+    { rootMargin: "-40% 0px -55% 0px" },
+  );
+  byId.forEach((_, id) => {
+    const el = document.getElementById(id);
+    if (el) spy.observe(el);
+  });
+}
+
+/* ── split headlines into words ───────────────────────────────────────── */
 function splitWords(el: Element) {
   const walk = (node: Node) => {
     if (node.nodeType === Node.TEXT_NODE) {
@@ -67,7 +107,7 @@ function splitWords(el: Element) {
 }
 document.querySelectorAll("[data-split]").forEach(splitWords);
 
-/* ── reveal on view ─────────────────────────────────────────────────────── */
+/* ── reveal on view ───────────────────────────────────────────────────── */
 if (!reduced) {
   inView(
     "[data-reveal]",
@@ -96,21 +136,22 @@ if (!reduced) {
   document.querySelectorAll(".big .w").forEach((w) => w.classList.add("on"));
 }
 
-/* ── hero shot: subtle tilt ─────────────────────────────────────────────── */
-const shot = document.getElementById("hero-shot");
-if (shot && !reduced && matchMedia("(pointer: fine)").matches) {
-  shot.addEventListener("pointermove", (e) => {
-    const r = shot.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    shot.style.transform = `perspective(1400px) rotateX(${-y * 2}deg) rotateY(${x * 2}deg)`;
-  });
-  shot.addEventListener("pointerleave", () => {
-    animate(shot, { transform: "perspective(1400px) rotateX(0deg) rotateY(0deg)" }, { duration: 0.6 });
+/* ── magnetic buttons ─────────────────────────────────────────────────── */
+if (!reduced && matchMedia("(pointer: fine)").matches) {
+  document.querySelectorAll<HTMLElement>(".btn").forEach((btn) => {
+    btn.addEventListener("pointermove", (e) => {
+      const r = btn.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width - 0.5) * 8;
+      const y = ((e.clientY - r.top) / r.height - 0.5) * 8;
+      animate(btn, { x, y }, { duration: 0.3 });
+    });
+    btn.addEventListener("pointerleave", () => {
+      animate(btn, { x: 0, y: 0 }, { duration: 0.4 });
+    });
   });
 }
 
-/* ── videos: only play while visible ────────────────────────────────────── */
+/* ── videos: only play while visible ──────────────────────────────────── */
 if (reduced) {
   document.querySelectorAll<HTMLVideoElement>(".clip video").forEach((v) => {
     v.removeAttribute("autoplay");
@@ -121,7 +162,7 @@ if (reduced) {
     (entries) => {
       for (const e of entries) {
         const v = e.target as HTMLVideoElement;
-        if (e.isIntersecting) v.play().catch(() => {});
+        if (e.isIntersecting) v.play().catch(() => { v.controls = true; });
         else v.pause();
       }
     },

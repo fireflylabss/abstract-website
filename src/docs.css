@@ -1,0 +1,56 @@
+/* docs layout */
+.docs {
+  max-width: 1040px; margin: 0 auto;
+  padding: 96px 24px 120px;
+  display: grid; grid-template-columns: 220px 1fr; gap: 56px;
+}
+.docs-label { justify-self: center; color: var(--mute); font-size: 14px; }
+
+.docs-nav { position: sticky; top: 96px; align-self: start; display: flex; flex-direction: column; gap: 2px; }
+.docs-nav a {
+  padding: 6px 10px; border-radius: 7px;
+  font-size: 14px; color: var(--mute);
+}
+.docs-nav a:hover { color: var(--fg); }
+.docs-nav a[aria-current="page"] { color: var(--fg); font-weight: 600; background: var(--panel); }
+
+.docs-body { max-width: 68ch; font-size: 16px; line-height: 1.65; }
+.docs-body h1 {
+  font-size: clamp(34px, 5vw, 48px); font-weight: 600;
+  letter-spacing: -0.03em; line-height: 1.05; text-wrap: balance;
+  margin: 0 0 16px;
+}
+.docs-body > p:first-of-type { color: var(--mute); font-size: 17px; margin: 0 0 32px; }
+.docs-body h2 {
+  font-size: 24px; font-weight: 600; letter-spacing: -0.02em;
+  margin: 56px 0 14px; border-top: 1px solid var(--line); padding-top: 24px;
+}
+.docs-body p { margin: 0 0 16px; }
+.docs-body ul, .docs-body ol { margin: 0 0 16px; padding-inline-start: 24px; }
+.docs-body li { margin: 4px 0; }
+.docs-body li::marker { color: var(--mute); }
+.docs-body table { width: 100%; border-collapse: collapse; margin: 0 0 24px; font-size: 15px; }
+.docs-body th, .docs-body td { text-align: start; padding: 10px 12px; border: 1px solid var(--line); }
+.docs-body th { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mute); font-weight: 400; background: var(--panel); }
+.docs-body pre {
+  margin: 0 0 20px; padding: 14px 16px;
+  border-radius: 9px; background: var(--panel); border: 1px solid var(--line);
+  overflow-x: auto; font-size: 13px; line-height: 1.6;
+}
+.docs-body pre code { color: var(--fg); font-size: 13px; }
+.docs-body a { text-decoration: underline; text-underline-offset: 3px; }
+.docs-body a:hover { color: var(--mute); }
+.docs-nav-heading { margin: 0 0 10px; padding: 0 10px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mute); }
+
+.docs-foot { max-width: 1040px; margin: 0 auto; padding: 28px 24px 40px; border-top: 1px solid var(--line); font-size: 13px; color: var(--mute); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 860px) {
+  .docs { grid-template-columns: 1fr; gap: 24px; padding-top: 88px; }
+  .docs-nav {
+    position: static; flex-direction: row; flex-wrap: nowrap;
+    overflow-x: auto; gap: 6px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--line);
+  }
+  .docs-nav a { white-space: nowrap; }
+  .docs-nav-heading { display: none; }
+}

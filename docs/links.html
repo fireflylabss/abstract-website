@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Links &amp; backlinks — abstract docs</title>
+    <meta name="theme-color" content="#f6f6f4" />
+    <link rel="icon" href="/media/logo.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <script>
+      (() => {
+        const t = localStorage.getItem("theme");
+        document.documentElement.dataset.theme = t === "dark" ? "dark" : "light";
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="wordmark" href="/"><img class="logo" src="/media/logo.png" alt="" width="26" height="26" /><span>abstract</span></a>
+      <span class="docs-label">Docs</span>
+      <div class="topbar-actions">
+        <button class="theme" type="button" aria-label="Switch to dark mode">
+          <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <a class="link" href="https://github.com/fireflylabss/abstract" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </header>
+    <div class="docs">
+      <aside>
+        <nav class="docs-nav" aria-label="Docs">
+          <p class="docs-nav-heading">Docs</p>
+          <a href="/docs/">Overview</a>
+          <a href="/docs/getting-started.html">Getting started</a>
+          <a href="/docs/spaces-and-notes.html">Spaces &amp; notes</a>
+          <a href="/docs/markdown.html">Markdown</a>
+          <a href="/docs/links.html" aria-current="page">Links &amp; backlinks</a>
+          <a href="/docs/search.html">Search</a>
+          <a href="/docs/themes.html">Themes</a>
+          <a href="/docs/keyboard.html">Keyboard</a>
+          <a href="/docs/install.html">Install</a>
+          <a href="/docs/build.html">Build from source</a>
+        </nav>
+      </aside>
+      <article class="docs-body">
+        <h1>Links &amp; backlinks.</h1>
+        <p>Wiki-style linking between the notes in a space.</p>
+        <h2>Wiki-links</h2>
+        <p>Type <code>[[note]]</code> to link to another note. Autocomplete suggests existing notes as you type the name.</p>
+        <h2>Following a link</h2>
+        <p><kbd>Ctrl</kbd>/<kbd>⌘</kbd>-click follows a wiki-link. If the target note does not exist yet, it is created for you.</p>
+        <h2>Backlinks</h2>
+        <p>A backlinks panel under every note lists the notes that reference it — nothing to configure and no index to rebuild.</p>
+      </article>
+    </div>
+    <div class="docs-foot"><span>© <span id="year"></span> Firefly Labs</span><span>Apache-2.0 · Noto fonts under the SIL OFL 1.1</span></div>
+    <script type="module" src="/src/docs.ts"></script>
+  </body>
+</html>
