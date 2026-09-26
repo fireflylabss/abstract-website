@@ -48,16 +48,22 @@
         <h1>Install.</h1>
         <p>Prebuilt artifacts are attached to each <a href="https://github.com/fireflylabss/abstract/releases" target="_blank" rel="noreferrer">GitHub Release</a>.</p>
         <h2>macOS</h2>
-        <p><code>abstract-&lt;version&gt;-macos-aarch64.dmg</code> (Apple Silicon) or <code>...-macos-x86_64.dmg</code> (Intel) — open and drag abstract to Applications. A <code>.app.zip</code> alternative is attached too. The app is ad-hoc signed; on first launch either right-click → <strong>Open</strong>, or run:</p>
+        <p><code>abstract-&lt;version&gt;-macos-aarch64.dmg</code> (Apple Silicon) or <code>...-macos-x86_64.dmg</code> (Intel) — open and drag abstract to Applications. A <code>.app.zip</code> alternative is attached too. Builds from 0.1.1 are signed and notarized; for older or unsigned builds, right-click → <strong>Open</strong> on first launch, or run:</p>
         <pre><code>xattr -dr com.apple.quarantine /Applications/abstract.app</code></pre>
         <h2>Linux</h2>
-        <p><code>abstract-&lt;version&gt;-linux-x86_64.tar.gz</code> (binary + docs) or a <code>.deb</code> package. Works on Wayland and X11.</p>
+        <p><code>abstract-&lt;version&gt;-linux-x86_64.tar.gz</code> (binary + docs), a <code>.deb</code>, an <code>.rpm</code>, or an <code>.AppImage</code>. aarch64 builds are attached as <code>abstract-&lt;version&gt;-linux-aarch64.*</code>. Works on Wayland and X11.</p>
         <h3>Arch / CachyOS (AUR)</h3>
         <pre><code>paru -S abstract-editor      # build from source
 paru -S abstract-editor-bin  # prebuilt binary</code></pre>
         <h3>Debian / Ubuntu</h3>
         <p>Download the <code>.deb</code> from the latest release, then:</p>
         <pre><code>sudo dpkg -i abstract-editor_&lt;version&gt;_amd64.deb</code></pre>
+        <h3>Fedora / RHEL</h3>
+        <p>Download the <code>.rpm</code> from the latest release, then:</p>
+        <pre><code>sudo dnf install ./abstract-editor-&lt;version&gt;-1.x86_64.rpm</code></pre>
+        <h3>AppImage</h3>
+        <pre><code>chmod +x abstract-&lt;version&gt;-linux-x86_64.AppImage
+./abstract-&lt;version&gt;-linux-x86_64.AppImage</code></pre>
         <h2>Windows</h2>
         <p><code>abstract-&lt;version&gt;-windows-x86_64.exe</code> — download and run. A <code>.zip</code> alternative is attached too; the icon is embedded in the exe.</p>
         <h2>From source</h2>
