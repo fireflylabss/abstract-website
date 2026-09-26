@@ -4,6 +4,11 @@ import { setupTheme } from "./theme";
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 setupTheme(reduced);
+
+const bar = document.getElementById("topbar");
+const solid = () => bar?.classList.toggle("solid", scrollY > 8);
+addEventListener("scroll", solid, { passive: true });
+solid();
 document.getElementById("year")!.textContent = String(new Date().getFullYear());
 
 /* ── minimal safe markdown renderer ───────────────────────────────────── */
