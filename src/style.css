@@ -117,10 +117,11 @@ em { font-style: italic; }
 }
 .theme:hover { color: var(--fg); }
 .theme svg { grid-area: 1 / 1; transition: opacity 0.3s cubic-bezier(0.2,0,0,1), transform 0.3s cubic-bezier(0.2,0,0,1), filter 0.3s cubic-bezier(0.2,0,0,1); }
-:root:not([data-theme="dark"]) .theme .sun { opacity: 0; transform: scale(0.25); filter: blur(4px); }
-:root:not([data-theme="dark"]) .theme .moon { transform: scale(1); filter: blur(0); }
-:root[data-theme="dark"] .theme .moon { opacity: 0; transform: scale(0.25); filter: blur(4px); }
-:root[data-theme="dark"] .theme .sun { transform: scale(1); filter: blur(0); }
+.theme .sys, .theme .sun, .theme .moon { opacity: 0; transform: scale(0.25); filter: blur(4px); }
+:root[data-theme-pref="system"] .theme .sys,
+:root:not([data-theme-pref]) .theme .sys { opacity: 1; transform: scale(1); filter: blur(0); }
+:root[data-theme-pref="light"] .theme .sun { opacity: 1; transform: scale(1); filter: blur(0); }
+:root[data-theme-pref="dark"] .theme .moon { opacity: 1; transform: scale(1); filter: blur(0); }
 .ver { font-family: var(--mono); font-size: 12px; opacity: 0.7; }
 .ver:empty { display: none; }
 
