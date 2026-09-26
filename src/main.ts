@@ -62,7 +62,10 @@ if (!reduced) {
       "mac-arm": /macos-aarch64\.dmg$/,
       "mac-intel": /macos-x86_64\.dmg$/,
       "linux-tar": /linux-x86_64\.tar\.gz$/,
-      "linux-deb": /\.deb$/,
+      "linux-tar-arm64": /linux-aarch64\.tar\.gz$/,
+      "linux-deb": /_amd64\.deb$/,
+      "linux-rpm": /\.x86_64\.rpm$/,
+      "linux-appimage": /linux-x86_64\.AppImage$/,
       "win-exe": /windows-x86_64\.exe$/,
     };
     for (const [key, re] of Object.entries(wanted)) {
@@ -126,7 +129,7 @@ if (!reduced) {
         card.querySelectorAll<HTMLButtonElement>(".seg [role=radio]").forEach((o) => {
           o.setAttribute("aria-checked", String(o === b));
         });
-        card.querySelectorAll<HTMLAnchorElement>("a[data-asset]").forEach((a) => {
+        card.querySelectorAll<HTMLAnchorElement>("a[data-asset].btn").forEach((a) => {
           a.hidden = a.dataset.asset !== b.dataset.for;
         });
       });
