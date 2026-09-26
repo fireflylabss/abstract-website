@@ -32,7 +32,8 @@
 .rel-body p { margin: 10px 0; }
 .rel-body ul { margin: 10px 0; padding-left: 22px; }
 .rel-body li { margin: 4px 0; }
-.rel-body a { color: var(--fg); }
+.rel-body a { color: var(--fg); overflow-wrap: anywhere; }
+.rel-body pre { overflow-x: auto; }
 .rel-body code { font-family: var(--mono); font-size: 0.9em; }
 .rel-empty { font-style: italic; }
 .rel-loading { color: var(--mute); }
