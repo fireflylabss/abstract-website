@@ -4,6 +4,9 @@
   padding: 96px 24px 120px;
   display: grid; grid-template-columns: 220px 1fr; gap: 56px;
 }
+@media (min-width: 1100px) {
+  .docs { grid-template-columns: 220px 1fr 180px; }
+}
 .docs-label { justify-self: center; color: var(--mute); font-size: 14px; }
 
 .docs-nav { position: sticky; top: 96px; align-self: start; display: flex; flex-direction: column; gap: 2px; }
@@ -24,6 +27,18 @@
 .docs-body h2 {
   font-size: 24px; font-weight: 600; letter-spacing: -0.02em;
   margin: 56px 0 14px; border-top: 1px solid var(--line); padding-top: 24px;
+  scroll-margin-top: 96px;
+}
+
+/* on-this-page TOC */
+.toc { position: sticky; top: 96px; align-self: start; font-size: 14px; }
+.toc-heading { margin: 0 0 10px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mute); }
+.toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.toc a { color: var(--mute); text-decoration: none; }
+.toc a:hover { color: var(--fg); }
+.toc a[aria-current="true"] { color: var(--fg); }
+@media (max-width: 1099px) {
+  .toc { display: none; }
 }
 .docs-body p { margin: 0 0 16px; }
 .docs-body ul, .docs-body ol { margin: 0 0 16px; padding-inline-start: 24px; }

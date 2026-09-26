@@ -59,6 +59,20 @@ if (!reduced) {
   }
 })();
 
+/* ── platform detection for download cards ────────────────────────────── */
+{
+  const ua = navigator.userAgent;
+  const plat = /Mac|iPhone|iPad/i.test(ua) ? "mac" : /Win/i.test(ua) ? "win" : /Linux|X11/i.test(ua) ? "linux" : null;
+  const card = plat && document.querySelector(`.plat[data-plat="${plat}"]`);
+  if (card) {
+    card.classList.add("is-you");
+    const tag = document.createElement("span");
+    tag.className = "plat-detect";
+    tag.textContent = "Detected";
+    card.appendChild(tag);
+  }
+}
+
 /* ── active nav link ──────────────────────────────────────────────────── */
 {
   const links = [...document.querySelectorAll<HTMLAnchorElement>(".topnav a[href^='#']")];

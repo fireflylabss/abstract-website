@@ -38,14 +38,16 @@
 :root[data-theme="dark"] .dots i { background: #2a2a2a; }
 .tb-space { font-weight: 500; color: var(--fg); }
 .tb-actions, .tb-right { display: inline-flex; gap: 12px; align-items: center; }
-.tb-actions i, .tb-right i { width: 13px; height: 13px; border: 1.4px solid var(--mute); border-radius: 3px; opacity: 0.7; }
+.win .ic { width: 15px; height: 15px; color: var(--mute); flex: none; }
+.tb-actions .ic, .tb-right .ic { width: 14px; height: 14px; }
 .tb-right { margin-inline-start: auto; }
 .tb-right b { font-weight: 400; font-family: var(--mono); font-size: 11px; }
 .body { flex: 1; display: grid; grid-template-columns: 250px 1fr; min-height: 0; }
 .sb { border-inline-end: 1px solid var(--line); padding: 16px 10px; font-size: 13px; background: color-mix(in srgb, var(--panel) 70%, var(--bg)); }
-.sb-head { display: flex; justify-content: space-between; padding: 0 10px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mute); }
-.sb-row { padding: 7px 10px; border-radius: 7px; color: var(--mute); }
-.sb-row.folder::before { content: "› "; }
+.sb-head { display: flex; justify-content: space-between; align-items: center; padding: 0 10px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mute); }
+.sb-tools { display: inline-flex; gap: 8px; }
+.sb-row { display: flex; align-items: center; gap: 7px; padding: 7px 10px; border-radius: 7px; color: var(--mute); }
+.sb-row.active .ic { color: var(--fg); }
 .sb-row.active { background: var(--line); color: var(--fg); }
 .ed { padding: 44px 64px; position: relative; }
 .d-h { font-size: 30px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 18px; }

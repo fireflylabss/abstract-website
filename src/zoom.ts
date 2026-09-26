@@ -12,7 +12,7 @@ export const STOPS: Stop[] = [
   { id: "tasks", part: "tasks", z: 2.2, h: "Tasks you can click.", p: "Checkboxes toggle with a click and stay plain <code>- [x]</code> in the file. Code blocks get syntax highlighting." },
   { id: "wl", part: "ul", z: 2.4, h: "Link notes to notes.", p: "<code>[[note]]</code> links with autocomplete. <kbd>⌘</kbd>-click follows one, creating the note if it does not exist yet." },
   { id: "bl", part: "bl", z: 2.2, h: "See what links here.", p: "A backlinks panel under every note lists the notes that reference it. Nothing to configure." },
-  { id: "sb", part: "sb", z: 1.7, h: "Folders are spaces.", p: "The sidebar is your directory tree. Keep several spaces and switch with <kbd>⌘</kbd><kbd>O</kbd>; rename inline, drag nothing." },
+  { id: "sb", part: "sb", z: 1.9, free: true, h: "Folders are spaces.", p: "The sidebar is your directory tree. Keep several spaces and switch with <kbd>⌘</kbd><kbd>O</kbd>; rename inline, drag nothing." },
   { id: "words", part: "tb", z: 2.2, free: true, h: "Saved as you type.", p: "Writes are debounced. A note's file is created on the first keystroke and named after its first heading — no save dialog, ever." },
 ];
 
@@ -96,7 +96,7 @@ export function mountZoom(reduced: boolean) {
       let z = s.z * (mobile ? Math.max(0.9, W / 700) : W / 1300);
       z = Math.max(z, W / WW, H / WH);
       // Wide blocks are left-aligned text: focus on their leading part.
-      const fx = r.x + Math.min(r.w, 420) / 2, fy = r.y + r.h / 2;
+      const fx = r.x + Math.min(r.w, 420) / 2, fy = r.y + Math.min(r.h, 320) / 2;
       const col = Math.max(24, W / 2 - 520) + Math.min(W * 0.34, 380) + 64;
       const ax = mobile ? W / 2 : col + (W - col) / 2;
       const ay = mobile ? H * 0.36 : H / 2;
