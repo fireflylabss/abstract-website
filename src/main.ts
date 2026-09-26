@@ -83,6 +83,23 @@ if (!reduced) {
   }
 })();
 
+/* ── total downloads across all releases (GitHub asset counters) ──────── */
+(async () => {
+  const out = document.getElementById("dl-count");
+  if (!out) return;
+  try {
+    const res = await fetch("https://api.github.com/repos/fireflylabss/abstract/releases?per_page=100", {
+      headers: { Accept: "application/vnd.github+json" },
+    });
+    if (!res.ok) return;
+    const releases = (await res.json()) as { assets?: { download_count: number }[] }[];
+    const total = releases.flatMap((r) => r.assets ?? []).reduce((n, a) => n + a.download_count, 0);
+    out.textContent = `${total.toLocaleString("en")} downloads so far`;
+  } catch {
+    /* counter stays hidden */
+  }
+})();
+
 /* ── platform detection for download cards ────────────────────────────── */
 {
   const ua = navigator.userAgent;
