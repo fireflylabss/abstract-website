@@ -12,8 +12,13 @@ const esc = (s: string) =>
 
 const inline = (s: string) =>
   esc(s)
-    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
-    .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noreferrer">$1</a>')
+    .replace(
+      /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)|(https?:\/\/[^\s<]+)/g,
+      (_, text: string | undefined, url: string | undefined, bare: string | undefined) => {
+        const href = url ?? bare!;
+        return `<a href="${href}" target="_blank" rel="noreferrer">${text ?? href}</a>`;
+      },
+    )
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/`([^`]+)`/g, "<code>$1</code>");
 
