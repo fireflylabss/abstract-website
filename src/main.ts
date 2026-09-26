@@ -96,14 +96,17 @@ if (!reduced) {
     tag.textContent = "Detected";
     primary.appendChild(tag);
   }
-  const dialog = document.getElementById("dl-dialog") as HTMLDialogElement | null;
-  if (dialog) {
-    document.getElementById("dl-others")?.addEventListener("click", () => dialog.showModal());
+  document.querySelectorAll<HTMLButtonElement>("[data-open]").forEach((b) => {
+    const dialog = document.getElementById(b.dataset.open!) as HTMLDialogElement | null;
+    if (!dialog) return;
+    b.addEventListener("click", () => dialog.showModal());
+  });
+  document.querySelectorAll<HTMLDialogElement>(".dl-dialog").forEach((dialog) => {
     dialog.querySelector(".dl-close")?.addEventListener("click", () => dialog.close());
     dialog.addEventListener("click", (e) => {
       if (e.target === dialog) dialog.close();
     });
-  }
+  });
   cards.forEach((card) => {
     card.querySelectorAll<HTMLButtonElement>(".seg [role=radio]").forEach((b) => {
       b.addEventListener("click", () => {
