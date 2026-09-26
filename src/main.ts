@@ -7,7 +7,11 @@ import { mountZoom } from "./zoom";
 import { setupTheme } from "./theme";
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+// `html.lite` (set by the inline head script) means phones, touch devices or
+// reduced motion: static hero, no smooth scroll, blur filters or word reveals.
 const root = document.documentElement;
+const lite = reduced || root.classList.contains("lite");
+root.classList.toggle("lite", lite);
 const asset = (p: string) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
 
 /* ── theme + media sync ───────────────────────────────────────────────── */
@@ -22,20 +26,28 @@ function syncMedia() {
       v.src = src;
       v.load();
       const r = v.getBoundingClientRect();
-      if (!reduced && r.bottom > 0 && r.top < innerHeight)
+      if (!lite && r.bottom > 0 && r.top < innerHeight)
         v.play().catch(() => { v.controls = true; });
     }
   });
 }
 
-setupTheme(reduced, syncMedia);
+setupTheme(lite, syncMedia);
 syncMedia();
 
+/* ── topbar ───────────────────────────────────────────────────────────── */
+{
+  const bar = document.getElementById("topbar");
+  const solid = () => bar?.classList.toggle("solid", scrollY > 8);
+  addEventListener("scroll", solid, { passive: true });
+  solid();
+}
+
 /* ── scroll-driven zoom stage ─────────────────────────────────────────── */
-mountZoom(reduced);
+mountZoom(lite);
 
 /* ── smooth scroll ────────────────────────────────────────────────────── */
-if (!reduced) {
+if (!lite) {
   const lenis = new Lenis({ lerp: 0.1, anchors: { offset: -96 } });
   const raf = (t: number) => {
     lenis.raf(t);
@@ -170,7 +182,7 @@ function splitWords(el: Element) {
 document.querySelectorAll("[data-split]").forEach(splitWords);
 
 /* ── reveal on view ───────────────────────────────────────────────────── */
-if (!reduced) {
+if (!lite) {
   inView(
     "[data-reveal]",
     (el) => {
@@ -199,7 +211,7 @@ if (!reduced) {
 }
 
 /* ── magnetic buttons ─────────────────────────────────────────────────── */
-if (!reduced && matchMedia("(pointer: fine)").matches) {
+if (!lite && matchMedia("(pointer: fine)").matches) {
   document.querySelectorAll<HTMLElement>(".btn").forEach((btn) => {
     btn.addEventListener("pointermove", (e) => {
       const r = btn.getBoundingClientRect();
@@ -213,8 +225,8 @@ if (!reduced && matchMedia("(pointer: fine)").matches) {
   });
 }
 
-/* ── videos: only play while visible ──────────────────────────────────── */
-if (reduced) {
+/* ── videos: only play while visible (poster + tap to play on lite) ────── */
+if (lite) {
   document.querySelectorAll<HTMLVideoElement>(".clip video").forEach((v) => {
     v.removeAttribute("autoplay");
     v.controls = true;

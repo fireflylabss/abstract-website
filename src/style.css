@@ -82,6 +82,13 @@ em { font-style: italic; }
   .big .w { color: var(--fg); }
   .topbar { animation: none; }
 }
+/* lite: no compositing-heavy effects (grain, backdrop blur, per-word reveals) */
+html.lite [data-reveal], html.lite [data-split] .w { opacity: 1; transform: none; will-change: auto; }
+html.lite .big .w { color: var(--fg); }
+html.lite .grain { display: none; }
+html.lite .topbar.solid .topnav, html.lite .topnav { backdrop-filter: none; }
+html.lite .topbar.solid .topnav { background: var(--panel); }
+html.lite .dl-dialog::backdrop { backdrop-filter: none; background: rgb(0 0 0 / 0.6); }
 
 /* topbar */
 .topbar {
@@ -152,7 +159,7 @@ em { font-style: italic; }
 }
 .headline em { font-style: normal; font-weight: 400; color: var(--mute); letter-spacing: -0.03em; }
 .lede { max-width: 620px; font-size: 18px; color: var(--mute); }
-.cta { display: flex; gap: 22px; align-items: center; }
+.cta { display: flex; gap: 14px 22px; align-items: center; flex-wrap: wrap; }
 
 /* screenshots */
 .shot {
@@ -295,21 +302,30 @@ footer > .wrap { position: relative; z-index: 1; padding-top: 72px; padding-bott
 .lede, .sec-head p, .feat-text > p, .more-item p, .plat p, .clip figcaption, .shot figcaption, .q p { text-wrap: pretty; }
 
 @media (max-width: 860px) {
+  html, body { overflow-x: clip; }
   body { padding-bottom: 72px; }
-  .topbar { grid-template-columns: auto 1fr auto; }
+  .topbar { grid-template-columns: auto 1fr auto; padding: 12px 16px; }
   .topnav {
     position: fixed; left: 16px; right: 16px; bottom: 16px;
     justify-content: center; flex-wrap: wrap; gap: 14px 18px;
-    background: color-mix(in srgb, var(--panel) 92%, transparent);
-    backdrop-filter: blur(14px);
+    background: var(--panel);
     border-color: var(--line);
     box-shadow: 0 10px 30px -18px var(--shadow);
   }
+  .wrap { padding: 0 20px; }
+  .credits { white-space: normal; }
+  .foot-bottom { flex-direction: column; gap: 12px; }
+  .grain { display: none; }
   .feat { grid-template-columns: 1fr; gap: 28px; padding-block: 64px; }
   .feat:nth-child(even) .feat-text { order: 0; }
   .more-grid, .shortcuts dl { grid-template-columns: 1fr; }
   .pair,   .dl-grid { grid-template-columns: minmax(0, 1fr); }
   .foot-cols { grid-template-columns: 1fr 1fr; }
+  img, video, svg, pre, table { max-width: 100%; }
+  pre { overflow-x: auto; }
+}
+@media (max-width: 480px) {
+  .foot-cols { grid-template-columns: 1fr; }
 }
 
 [hidden] { display: none !important; }

@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <script>
-      (() => { const t = localStorage.getItem("theme"); const p = t === "dark" || t === "light" ? t : "system"; const d = p === "system" ? matchMedia("(prefers-color-scheme: dark)").matches : p === "dark"; document.documentElement.dataset.theme = d ? "dark" : "light"; document.documentElement.dataset.themePref = p; })();
+      (() => { const t = localStorage.getItem("theme"); const p = t === "dark" || t === "light" ? t : "system"; const d = p === "system" ? matchMedia("(prefers-color-scheme: dark)").matches : p === "dark"; document.documentElement.dataset.theme = d ? "dark" : "light"; document.documentElement.dataset.themePref = p; if (matchMedia("(prefers-reduced-motion: reduce), (max-width: 860px), (hover: none) and (pointer: coarse)").matches) document.documentElement.classList.add("lite"); })();
     </script>
   </head>
   <body>
@@ -21,15 +21,15 @@
         <nav class="docs-nav" aria-label="Docs">
           <p class="docs-nav-heading">Docs</p>
           <a href="/docs/">Overview</a>
-          <a href="/docs/getting-started.html">Getting started</a>
-          <a href="/docs/spaces-and-notes.html">Spaces &amp; notes</a>
-          <a href="/docs/markdown.html">Markdown</a>
-          <a href="/docs/links.html">Links &amp; backlinks</a>
-          <a href="/docs/search.html">Search</a>
-          <a href="/docs/themes.html" aria-current="page">Themes</a>
-          <a href="/docs/keyboard.html">Keyboard</a>
-          <a href="/docs/install.html">Install</a>
-          <a href="/docs/build.html">Build from source</a>
+          <a href="/docs/getting-started/">Getting started</a>
+          <a href="/docs/spaces-and-notes/">Spaces &amp; notes</a>
+          <a href="/docs/markdown/">Markdown</a>
+          <a href="/docs/links/">Links &amp; backlinks</a>
+          <a href="/docs/search/">Search</a>
+          <a href="/docs/themes/" aria-current="page">Themes</a>
+          <a href="/docs/keyboard/">Keyboard</a>
+          <a href="/docs/install/">Install</a>
+          <a href="/docs/build/">Build from source</a>
         </nav>
       </aside>
       <article class="docs-body">
