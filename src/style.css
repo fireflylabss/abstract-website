@@ -203,16 +203,28 @@ em { font-style: italic; }
 
 /* download */
 .install { margin-bottom: 140px; }
-.dl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-bottom: 20px; }
+.dl-grid { display: grid; grid-template-columns: minmax(0, 380px); gap: 14px; margin-bottom: 24px; justify-items: start; }
 .dl-notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .dl-notes pre { overflow-x: auto; }
 .plat { border: 1px solid var(--line); border-radius: 14px; padding: 26px 28px; background: var(--panel); transition: transform 0.3s var(--ease), border-color 0.3s; }
 .plat:hover { transform: translateY(-2px); }
-.plat.dl { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 30px 28px; }
-.plat.dl svg { color: var(--mute); margin-bottom: 12px; }
-.plat.dl h3 { margin-bottom: 0; }
-.plat.dl p { margin-bottom: 18px; }
-.plat.dl .btn { margin-top: auto; }
+.plat.dl { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 30px 28px; width: 100%; }
+.plat.dl .os { color: var(--fg); margin-bottom: 14px; }
+.plat.dl h3 { margin-bottom: 10px; }
+.plat.dl .btn { margin-top: 8px; }
+.seg { display: inline-flex; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); }
+.seg [role=radio] {
+  appearance: none; border: 0; background: none; cursor: pointer; color: var(--mute);
+  font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 999px; transition: background 0.2s, color 0.2s;
+}
+.seg [role=radio][aria-checked=true] { background: var(--fg); color: var(--bg); }
+.dl-others { appearance: none; border: 0; background: none; cursor: pointer; font: inherit; font-size: 14px; padding: 0; }
+.dl-dialog { border: 1px solid var(--line); border-radius: 18px; background: var(--bg); color: var(--fg); padding: 28px; width: min(92vw, 820px); }
+.dl-dialog::backdrop { background: rgb(0 0 0 / 0.45); backdrop-filter: blur(6px); }
+.dl-dialog-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.dl-dialog-head h3 { margin: 0; font-size: 20px; letter-spacing: -0.02em; }
+.dl-close { appearance: none; border: 1px solid var(--line); background: none; color: var(--fg); width: 34px; height: 34px; border-radius: 999px; font-size: 20px; line-height: 1; cursor: pointer; }
+.dl-dialog-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .plat.is-you { border-color: var(--fg); }
 .plat-detect {
   position: absolute; top: 18px; inset-inline-end: 18px;
@@ -291,6 +303,9 @@ footer > .wrap { position: relative; z-index: 1; padding-top: 72px; padding-bott
   .feat { grid-template-columns: 1fr; gap: 28px; padding-block: 64px; }
   .feat:nth-child(even) .feat-text { order: 0; }
   .more-grid, .shortcuts dl { grid-template-columns: 1fr; }
-  .pair, .dl-grid, .dl-notes { grid-template-columns: 1fr; }
+  .pair, .dl-notes, .dl-dialog-grid { grid-template-columns: 1fr; }
+  .dl-grid { grid-template-columns: minmax(0, 1fr); }
   .foot-cols { grid-template-columns: 1fr 1fr; }
 }
+
+[hidden] { display: none !important; }

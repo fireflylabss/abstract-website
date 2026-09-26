@@ -84,14 +84,37 @@ if (!reduced) {
 {
   const ua = navigator.userAgent;
   const plat = /Mac|iPhone|iPad/i.test(ua) ? "mac" : /Win/i.test(ua) ? "win" : /Linux|X11/i.test(ua) ? "linux" : null;
-  const card = plat && document.querySelector(`.plat[data-plat="${plat}"]`);
-  if (card) {
-    card.classList.add("is-you");
+  const cards = [...document.querySelectorAll<HTMLElement>(".plat.dl")];
+  const primary = cards.find((c) => c.dataset.plat === plat) ?? cards[0];
+  if (plat && primary.dataset.plat === plat) {
+    primary.classList.add("is-you");
     const tag = document.createElement("span");
     tag.className = "plat-detect";
     tag.textContent = "Detected";
-    card.appendChild(tag);
+    primary.appendChild(tag);
   }
+  const dialog = document.getElementById("dl-dialog") as HTMLDialogElement | null;
+  const grid = dialog?.querySelector(".dl-dialog-grid");
+  if (dialog && grid) {
+    cards.filter((c) => c !== primary).forEach((c) => grid.appendChild(c));
+    document.getElementById("dl-others")?.addEventListener("click", () => dialog.showModal());
+    dialog.querySelector(".dl-close")?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+  }
+  cards.forEach((card) => {
+    card.querySelectorAll<HTMLButtonElement>(".seg [role=radio]").forEach((b) => {
+      b.addEventListener("click", () => {
+        card.querySelectorAll<HTMLButtonElement>(".seg [role=radio]").forEach((o) => {
+          o.setAttribute("aria-checked", String(o === b));
+        });
+        card.querySelectorAll<HTMLAnchorElement>("a[data-asset]").forEach((a) => {
+          a.hidden = a.dataset.asset !== b.dataset.for;
+        });
+      });
+    });
+  });
 }
 
 /* ── active nav link ──────────────────────────────────────────────────── */
