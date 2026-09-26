@@ -313,7 +313,6 @@ footer > .wrap { position: relative; z-index: 1; padding-top: 72px; padding-bott
     box-shadow: 0 10px 30px -18px var(--shadow);
   }
   .wrap { padding: 0 20px; }
-  .credits { white-space: normal; }
   .foot-bottom { flex-direction: column; gap: 12px; }
   .grain { display: none; }
   .feat { grid-template-columns: 1fr; gap: 28px; padding-block: 64px; }
@@ -338,6 +337,7 @@ footer > .wrap { position: relative; z-index: 1; padding-top: 72px; padding-bott
 .credits { margin: 0; font-size: 12px; color: var(--mute); white-space: nowrap; }
 .credits a { color: var(--fg); }
 .credits a:hover { text-decoration: underline; }
+@media (max-width: 860px) { .credits { white-space: normal; } }
 
 .dl-more { margin-top: 10px; font-size: 13px; }
 .dl-foot { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
