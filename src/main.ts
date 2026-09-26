@@ -12,13 +12,34 @@ const applyTheme = (dark: boolean) => {
   metaTheme.content = dark ? "#0a0a0a" : "#f6f6f4";
   themeBtn.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
 };
+
+/* swap clip sources to match the theme */
+function syncMedia() {
+  const dark = root.dataset.theme === "dark";
+  document.querySelectorAll<HTMLVideoElement>("video[data-light]").forEach((v) => {
+    const src = (dark ? v.dataset.dark : v.dataset.light)!;
+    if (!v.src.endsWith(src)) {
+      if (reduced) v.removeAttribute("autoplay");
+      v.src = src;
+      v.load();
+      const r = v.getBoundingClientRect();
+      if (!reduced && r.bottom > 0 && r.top < innerHeight) v.play().catch(() => {});
+    }
+  });
+}
+
 applyTheme(root.dataset.theme === "dark");
+syncMedia();
 themeBtn.addEventListener("click", () => {
   const dark = root.dataset.theme !== "dark";
-  root.classList.add("switching");
+  const freeze = document.createElement("style");
+  freeze.textContent = "*,*::before,*::after{transition:none!important}";
+  document.head.append(freeze);
   applyTheme(dark);
   localStorage.setItem("theme", dark ? "dark" : "light");
-  setTimeout(() => root.classList.remove("switching"), 400);
+  syncMedia();
+  void document.body.offsetHeight;
+  requestAnimationFrame(() => freeze.remove());
 });
 
 /* ── split headlines into words ─────────────────────────────────────────── */
@@ -90,16 +111,23 @@ if (shot && !reduced && matchMedia("(pointer: fine)").matches) {
 }
 
 /* ── videos: only play while visible ────────────────────────────────────── */
-const playWhenVisible = new IntersectionObserver(
-  (entries) => {
-    for (const e of entries) {
-      const v = e.target as HTMLVideoElement;
-      if (e.isIntersecting) v.play().catch(() => {});
-      else v.pause();
-    }
-  },
-  { threshold: 0.2 },
-);
-document.querySelectorAll<HTMLVideoElement>(".clip video").forEach((v) => playWhenVisible.observe(v));
+if (reduced) {
+  document.querySelectorAll<HTMLVideoElement>(".clip video").forEach((v) => {
+    v.removeAttribute("autoplay");
+    v.controls = true;
+  });
+} else {
+  const playWhenVisible = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        const v = e.target as HTMLVideoElement;
+        if (e.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+      }
+    },
+    { threshold: 0.2 },
+  );
+  document.querySelectorAll<HTMLVideoElement>(".clip video").forEach((v) => playWhenVisible.observe(v));
+}
 
 document.getElementById("year")!.textContent = String(new Date().getFullYear());
