@@ -238,10 +238,8 @@
       <!-- ── install ──────────────────────────────────────────────────── -->
       <section class="install wrap" id="install">
         <div class="sec-head" data-reveal>
-          <h2>Download.</h2>
+          <h2>Download. <a class="latest" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Latest release <span class="ver"></span></a></h2>
           <p>Prebuilt artifacts on every <a href="https://github.com/fireflylabss/abstract/releases" target="_blank" rel="noreferrer">GitHub release</a>. Or build from source in one command.</p>
-          <p class="latest">Latest release <span class="ver"></span></p>
-          <p class="dl-count" id="dl-count"></p>
         </div>
         <div class="dl-grid" data-reveal>
           <div class="plat dl" data-plat="mac">
@@ -264,14 +262,36 @@
             
             <a class="btn btn-sm" data-asset="win-exe" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Download for Windows</a>
           </div>
-          <button class="link dl-others" id="dl-others" type="button">Other platforms →</button>
         </div>
+        <button class="link dl-others" id="dl-others" type="button" data-reveal>Other ways to install →</button>
         <dialog class="dl-dialog" id="dl-dialog" aria-labelledby="dl-dialog-title">
           <div class="dl-dialog-head">
-            <h3 id="dl-dialog-title">All platforms</h3>
+            <h3 id="dl-dialog-title">Other ways to install</h3>
             <button class="dl-close" type="button" aria-label="Close">×</button>
           </div>
-          <div class="dl-dialog-grid"></div>
+          <div class="dl-dialog-grid">
+            <div class="plat">
+              <h3>macOS</h3>
+              <p><code>.dmg</code> — drag abstract to Applications. Ad-hoc signed: right-click → Open on first launch, or</p>
+              <pre><code>xattr -dr com.apple.quarantine /Applications/abstract.app</code></pre>
+            </div>
+            <div class="plat">
+              <h3>Linux</h3>
+              <p>Tarball, <code>.deb</code>, or the AUR on Arch / CachyOS:</p>
+              <pre><code>paru -S abstract-editor-bin
+sudo dpkg -i abstract-editor_&lt;version&gt;_amd64.deb</code></pre>
+            </div>
+            <div class="plat">
+              <h3>Windows</h3>
+              <p><code>abstract-&lt;version&gt;-windows-x86_64.exe</code> — download and run, or grab the <code>.zip</code> alternative.</p>
+            </div>
+            <div class="plat">
+              <h3>From source</h3>
+              <p>Rust toolchain pinned via <code>rust-toolchain.toml</code>.</p>
+              <pre><code>git clone https://github.com/fireflylabss/abstract
+cd abstract &amp;&amp; cargo build --release</code></pre>
+            </div>
+          </div>
         </dialog>
       </section>
 

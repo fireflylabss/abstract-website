@@ -83,30 +83,13 @@ if (!reduced) {
   }
 })();
 
-/* ── total downloads across all releases (GitHub asset counters) ──────── */
-(async () => {
-  const out = document.getElementById("dl-count");
-  if (!out) return;
-  try {
-    const res = await fetch("https://api.github.com/repos/fireflylabss/abstract/releases?per_page=100", {
-      headers: { Accept: "application/vnd.github+json" },
-    });
-    if (!res.ok) return;
-    const releases = (await res.json()) as { assets?: { download_count: number }[] }[];
-    const total = releases.flatMap((r) => r.assets ?? []).reduce((n, a) => n + a.download_count, 0);
-    out.textContent = `${total.toLocaleString("en")} downloads so far`;
-  } catch {
-    /* counter stays hidden */
-  }
-})();
-
 /* ── platform detection for download cards ────────────────────────────── */
 {
   const ua = navigator.userAgent;
   const plat = /Mac|iPhone|iPad/i.test(ua) ? "mac" : /Win/i.test(ua) ? "win" : /Linux|X11/i.test(ua) ? "linux" : null;
   const cards = [...document.querySelectorAll<HTMLElement>(".plat.dl")];
-  const primary = cards.find((c) => c.dataset.plat === plat) ?? cards[0];
-  if (plat && primary.dataset.plat === plat) {
+  const primary = cards.find((c) => c.dataset.plat === plat);
+  if (primary) {
     primary.classList.add("is-you");
     const tag = document.createElement("span");
     tag.className = "plat-detect";
@@ -114,9 +97,7 @@ if (!reduced) {
     primary.appendChild(tag);
   }
   const dialog = document.getElementById("dl-dialog") as HTMLDialogElement | null;
-  const grid = dialog?.querySelector(".dl-dialog-grid");
-  if (dialog && grid) {
-    cards.filter((c) => c !== primary).forEach((c) => grid.appendChild(c));
+  if (dialog) {
     document.getElementById("dl-others")?.addEventListener("click", () => dialog.showModal());
     dialog.querySelector(".dl-close")?.addEventListener("click", () => dialog.close());
     dialog.addEventListener("click", (e) => {
