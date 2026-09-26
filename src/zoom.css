@@ -107,27 +107,36 @@
 }
 @keyframes hint-drop { 0% { transform: translateY(-8px); opacity: 0; } 40% { opacity: 1; } 100% { transform: translateY(6px); opacity: 0; } }
 
-/* reduced motion / static fallback */
-.static { display: none; }
-html.reduced .zoom { height: auto !important; }
-html.reduced .stage { position: relative; height: auto; overflow: visible; padding: 120px 0 40px; }
-html.reduced .hero-copy { position: static; transform: none; width: auto; max-width: 640px; }
-html.reduced .world { position: relative; margin: 48px auto 0; transform: none !important; width: min(100%, 1200px); height: auto; aspect-ratio: 1200 / 760; }
-html.reduced .win { font-size: 1.25vw; }
-html.reduced .stops, html.reduced .outro, html.reduced .hint, html.reduced .stop-shade { display: none; }
-html.reduced .static { display: grid; gap: 28px; padding: 40px 0 80px; }
-html.reduced .static article { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; padding: 24px 0; border-top: 1px solid var(--line); }
-html.reduced .static h3 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
-html.reduced .static p { margin: 0; color: var(--mute); }
+/* lite (phones, touch, reduced motion): static hero with a screenshot instead of the camera */
+.static, .hero-shot { display: none; }
+html.lite .zoom { height: auto !important; }
+html.lite .stage { position: relative; height: auto; overflow: visible; padding: 120px 24px 40px; max-width: 1040px; margin: 0 auto; }
+html.lite .hero-copy { position: static; transform: none; width: auto; max-width: 640px; will-change: auto; }
+html.lite .world, html.lite .stops, html.lite .outro, html.lite .hint, html.lite .stop-shade { display: none; }
+html.lite .hero-shot {
+  display: block; margin: 48px 0 0; border-radius: 12px; overflow: hidden;
+  outline: 1px solid rgba(0,0,0,0.1); outline-offset: -1px; background: var(--panel);
+  box-shadow: 0 30px 80px -40px var(--shadow);
+}
+html.lite[data-theme="dark"] .hero-shot { outline-color: rgba(255,255,255,0.1); }
+html.lite .hero-shot img { display: block; width: 100%; height: auto; }
+html.lite .static { display: grid; gap: 28px; padding: 40px 0 80px; }
+html.lite .static article { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; padding: 24px 0; border-top: 1px solid var(--line); }
+html.lite .static h3 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+html.lite .static p { margin: 0; color: var(--mute); }
 
 @media (max-width: 860px) {
   .hero-copy { left: 20px; right: 20px; top: 84px; width: auto; transform: none; }
   .hero-copy .headline { font-size: clamp(40px, 12vw, 64px); }
   .hero-copy .lede { font-size: 15px; }
+  html.lite .stage { padding: 104px 20px 24px; }
+  html.lite .hero-shot { margin-top: 36px; }
+  html.lite .static { padding: 24px 0 48px; gap: 0; }
+  html.lite .static h3 { font-size: 19px; }
   .stop { left: 20px; right: 20px; width: auto; top: auto; bottom: 28px; transform: none; }
   .stop h2 { font-size: 26px; }
   .stop p { font-size: 14px; }
   .stop-shade { background: linear-gradient(0deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 85%, transparent) 30%, transparent 55%); }
   .hint { display: none; }
-  html.reduced .static article { grid-template-columns: 1fr; }
+  html.lite .static article { grid-template-columns: 1fr; gap: 8px; padding: 20px 0; }
 }

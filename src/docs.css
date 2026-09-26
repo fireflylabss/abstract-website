@@ -17,7 +17,7 @@
 .docs-nav a:hover { color: var(--fg); }
 .docs-nav a[aria-current="page"] { color: var(--fg); font-weight: 600; background: var(--panel); }
 
-.docs-body { max-width: 68ch; font-size: 16px; line-height: 1.65; }
+.docs-body { max-width: 68ch; min-width: 0; font-size: 16px; line-height: 1.65; }
 .docs-body h1 {
   font-size: clamp(34px, 5vw, 48px); font-weight: 600;
   letter-spacing: -0.03em; line-height: 1.05; text-wrap: balance;
@@ -60,9 +60,12 @@
 .docs-foot { max-width: 1040px; margin: 0 auto; padding: 28px 24px 40px; border-top: 1px solid var(--line); font-size: 13px; color: var(--mute); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
 @media (max-width: 860px) {
-  .docs { grid-template-columns: 1fr; gap: 24px; padding-top: 88px; }
+  .docs { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 88px 20px 80px; }
+  .docs-body { max-width: none; }
+  .docs-body table { display: block; overflow-x: auto; }
+  .docs-body pre code { white-space: pre; }
   .docs-nav {
-    position: static; flex-direction: row; flex-wrap: nowrap;
+    position: static; flex-direction: row; flex-wrap: nowrap; min-width: 0;
     overflow-x: auto; gap: 6px; padding-bottom: 6px;
     border-bottom: 1px solid var(--line);
   }

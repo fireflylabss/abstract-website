@@ -21,7 +21,7 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-export function mountZoom(reduced: boolean) {
+export function mountZoom(isStatic: boolean) {
   const $ = (id: string) => document.getElementById(id);
   const els = [$("zoom"), $("stage"), $("world"), $("hero"), $("stops"), $("outro"), $("hint")];
   if (els.some((e) => !e)) return;
@@ -52,10 +52,7 @@ export function mountZoom(reduced: boolean) {
     });
   }
 
-  if (reduced) {
-    document.documentElement.classList.add("reduced");
-    return;
-  }
+  if (isStatic) return;
 
   /* ── geometry in world points ── */
   type Box = { x: number; y: number; w: number; h: number };
@@ -151,8 +148,6 @@ export function mountZoom(reduced: boolean) {
     return { z, ox, oy, fy: lerp(A.fy, B.fy, t), w, part: t < 0.5 ? A.part : B.part };
   }
 
-  const bar = document.querySelector<HTMLElement>(".topbar");
-
   function render() {
     ticking = false;
     const u = clamp((scrollY - sectionTop) / H, 0, total);
@@ -192,8 +187,6 @@ export function mountZoom(reduced: boolean) {
       el.style.opacity = String(1 - k * 0.55);
       el.style.filter = k > 0.01 ? `blur(${k * 1.2}px)` : "";
     });
-
-    bar?.classList.toggle("solid", scrollY > 8);
 
     const oe = clamp((u - (total - 0.75)) / 0.35);
     outro.style.opacity = String(oe);

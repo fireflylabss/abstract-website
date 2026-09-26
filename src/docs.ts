@@ -2,8 +2,8 @@ import "./style.css";
 import "./docs.css";
 import { setupTheme } from "./theme";
 
-const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-setupTheme(reduced);
+const lite = document.documentElement.classList.contains("lite");
+setupTheme(lite);
 
 const bar = document.getElementById("topbar");
 const solid = () => bar?.classList.toggle("solid", scrollY > 8);
