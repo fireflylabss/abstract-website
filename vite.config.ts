@@ -32,6 +32,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: page("./index.html"),
+        changelog: page("./changelog.html"),
         ...Object.fromEntries(docs.map((p) => [`docs/${p}`, page(`./docs/${p}.html`)])),
       },
     },

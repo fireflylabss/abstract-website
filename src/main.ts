@@ -51,11 +51,32 @@ if (!reduced) {
       headers: { Accept: "application/vnd.github+json" },
     });
     if (!res.ok) return;
-    const { tag_name } = (await res.json()) as { tag_name?: string };
-    if (!tag_name) return;
-    document.querySelectorAll(".ver").forEach((el) => { el.textContent = tag_name; });
+    const { tag_name, assets } = (await res.json()) as {
+      tag_name?: string;
+      assets?: { name: string; browser_download_url: string }[];
+    };
+    if (tag_name)
+      document.querySelectorAll(".ver").forEach((el) => { el.textContent = tag_name; });
+    const match = (re: RegExp) => assets?.find((a) => re.test(a.name));
+    const wanted: Record<string, RegExp> = {
+      "mac-arm": /macos-aarch64\.dmg$/,
+      "mac-intel": /macos-x86_64\.dmg$/,
+      "linux-tar": /linux-x86_64\.tar\.gz$/,
+      "linux-deb": /\.deb$/,
+      "win-exe": /windows-x86_64\.exe$/,
+    };
+    for (const [key, re] of Object.entries(wanted)) {
+      const asset = match(re);
+      if (!asset) continue;
+      document.querySelectorAll<HTMLAnchorElement>(`a[data-asset="${key}"]`).forEach((a) => {
+        a.href = asset.browser_download_url;
+        a.setAttribute("download", "");
+        a.removeAttribute("target");
+        a.removeAttribute("rel");
+      });
+    }
   } catch {
-    /* badge stays empty */
+    /* badges and links keep their fallbacks */
   }
 })();
 

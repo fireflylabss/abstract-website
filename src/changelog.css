@@ -1,0 +1,39 @@
+/* Changelog page */
+.changelog { padding: 160px 0 96px; max-width: 760px; }
+.changelog h1 { font-size: clamp(40px, 7vw, 72px); letter-spacing: -0.03em; margin: 0 0 12px; }
+.changelog .lede { color: var(--mute); font-size: 18px; margin: 0 0 48px; }
+.changelog .lede a { color: var(--fg); }
+
+.rel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 28px 32px;
+  margin: 0 0 20px;
+}
+.rel-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px; padding-bottom: 16px; margin-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.rel-head h2 { font-size: 22px; letter-spacing: -0.01em; margin: 0; display: flex; align-items: center; gap: 10px; }
+.rel-head h2 a { color: var(--fg); text-decoration: none; }
+.rel-head h2 a:hover { text-decoration: underline; }
+.rel-head time { color: var(--mute); font-size: 13px; font-family: var(--mono); white-space: nowrap; }
+.rel-badge {
+  font-size: 11px; font-family: var(--mono); font-weight: 500;
+  color: var(--mute); border: 1px solid var(--line);
+  border-radius: 999px; padding: 3px 10px; vertical-align: middle;
+}
+.rel-badge.latest { color: var(--fg); }
+.rel-body { color: var(--mute); font-size: 15px; line-height: 1.65; }
+.rel-body h3 { color: var(--fg); font-size: 17px; margin: 22px 0 8px; }
+.rel-body h4 { color: var(--fg); font-size: 15px; margin: 18px 0 6px; }
+.rel-body p { margin: 10px 0; }
+.rel-body ul { margin: 10px 0; padding-left: 22px; }
+.rel-body li { margin: 4px 0; }
+.rel-body a { color: var(--fg); }
+.rel-body code { font-family: var(--mono); font-size: 0.9em; }
+.rel-empty { font-style: italic; }
+.rel-loading { color: var(--mute); }
+.rel-loading a { color: var(--fg); }
