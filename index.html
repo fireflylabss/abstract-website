@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abstract — um editor de texto que sai do caminho</title>
+    <meta name="description" content="Abstract é um editor de notas em Markdown, acelerado por GPU, monocromático e local. Pastas reais, arquivos .md, zero distração." />
+    <meta property="og:title" content="Abstract" />
+    <meta property="og:description" content="Escreva. Só isso." />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="nav" data-reveal>
+      <a class="wordmark" href="/">abstract<span class="caret">_</span></a>
+      <nav>
+        <a href="#recursos">Recursos</a>
+        <a href="#atalhos">Atalhos</a>
+        <a href="https://github.com/horizzon3507/abstract-editor" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn btn-sm" href="https://github.com/horizzon3507/abstract-editor/releases/latest" target="_blank" rel="noreferrer">Baixar</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow" data-reveal>Editor de texto · Markdown · Local</p>
+        <h1 class="headline" data-split>
+          Escreva. <em>Só isso.</em>
+        </h1>
+        <p class="lede" data-reveal>
+          Um editor monocromático, acelerado por GPU, que trata suas notas como o que elas são:
+          arquivos <code>.md</code> em pastas reais, no seu disco.
+        </p>
+        <div class="cta" data-reveal>
+          <a class="btn" href="https://github.com/horizzon3507/abstract-editor/releases/latest" target="_blank" rel="noreferrer">
+            Baixar o Abstract
+          </a>
+          <a class="link" href="https://github.com/horizzon3507/abstract-editor" target="_blank" rel="noreferrer">
+            Ver o código →
+          </a>
+        </div>
+        <p class="platforms" data-reveal>macOS · Linux · Windows</p>
+
+        <div class="window" data-reveal id="demo" role="img" aria-label="Demonstração do editor Abstract">
+          <div class="titlebar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="title" id="win-title">Pessoal</span>
+          </div>
+          <div class="pane">
+            <aside class="sidebar">
+              <div class="space">Pessoal</div>
+              <div class="tree">
+                <div class="row folder">ideias</div>
+                <div class="row">manifesto.md</div>
+                <div class="row active" id="tree-active">Sem título.md</div>
+                <div class="row">leituras.md</div>
+              </div>
+            </aside>
+            <div class="editor">
+              <pre class="doc" id="doc"><span id="typed"></span><span class="cursor"></span></pre>
+              <div class="status"><span id="status">salvo</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="statement" id="manifesto">
+        <p class="big" data-split>
+          Sem banco de dados. Sem sincronização obrigatória. Sem formato próprio.
+          Uma nota é um arquivo. Uma pasta é um espaço. <em>Nada mais.</em>
+        </p>
+      </section>
+
+      <section class="features" id="recursos">
+        <h2 data-reveal>O essencial, e só.</h2>
+        <ul class="grid">
+          <li data-reveal>
+            <span class="num">01</span>
+            <h3>Espaços são pastas reais</h3>
+            <p>Cada espaço é uma pasta no seu disco. Abra qualquer outra com <kbd>Ctrl</kbd><kbd>O</kbd>.</p>
+          </li>
+          <li data-reveal>
+            <span class="num">02</span>
+            <h3>Markdown puro</h3>
+            <p>A primeira linha vira o título — e o nome do arquivo. Tudo é <code>.md</code> comum.</p>
+          </li>
+          <li data-reveal>
+            <span class="num">03</span>
+            <h3>Salvamento automático</h3>
+            <p>Tudo é salvo sozinho. Apagar envia pra Lixeira, nunca pro nada.</p>
+          </li>
+          <li data-reveal>
+            <span class="num">04</span>
+            <h3>Acelerado por GPU</h3>
+            <p>Escrito em Rust com GPUI. Abre instantâneo, rola a 120 fps, pesa poucos megas.</p>
+          </li>
+          <li data-reveal>
+            <span class="num">05</span>
+            <h3>Claro, escuro ou sistema</h3>
+            <p>Paleta monocromática. Alterne com <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>L</kbd>.</p>
+          </li>
+          <li data-reveal>
+            <span class="num">06</span>
+            <h3>Modo foco</h3>
+            <p>Esconda a barra lateral com <kbd>Ctrl</kbd><kbd>\</kbd>. Só você e o texto.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="shortcuts" id="atalhos">
+        <h2 data-reveal>Mãos no teclado.</h2>
+        <dl data-reveal>
+          <div><dt><kbd>Ctrl</kbd><kbd>N</kbd></dt><dd>Nova nota</dd></div>
+          <div><dt><kbd>Ctrl</kbd><kbd>O</kbd></dt><dd>Abrir pasta como espaço</dd></div>
+          <div><dt><kbd>Ctrl</kbd><kbd>S</kbd></dt><dd>Salvar agora</dd></div>
+          <div><dt><kbd>Ctrl</kbd><kbd>\</kbd></dt><dd>Modo foco</dd></div>
+          <div><dt><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>L</kbd></dt><dd>Alternar tema</dd></div>
+          <div><dt><kbd>F1</kbd></dt><dd>Reabrir o tour</dd></div>
+        </dl>
+      </section>
+
+      <section class="final">
+        <h2 class="headline" data-split>Abra. <em>Escreva.</em> Feche.</h2>
+        <div class="cta" data-reveal>
+          <a class="btn" href="https://github.com/horizzon3507/abstract-editor/releases/latest" target="_blank" rel="noreferrer">Baixar o Abstract</a>
+        </div>
+      </section>
+    </main>
+
+    <footer data-reveal>
+      <span>© <span id="year"></span> Firefly Labs</span>
+      <span class="sep">·</span>
+      <a href="https://github.com/horizzon3507/abstract-editor" target="_blank" rel="noreferrer">GitHub</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/horizzon3507/abstract-editor/releases" target="_blank" rel="noreferrer">Releases</a>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
