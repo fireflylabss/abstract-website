@@ -152,7 +152,6 @@ em { font-style: italic; }
 .headline em { font-style: normal; font-weight: 400; color: var(--mute); letter-spacing: -0.03em; }
 .lede { max-width: 620px; font-size: 18px; color: var(--mute); }
 .cta { display: flex; gap: 22px; align-items: center; }
-.platforms { font-family: var(--mono); font-size: 12px; color: var(--mute); }
 
 /* screenshots */
 .shot {

@@ -11,8 +11,6 @@
 .hero-copy .headline { font-size: clamp(44px, 6.4vw, 84px); margin: 0 0 22px; text-align: left; }
 .hero-copy .lede { margin: 0 0 30px; font-size: 17px; }
 .hero-copy .cta { justify-content: flex-start; }
-.hero-copy .platforms { margin: 16px 0 0; }
-.hero-copy .eyebrow { margin-bottom: 22px; }
 
 .world {
   position: absolute; left: 0; top: 0;
