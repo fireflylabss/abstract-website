@@ -1,143 +1,298 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Abstract — um editor de texto que sai do caminho</title>
-    <meta name="description" content="Abstract é um editor de notas em Markdown, acelerado por GPU, monocromático e local. Pastas reais, arquivos .md, zero distração." />
-    <meta property="og:title" content="Abstract" />
-    <meta property="og:description" content="Escreva. Só isso." />
-    <meta name="theme-color" content="#0a0a0a" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>abstract — a markdown notes editor that gets out of the way</title>
+    <meta name="description" content="abstract is a minimal, local-first markdown notes editor, GPU-rendered with GPUI. Plain .md files in real folders. No accounts, no sync daemon, no proprietary format." />
+    <meta property="og:title" content="abstract" />
+    <meta property="og:description" content="Write. That's it. A local-first markdown notes editor, GPU-rendered." />
+    <meta property="og:image" content="/media/hero-light.png" />
+    <meta name="theme-color" content="#f6f6f4" />
+    <link rel="icon" href="/media/logo.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+    <script>
+      (() => {
+        const t = localStorage.getItem("theme");
+        document.documentElement.dataset.theme = t === "dark" ? "dark" : "light";
+      })();
+    </script>
   </head>
   <body>
     <div class="grain" aria-hidden="true"></div>
 
     <header class="nav" data-reveal>
-      <a class="wordmark" href="/">abstract<span class="caret">_</span></a>
+      <a class="wordmark" href="/">
+        <img class="logo" src="/media/logo.png" alt="" width="28" height="28" />
+        <span>abstract<span class="caret">_</span></span>
+      </a>
       <nav>
-        <a href="#recursos">Recursos</a>
-        <a href="#atalhos">Atalhos</a>
-        <a href="https://github.com/horizzon3507/abstract-editor" target="_blank" rel="noreferrer">GitHub</a>
-        <a class="btn btn-sm" href="https://github.com/horizzon3507/abstract-editor/releases/latest" target="_blank" rel="noreferrer">Baixar</a>
+        <a href="#see">See it</a>
+        <a href="#features">Features</a>
+        <a href="#keyboard">Keyboard</a>
+        <a href="#install">Install</a>
+        <a href="https://github.com/fireflylabss/abstract" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="theme" id="theme" type="button" aria-label="Toggle dark mode">
+          <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <a class="btn btn-sm" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Download</a>
       </nav>
     </header>
 
     <main>
+      <!-- ── hero ─────────────────────────────────────────────────────── -->
       <section class="hero">
-        <p class="eyebrow" data-reveal>Editor de texto · Markdown · Local</p>
+        <p class="eyebrow" data-reveal>Markdown · Local-first · GPU-rendered</p>
         <h1 class="headline" data-split>
-          Escreva. <em>Só isso.</em>
+          Write. <em>That's it.</em>
         </h1>
         <p class="lede" data-reveal>
-          Um editor monocromático, acelerado por GPU, que trata suas notas como o que elas são:
-          arquivos <code>.md</code> em pastas reais, no seu disco.
+          abstract is a minimal notes editor that treats your notes as what they are:
+          plain <code>.md</code> files in real folders, on your disk. No accounts, no sync daemon,
+          no proprietary format — the folder is the app.
         </p>
         <div class="cta" data-reveal>
-          <a class="btn" href="https://github.com/horizzon3507/abstract-editor/releases/latest" target="_blank" rel="noreferrer">
-            Baixar o Abstract
+          <a class="btn" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">
+            Download abstract
           </a>
-          <a class="link" href="https://github.com/horizzon3507/abstract-editor" target="_blank" rel="noreferrer">
-            Ver o código →
+          <a class="link" href="https://github.com/fireflylabss/abstract" target="_blank" rel="noreferrer">
+            View source →
           </a>
         </div>
-        <p class="platforms" data-reveal>macOS · Linux · Windows</p>
+        <p class="platforms" data-reveal>macOS · Linux · Windows · Apache-2.0</p>
 
-        <div class="window" data-reveal id="demo" role="img" aria-label="Demonstração do editor Abstract">
-          <div class="titlebar">
-            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-            <span class="title" id="win-title">Pessoal</span>
-          </div>
-          <div class="pane">
-            <aside class="sidebar">
-              <div class="space">Pessoal</div>
-              <div class="tree">
-                <div class="row folder">ideias</div>
-                <div class="row">manifesto.md</div>
-                <div class="row active" id="tree-active">Sem título.md</div>
-                <div class="row">leituras.md</div>
-              </div>
-            </aside>
-            <div class="editor">
-              <pre class="doc" id="doc"><span id="typed"></span><span class="cursor"></span></pre>
-              <div class="status"><span id="status">salvo</span></div>
-            </div>
-          </div>
-        </div>
+        <figure class="shot hero-shot" data-reveal id="hero-shot">
+          <picture>
+            <img class="img-light" src="/media/hero-light.png" alt="abstract, light theme: a note rendering bold, italic, inline code, lists, tasks and a code block" width="1100" height="720" />
+            <img class="img-dark" src="/media/hero-dark.png" alt="abstract, dark theme" width="1100" height="720" />
+          </picture>
+        </figure>
       </section>
 
-      <section class="statement" id="manifesto">
+      <!-- ── statement ────────────────────────────────────────────────── -->
+      <section class="statement">
         <p class="big" data-split>
-          Sem banco de dados. Sem sincronização obrigatória. Sem formato próprio.
-          Uma nota é um arquivo. Uma pasta é um espaço. <em>Nada mais.</em>
+          No database. No mandatory sync. No lock-in.
+          A note is a file. A folder is a space. <em>Nothing else.</em>
         </p>
       </section>
 
-      <section class="features" id="recursos">
-        <h2 data-reveal>O essencial, e só.</h2>
+      <!-- ── videos ───────────────────────────────────────────────────── -->
+      <section class="see" id="see">
+        <div class="sec-head" data-reveal>
+          <h2>See it work.</h2>
+          <p>Short clips, real app, no editing.</p>
+        </div>
+
+        <div class="clips">
+          <figure class="clip wide" data-reveal>
+            <video src="/media/clip-live-markdown.mp4" autoplay muted loop playsinline ></video>
+            <figcaption>
+              <strong>Live markdown.</strong> Typora-style rendering powered by tree-sitter. Syntax conceals
+              itself until your cursor touches it. The first heading becomes the filename — saved as you type.
+            </figcaption>
+          </figure>
+          <figure class="clip" data-reveal>
+            <video src="/media/clip-search.mp4" autoplay muted loop playsinline></video>
+            <figcaption>
+              <strong>Search everything.</strong> <kbd>⌘</kbd><kbd>P</kbd> opens a palette over titles and
+              bodies. Empty query lists what you edited last.
+            </figcaption>
+          </figure>
+          <figure class="clip" data-reveal>
+            <video src="/media/clip-theme.mp4" autoplay muted loop playsinline></video>
+            <figcaption>
+              <strong>Light, dark, or system.</strong> Two monochrome themes. Cycle with
+              <kbd>⌘</kbd><kbd>⇧</kbd><kbd>L</kbd>.
+            </figcaption>
+          </figure>
+          <figure class="clip" data-reveal>
+            <video src="/media/clip-focus.mp4" autoplay muted loop playsinline></video>
+            <figcaption>
+              <strong>Focus mode.</strong> <kbd>⌘</kbd><kbd>\</kbd> hides the sidebar. Just you and the text.
+            </figcaption>
+          </figure>
+          <figure class="clip" data-reveal>
+            <video src="/media/clip-tasks.mp4" autoplay muted loop playsinline></video>
+            <figcaption>
+              <strong>Tasks &amp; code.</strong> Click a checkbox to toggle it. Code blocks get syntax highlighting.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ── features ─────────────────────────────────────────────────── -->
+      <section class="features" id="features">
+        <div class="sec-head" data-reveal>
+          <h2>The essentials. Only.</h2>
+          <p>Everything you need to think in text — and nothing that gets in the way.</p>
+        </div>
         <ul class="grid">
           <li data-reveal>
             <span class="num">01</span>
-            <h3>Espaços são pastas reais</h3>
-            <p>Cada espaço é uma pasta no seu disco. Abra qualquer outra com <kbd>Ctrl</kbd><kbd>O</kbd>.</p>
+            <h3>Spaces are real folders</h3>
+            <p>Each space is a directory on your disk. Keep several, switch from the sidebar, open any folder with <kbd>⌘</kbd><kbd>O</kbd>.</p>
           </li>
           <li data-reveal>
             <span class="num">02</span>
-            <h3>Markdown puro</h3>
-            <p>A primeira linha vira o título — e o nome do arquivo. Tudo é <code>.md</code> comum.</p>
+            <h3>Plain markdown</h3>
+            <p>Every note is an ordinary <code>.md</code> file. Open it in anything else, forever.</p>
           </li>
           <li data-reveal>
             <span class="num">03</span>
-            <h3>Salvamento automático</h3>
-            <p>Tudo é salvo sozinho. Apagar envia pra Lixeira, nunca pro nada.</p>
+            <h3>Autosave</h3>
+            <p>Writes are debounced as you type. A file is created on the first keystroke and named after its first heading.</p>
           </li>
           <li data-reveal>
             <span class="num">04</span>
-            <h3>Acelerado por GPU</h3>
-            <p>Escrito em Rust com GPUI. Abre instantâneo, rola a 120 fps, pesa poucos megas.</p>
+            <h3>GPU-rendered</h3>
+            <p>Written in Rust on <a href="https://gpui.rs" target="_blank" rel="noreferrer">GPUI</a>. Opens instantly, scrolls smoothly, weighs a few megabytes.</p>
           </li>
           <li data-reveal>
             <span class="num">05</span>
-            <h3>Claro, escuro ou sistema</h3>
-            <p>Paleta monocromática. Alterne com <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>L</kbd>.</p>
+            <h3>Wiki-links &amp; backlinks</h3>
+            <p><code>[[note]]</code> links with autocomplete. <kbd>⌘</kbd>-click follows (creating the note if missing); a panel lists what links here.</p>
           </li>
           <li data-reveal>
             <span class="num">06</span>
-            <h3>Modo foco</h3>
-            <p>Esconda a barra lateral com <kbd>Ctrl</kbd><kbd>\</kbd>. Só você e o texto.</p>
+            <h3>External-edit aware</h3>
+            <p>The space folder is watched live. Edit or delete from another app and it shows up instantly.</p>
+          </li>
+          <li data-reveal>
+            <span class="num">07</span>
+            <h3>Session restore</h3>
+            <p>Reopens your notes, window geometry and sidebar state exactly where you left them.</p>
+          </li>
+          <li data-reveal>
+            <span class="num">08</span>
+            <h3>Chromeless</h3>
+            <p>Custom titlebar, monochrome themes, first-run tour. Interface in English and Portuguese.</p>
+          </li>
+          <li data-reveal>
+            <span class="num">09</span>
+            <h3>Cross-platform</h3>
+            <p>Linux (Wayland &amp; X11), macOS and Windows. Bundled Noto fonts for identical rendering everywhere.</p>
           </li>
         </ul>
       </section>
 
-      <section class="shortcuts" id="atalhos">
-        <h2 data-reveal>Mãos no teclado.</h2>
+      <!-- ── gallery ──────────────────────────────────────────────────── -->
+      <section class="gallery" id="gallery">
+        <div class="sec-head" data-reveal>
+          <h2>Two themes. Zero color.</h2>
+          <p>Monochrome by design — so the only thing with contrast is your text.</p>
+        </div>
+        <div class="pair">
+          <figure class="shot" data-reveal>
+            <img src="/media/hero-light.png" alt="abstract in the light theme" width="1100" height="720" loading="lazy" />
+            <figcaption>Light</figcaption>
+          </figure>
+          <figure class="shot" data-reveal>
+            <img src="/media/hero-dark.png" alt="abstract in the dark theme" width="1100" height="720" loading="lazy" />
+            <figcaption>Dark</figcaption>
+          </figure>
+        </div>
+        <div class="pair">
+          <figure class="shot" data-reveal>
+            <img src="/media/shot-search.png" alt="the search palette listing notes by title and body" width="1290" height="885" loading="lazy" />
+            <figcaption>Search palette</figcaption>
+          </figure>
+          <figure class="shot" data-reveal>
+            <img src="/media/shot-focus.png" alt="focus mode with the sidebar hidden" width="1290" height="885" loading="lazy" />
+            <figcaption>Focus mode</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ── keyboard ─────────────────────────────────────────────────── -->
+      <section class="shortcuts" id="keyboard">
+        <div class="sec-head" data-reveal>
+          <h2>Hands on the keyboard.</h2>
+          <p><kbd>⌘</kbd> on macOS, <kbd>Ctrl</kbd> on Linux and Windows. Standard editing keys plus <kbd>B</kbd> <kbd>I</kbd> <kbd>Z</kbd>.</p>
+        </div>
         <dl data-reveal>
-          <div><dt><kbd>Ctrl</kbd><kbd>N</kbd></dt><dd>Nova nota</dd></div>
-          <div><dt><kbd>Ctrl</kbd><kbd>O</kbd></dt><dd>Abrir pasta como espaço</dd></div>
-          <div><dt><kbd>Ctrl</kbd><kbd>S</kbd></dt><dd>Salvar agora</dd></div>
-          <div><dt><kbd>Ctrl</kbd><kbd>\</kbd></dt><dd>Modo foco</dd></div>
-          <div><dt><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>L</kbd></dt><dd>Alternar tema</dd></div>
-          <div><dt><kbd>F1</kbd></dt><dd>Reabrir o tour</dd></div>
+          <div><dt><kbd>⌘</kbd><kbd>N</kbd></dt><dd>New note</dd></div>
+          <div><dt><kbd>⌘</kbd><kbd>⇧</kbd><kbd>N</kbd></dt><dd>New folder</dd></div>
+          <div><dt><kbd>⌘</kbd><kbd>O</kbd></dt><dd>Switch space</dd></div>
+          <div><dt><kbd>⌘</kbd><kbd>S</kbd></dt><dd>Save now</dd></div>
+          <div><dt><kbd>⌘</kbd><kbd>P</kbd></dt><dd>Search notes</dd></div>
+          <div><dt><kbd>⌘</kbd><kbd>\</kbd></dt><dd>Toggle sidebar</dd></div>
+          <div><dt><kbd>⌘</kbd><kbd>⇧</kbd><kbd>L</kbd></dt><dd>Cycle theme</dd></div>
+          <div><dt><kbd>⌘</kbd><kbd>⇧</kbd><kbd>⌫</kbd></dt><dd>Delete note</dd></div>
+          <div><dt><kbd>F2</kbd></dt><dd>Rename</dd></div>
+          <div><dt><kbd>F1</kbd></dt><dd>Tour</dd></div>
         </dl>
       </section>
 
+      <!-- ── install ──────────────────────────────────────────────────── -->
+      <section class="install" id="install">
+        <div class="sec-head" data-reveal>
+          <h2>Install.</h2>
+          <p>Prebuilt artifacts on every <a href="https://github.com/fireflylabss/abstract/releases" target="_blank" rel="noreferrer">GitHub release</a>. Or build from source in one command.</p>
+        </div>
+        <div class="platforms-grid">
+          <div class="plat" data-reveal>
+            <h3>macOS</h3>
+            <p><code>abstract-&lt;version&gt;-macos-aarch64.app.zip</code> or <code>x86_64</code>. Ad-hoc signed: right-click → Open on first launch, or</p>
+            <pre><code>xattr -dr com.apple.quarantine abstract.app</code></pre>
+          </div>
+          <div class="plat" data-reveal>
+            <h3>Linux</h3>
+            <p>Tarball, <code>.deb</code>, or the AUR on Arch / CachyOS:</p>
+            <pre><code>paru -S abstract-editor-bin
+sudo dpkg -i abstract-editor_&lt;version&gt;_amd64.deb</code></pre>
+          </div>
+          <div class="plat" data-reveal>
+            <h3>Windows</h3>
+            <p><code>abstract-&lt;version&gt;-windows-x86_64.zip</code>, icon embedded in the <code>.exe</code>. Unzip and run.</p>
+          </div>
+          <div class="plat" data-reveal>
+            <h3>From source</h3>
+            <p>Rust toolchain pinned via <code>rust-toolchain.toml</code>.</p>
+            <pre><code>git clone https://github.com/fireflylabss/abstract
+cd abstract &amp;&amp; cargo build --release</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── final ────────────────────────────────────────────────────── -->
       <section class="final">
-        <h2 class="headline" data-split>Abra. <em>Escreva.</em> Feche.</h2>
+        <img class="logo-big" src="/media/logo.png" alt="" width="72" height="72" data-reveal />
+        <h2 class="headline" data-split>Open. <em>Write.</em> Close.</h2>
         <div class="cta" data-reveal>
-          <a class="btn" href="https://github.com/horizzon3507/abstract-editor/releases/latest" target="_blank" rel="noreferrer">Baixar o Abstract</a>
+          <a class="btn" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Download abstract</a>
+          <a class="link" href="https://github.com/fireflylabss/abstract" target="_blank" rel="noreferrer">Star on GitHub →</a>
         </div>
       </section>
     </main>
 
     <footer data-reveal>
-      <span>© <span id="year"></span> Firefly Labs</span>
-      <span class="sep">·</span>
-      <a href="https://github.com/horizzon3507/abstract-editor" target="_blank" rel="noreferrer">GitHub</a>
-      <span class="sep">·</span>
-      <a href="https://github.com/horizzon3507/abstract-editor/releases" target="_blank" rel="noreferrer">Releases</a>
+      <div class="foot-brand">
+        <img src="/media/logo.png" alt="" width="22" height="22" class="logo" />
+        <span>abstract</span>
+        <p>A native markdown notes editor. Built with Rust and GPUI by <a href="https://github.com/fireflylabss" target="_blank" rel="noreferrer">Firefly Labs</a>.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Product</h4>
+        <a href="#see">See it</a>
+        <a href="#features">Features</a>
+        <a href="#keyboard">Keyboard</a>
+        <a href="#install">Install</a>
+      </div>
+      <div class="foot-col">
+        <h4>Project</h4>
+        <a href="https://github.com/fireflylabss/abstract" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://github.com/fireflylabss/abstract/releases" target="_blank" rel="noreferrer">Releases</a>
+        <a href="https://github.com/fireflylabss/abstract/issues" target="_blank" rel="noreferrer">Issues</a>
+        <a href="https://github.com/fireflylabss/abstract/blob/main/LICENSE" target="_blank" rel="noreferrer">Apache-2.0</a>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="year"></span> Firefly Labs</span>
+        <span>Noto fonts under the SIL OFL 1.1</span>
+      </div>
     </footer>
 
     <script type="module" src="/src/main.ts"></script>

@@ -2,14 +2,31 @@ import "./style.css";
 import { animate, inView, stagger } from "motion";
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const root = document.documentElement;
+
+/* ── theme toggle (light by default) ────────────────────────────────────── */
+const themeBtn = document.getElementById("theme")!;
+const metaTheme = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')!;
+const applyTheme = (dark: boolean) => {
+  root.dataset.theme = dark ? "dark" : "light";
+  metaTheme.content = dark ? "#0a0a0a" : "#f6f6f4";
+  themeBtn.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+};
+applyTheme(root.dataset.theme === "dark");
+themeBtn.addEventListener("click", () => {
+  const dark = root.dataset.theme !== "dark";
+  root.classList.add("switching");
+  applyTheme(dark);
+  localStorage.setItem("theme", dark ? "dark" : "light");
+  setTimeout(() => root.classList.remove("switching"), 400);
+});
 
 /* ── split headlines into words ─────────────────────────────────────────── */
 function splitWords(el: Element) {
   const walk = (node: Node) => {
     if (node.nodeType === Node.TEXT_NODE) {
       const frag = document.createDocumentFragment();
-      const parts = (node.textContent ?? "").split(/(\s+)/);
-      for (const part of parts) {
+      for (const part of (node.textContent ?? "").split(/(\s+)/)) {
         if (!part) continue;
         if (/^\s+$/.test(part)) {
           frag.append(" ");
@@ -27,7 +44,6 @@ function splitWords(el: Element) {
   };
   [...el.childNodes].forEach(walk);
 }
-
 document.querySelectorAll("[data-split]").forEach(splitWords);
 
 /* ── reveal on view ─────────────────────────────────────────────────────── */
@@ -59,97 +75,31 @@ if (!reduced) {
   document.querySelectorAll(".big .w").forEach((w) => w.classList.add("on"));
 }
 
-/* ── hero window: subtle parallax tilt ──────────────────────────────────── */
-const win = document.getElementById("demo");
-if (win && !reduced && matchMedia("(pointer: fine)").matches) {
-  win.addEventListener("pointermove", (e) => {
-    const r = win.getBoundingClientRect();
+/* ── hero shot: subtle tilt ─────────────────────────────────────────────── */
+const shot = document.getElementById("hero-shot");
+if (shot && !reduced && matchMedia("(pointer: fine)").matches) {
+  shot.addEventListener("pointermove", (e) => {
+    const r = shot.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width - 0.5;
     const y = (e.clientY - r.top) / r.height - 0.5;
-    win.style.transform = `perspective(1400px) rotateX(${-y * 2}deg) rotateY(${x * 2}deg)`;
+    shot.style.transform = `perspective(1400px) rotateX(${-y * 2}deg) rotateY(${x * 2}deg)`;
   });
-  win.addEventListener("pointerleave", () => {
-    animate(win, { transform: "perspective(1400px) rotateX(0deg) rotateY(0deg)" }, { duration: 0.6 });
+  shot.addEventListener("pointerleave", () => {
+    animate(shot, { transform: "perspective(1400px) rotateX(0deg) rotateY(0deg)" }, { duration: 0.6 });
   });
 }
 
-/* ── typing demo ────────────────────────────────────────────────────────── */
-type Seg = { text: string; cls?: string };
-const script: Seg[] = [
-  { text: "# ", cls: "m" },
-  { text: "Por que escrever à mão", cls: "h" },
-  { text: "\n\n" },
-  { text: "Não é sobre a ferramenta. É sobre " },
-  { text: "*", cls: "m" },
-  { text: "atenção", cls: "i" },
-  { text: "*", cls: "m" },
-  { text: "." },
-  { text: "\n\n" },
-  { text: "- ", cls: "m" },
-  { text: "uma ideia por linha" },
-  { text: "\n" },
-  { text: "- ", cls: "m" },
-  { text: "salvar é " },
-  { text: "**", cls: "m" },
-  { text: "automático", cls: "b" },
-  { text: "**", cls: "m" },
-  { text: "\n" },
-  { text: "- ", cls: "m" },
-  { text: "fechar sem medo" },
-];
-
-const typed = document.getElementById("typed")!;
-const treeActive = document.getElementById("tree-active")!;
-const winTitle = document.getElementById("win-title")!;
-const status = document.getElementById("status")!;
-
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-async function type() {
-  let title = "";
-  let saveTimer: ReturnType<typeof setTimeout> | undefined;
-  const scheduleSave = () => {
-    status.textContent = "salvando…";
-    status.classList.add("saving");
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(() => {
-      status.textContent = "salvo";
-      status.classList.remove("saving");
-    }, 500);
-  };
-
-  for (const seg of script) {
-    const span = document.createElement("span");
-    if (seg.cls) span.className = seg.cls;
-    typed.append(span);
-    for (const ch of seg.text) {
-      span.textContent += ch;
-      if (seg.cls === "h") {
-        title += ch;
-        treeActive.textContent = `${title}.md`;
-        winTitle.textContent = `Pessoal / ${title}`;
-      }
-      scheduleSave();
-      await sleep(ch === "\n" ? 260 : 28 + Math.random() * 60);
+/* ── videos: only play while visible ────────────────────────────────────── */
+const playWhenVisible = new IntersectionObserver(
+  (entries) => {
+    for (const e of entries) {
+      const v = e.target as HTMLVideoElement;
+      if (e.isIntersecting) v.play().catch(() => {});
+      else v.pause();
     }
-    if (seg.text.endsWith("\n\n")) await sleep(300);
-  }
-}
-
-if (reduced) {
-  typed.innerHTML = script
-    .map((s) => `<span class="${s.cls ?? ""}">${s.text}</span>`)
-    .join("");
-  treeActive.textContent = "Por que escrever à mão.md";
-  winTitle.textContent = "Pessoal / Por que escrever à mão";
-} else {
-  const once = new IntersectionObserver((entries) => {
-    if (entries.some((e) => e.isIntersecting)) {
-      once.disconnect();
-      setTimeout(type, 500);
-    }
-  }, { threshold: 0.3 });
-  once.observe(win!);
-}
+  },
+  { threshold: 0.2 },
+);
+document.querySelectorAll<HTMLVideoElement>(".clip video").forEach((v) => playWhenVisible.observe(v));
 
 document.getElementById("year")!.textContent = String(new Date().getFullYear());
