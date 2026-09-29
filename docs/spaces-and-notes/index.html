@@ -18,15 +18,45 @@
         <h1>Spaces &amp; notes.</h1>
         <p>A space is a directory. A note is a file. Everything else follows from that.</p>
         <h2>Spaces</h2>
-        <p>Each space is a folder on your disk. Keep several — work, personal, a project — and switch between them from the sidebar or with <kbd>⌘</kbd><kbd>O</kbd> (<kbd>Ctrl</kbd><kbd>O</kbd> on Linux/Windows).</p>
-        <h2>The sidebar tree</h2>
-        <p>The sidebar shows your folders and notes as a real directory tree. Rename inline with <kbd>F2</kbd>, create a note with <kbd>⌘</kbd><kbd>N</kbd> or a folder with <kbd>⌘</kbd><kbd>⇧</kbd><kbd>N</kbd>, and delete a note with <kbd>⌘</kbd><kbd>⇧</kbd><kbd>⌫</kbd>.</p>
-        <h2>Autosave &amp; filenames</h2>
-        <p>Writes are debounced as you type. A note's file is created on the first keystroke and named after its first heading — so the heading you write is the filename you get. <kbd>⌘</kbd><kbd>S</kbd> writes immediately.</p>
+        <p>Each space is a folder on your disk. Keep several — work, personal, one per project — and switch between them from the space name at the top of the sidebar, or with <kbd>⌘</kbd><kbd>O</kbd> (<kbd>Ctrl</kbd><kbd>O</kbd> on Linux/Windows). <strong>Open folder as space…</strong> adds a new one. Links, backlinks and search all work within the active space.</p>
+        <h2>The sidebar</h2>
+        <p>The sidebar is the folder's real tree. Folders expand in place, and the count next to <strong>Notes</strong> is the number of notes in the space. Hidden files (names starting with <code>.</code>) and symlinked folders are skipped. The <kbd>+</kbd> and folder buttons at the top create a note or a folder, and <kbd>⌘</kbd><kbd>\</kbd> hides the whole sidebar.</p>
+        <figure class="docs-fig">
+          <img src="/media/docs/sidebar-menu.webp" alt="Right-click menu on a note in the sidebar with Open, Rename, Duplicate, Copy note link, Copy path, Copy relative path, Show in Finder, Open with default app and Move to Trash" width="1200" height="900" loading="lazy" decoding="async" />
+          <figcaption>Right-click a note or folder for everything else. Folders also get <strong>New note here</strong> and <strong>New folder here</strong>.</figcaption>
+        </figure>
+        <h3>Moving things</h3>
+        <p>Drag a note or folder onto another folder, or onto the <strong>Notes</strong> header to move it to the top level. When a note moves, its relative image paths are rewritten so pictures keep showing.</p>
+        <h2>Creating &amp; naming notes</h2>
+        <p>Press <kbd>⌘</kbd><kbd>N</kbd> for a note or <kbd>⌘</kbd><kbd>⇧</kbd><kbd>N</kbd> for a folder. A note's file is created on the first keystroke and named after its first heading:</p>
+        <ul>
+          <li>Characters that are not allowed in file names (<code>/ \ : * ? " &lt; &gt; |</code>) are dropped, and names stop at 80 characters.</li>
+          <li>If the name is taken, abstract adds a number: <code>Ideas.md</code>, <code>Ideas 2.md</code>.</li>
+          <li>While the file name still matches the heading, editing the heading renames the file. Give the file a different name and it stops following.</li>
+        </ul>
+        <p>Rename with <kbd>F2</kbd>, from the sidebar menu, or by editing the title. Every <code>[[link]]</code> to the note is updated across the space. See <a href="/docs/links/#renaming-keeps-links-working">Links &amp; backlinks</a>.</p>
+        <h2>Saving</h2>
+        <p>Writes are debounced as you type and each save replaces the file atomically, so a crash never leaves half a note behind. <kbd>⌘</kbd><kbd>S</kbd> writes immediately. The word count in the toolbar opens <strong>Note details</strong>: save state, words, characters, reading time, the selection's word count, when the file last changed, and buttons to reveal or copy its path.</p>
+        <h2>Deleting</h2>
+        <p><kbd>⌘</kbd><kbd>⇧</kbd><kbd>⌫</kbd> (<kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>Backspace</kbd>), the trash button in the toolbar, or <strong>Move to Trash</strong> in the sidebar sends the file to the system trash. Nothing is erased for good, so you can restore it from Trash or Recycle Bin.</p>
         <h2>External edits</h2>
-        <p>The space folder is watched live (inotify on Linux, FSEvents on macOS, ReadDirectoryChanges on Windows). Edit, rename or delete files in Finder, another editor or a sync client and the change shows up instantly.</p>
+        <p>The space folder is watched live (inotify on Linux, FSEvents on macOS, ReadDirectoryChanges on Windows). Edit, rename or delete files in Finder, another editor, a script or a sync client and the tree and the open note update right away. Any tool that syncs plain files can sit alongside it.</p>
         <h2>Session restore</h2>
-        <p>abstract reopens your notes, window geometry and sidebar state exactly where you left them.</p>
+        <p>Quit and reopen and you are back where you were: the same space and note, the cursor and scroll position, the window size and position, and whether the sidebar was open.</p>
+        <h2 id="where-abstract-keeps-its-own-files">Where abstract keeps its own files</h2>
+        <p>Nothing is written inside your notes folder except your notes and their attachments. abstract's own state is a few <code>key = value</code> text files:</p>
+        <table>
+          <thead>
+            <tr><th>File</th><th>Linux / macOS</th><th>Windows</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Settings (theme, language, updates, tour)</td><td><code>~/.config/abstract/settings</code></td><td><code>%APPDATA%\abstract\settings</code></td></tr>
+            <tr><td>List of spaces</td><td><code>~/.config/abstract/spaces</code></td><td><code>%APPDATA%\abstract\spaces</code></td></tr>
+            <tr><td>Session (window, open note, cursor)</td><td><code>~/.local/state/abstract/session</code></td><td><code>%LOCALAPPDATA%\abstract\session</code></td></tr>
+            <tr><td>Starter space</td><td><code>~/.local/share/abstract/Pessoal</code></td><td><code>%APPDATA%\abstract\Pessoal</code></td></tr>
+          </tbody>
+        </table>
+        <p>On Linux and macOS, <code>XDG_CONFIG_HOME</code>, <code>XDG_STATE_HOME</code> and <code>XDG_DATA_HOME</code> override these locations.</p>
       </article>
     </div>
     <!-- @footer -->

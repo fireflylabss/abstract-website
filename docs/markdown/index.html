@@ -16,19 +16,81 @@
       </aside>
       <article class="docs-body">
         <h1>Markdown.</h1>
-        <p>Live rendering powered by tree-sitter: the syntax conceals itself until your selection touches it.</p>
-        <h2>What renders inline</h2>
+        <p>Live rendering powered by tree-sitter: the syntax hides itself until your selection touches it.</p>
+        <h2>Live rendering</h2>
+        <p>abstract shows the rendered note and the markdown source in one place. Markers like <code>**</code>, <code>#</code> and <code>[[ ]]</code> are hidden while you read and come back on the line your cursor or selection is on, so you can always edit the exact characters. What is saved is plain markdown that any other editor can open.</p>
+        <h2>Syntax at a glance</h2>
+        <table>
+          <thead>
+            <tr><th>Write</th><th>Get</th><th>Shortcut</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code># Title</code> to <code>###### Title</code></td><td>Headings</td><td>Paragraph menu</td></tr>
+            <tr><td><code>**bold**</code></td><td><strong>Bold</strong></td><td><kbd>⌘</kbd><kbd>B</kbd></td></tr>
+            <tr><td><code>*italic*</code></td><td><em>Italic</em></td><td><kbd>⌘</kbd><kbd>I</kbd></td></tr>
+            <tr><td><code>~~done~~</code></td><td><s>Strikethrough</s></td><td><kbd>⌘</kbd><kbd>⇧</kbd><kbd>X</kbd></td></tr>
+            <tr><td><code>`code`</code></td><td>Inline code</td><td><kbd>⌘</kbd><kbd>E</kbd></td></tr>
+            <tr><td><code>==key point==</code></td><td>Highlight</td><td><kbd>⌘</kbd><kbd>⇧</kbd><kbd>H</kbd></td></tr>
+            <tr><td><code>%%note to self%%</code></td><td>Hidden comment, dimmed</td><td><kbd>⌘</kbd><kbd>/</kbd></td></tr>
+            <tr><td><code>[text](https://…)</code></td><td>External link</td><td><kbd>⌘</kbd><kbd>K</kbd></td></tr>
+            <tr><td><code>[[Note]]</code></td><td><a href="/docs/links/">Wiki-link</a></td><td>—</td></tr>
+            <tr><td><code>- item</code>, <code>1. item</code></td><td>Lists, indented with <kbd>Tab</kbd></td><td>Paragraph menu</td></tr>
+            <tr><td><code>- [ ] task</code></td><td>Clickable checkbox</td><td>Paragraph menu</td></tr>
+            <tr><td><code>&gt; quote</code></td><td>Block quote</td><td>Paragraph menu</td></tr>
+            <tr><td><code>---</code></td><td>Divider</td><td>Insert menu</td></tr>
+          </tbody>
+        </table>
+        <p>On Linux and Windows, use <kbd>Ctrl</kbd> instead of <kbd>⌘</kbd>. Each formatting shortcut wraps the current selection in its markers.</p>
+        <h2>Tasks &amp; code</h2>
+        <p>Click a checkbox to toggle it. The file keeps a plain <code>- [x]</code>, and finished tasks are struck through. Fenced code blocks get syntax highlighting when you name the language:</p>
+        <pre><code>```rust
+fn main() {
+    println!("hello");
+}
+```</code></pre>
+        <p>Highlighted languages: Rust, JavaScript and TypeScript, Python, Go, C and C++, shell, JSON, YAML and TOML. Other blocks still render in a monospace box.</p>
+        <h2>Callouts</h2>
+        <p>Start a block quote with a type in brackets to get a tinted box with a title. <strong>Paragraph → Callout</strong> in the right-click menu toggles one.</p>
+        <pre><code>&gt; [!tip] Keep it monochrome
+&gt; One accent color competes with the text.</code></pre>
+        <table>
+          <thead>
+            <tr><th>Type</th><th>Also accepts</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>note</code></td><td>anything not listed below, e.g. <code>info</code></td></tr>
+            <tr><td><code>tip</code></td><td><code>hint</code>, <code>success</code>, <code>check</code>, <code>done</code>, <code>important</code></td></tr>
+            <tr><td><code>warning</code></td><td><code>caution</code>, <code>attention</code>, <code>question</code>, <code>help</code>, <code>faq</code></td></tr>
+            <tr><td><code>danger</code></td><td><code>error</code>, <code>bug</code>, <code>failure</code>, <code>fail</code>, <code>missing</code></td></tr>
+          </tbody>
+        </table>
+        <h2>Images &amp; attachments</h2>
+        <p>Paste an image from the clipboard or drop one onto the editor. abstract copies it into an <code>attachments/</code> folder next to the note and inserts a relative link such as <code>![](attachments/image-1790692154123.png)</code>. <strong>Insert → Image…</strong> opens a file picker instead.</p>
+        <figure class="docs-fig">
+          <img src="/media/docs/images.webp" alt="A note titled Moodboard with an image rendered inline below a paragraph" width="1200" height="900" loading="lazy" decoding="async" />
+          <figcaption>Images render inline under their line. Put the cursor on the line to see the markdown again.</figcaption>
+        </figure>
         <ul>
-          <li><strong>Bold</strong> and <em>italic</em></li>
-          <li><code>Inline code</code> and links</li>
-          <li>Headings</li>
-          <li>Lists, nested lists and task lists — click a checkbox to toggle it</li>
-          <li>Code blocks with syntax highlighting</li>
+          <li><code>![alt](path)</code> resolves relative to the note.</li>
+          <li><code>![[image.png]]</code> also looks in the note's <code>attachments/</code>, the space root and the root's <code>attachments/</code>.</li>
+          <li>Remote <code>https://</code> images are not downloaded. The editor never goes online to render a note.</li>
+          <li>Dropped files that are not images become links, and a dropped note from the same space becomes a <code>[[wiki-link]]</code>.</li>
         </ul>
-        <h2>Concealment</h2>
-        <p>Markdown markers stay hidden while you read and reappear while your cursor is on them. What you see is the rendered note; what is on disk is plain markdown.</p>
-        <h2>Editing keys</h2>
-        <p>Standard editing keys plus <kbd>B</kbd> (bold), <kbd>I</kbd> (italic), <kbd>Z</kbd>/<kbd>⇧</kbd><kbd>Z</kbd> (undo/redo) and word jumps with <kbd>Ctrl</kbd><kbd>←</kbd>/<kbd>→</kbd> (<kbd>Alt</kbd><kbd>←</kbd>/<kbd>→</kbd> on macOS).</p>
+        <h2>Tables</h2>
+        <p class="docs-note">Tables and footnotes land in the release after v0.1.2.</p>
+        <p>GitHub-style pipe tables render as a monospace block with dimmed pipes, so columns line up. <kbd>Tab</kbd> and <kbd>⇧</kbd><kbd>Tab</kbd> realign the columns and move to the next or previous cell, and <kbd>Tab</kbd> in the last cell adds a row. <strong>Insert → Table</strong> adds a two-column table.</p>
+        <figure class="docs-fig">
+          <img src="/media/docs/tables.webp" alt="A note with a three-column pipe table of items, owners and statuses, with a bold header row" width="1200" height="900" loading="lazy" decoding="async" />
+          <figcaption>The header row is bold and the pipes are dimmed. On disk it is an ordinary markdown table.</figcaption>
+        </figure>
+        <h2>Footnotes</h2>
+        <p>Write <code>[^1]</code> in the text and <code>[^1]: The source.</code> anywhere below. The reference shows as <code>[1]</code>, and <kbd>⌘</kbd>-click jumps between it and its definition. <strong>Insert → Footnote</strong> adds the next number and puts the definition at the end of the note.</p>
+        <h2>The right-click menu</h2>
+        <p>Everything above is also in the editor's context menu, next to cut, copy, <strong>Paste as plain text</strong> (<kbd>⌘</kbd><kbd>⇧</kbd><kbd>V</kbd>), <strong>Add note link</strong>, <strong>Add external link</strong> and <strong>Search for selection</strong>.</p>
+        <figure class="docs-fig">
+          <img src="/media/docs/editor-menu.webp" alt="The editor context menu with the Format submenu open, listing Bold, Italic, Strikethrough, Code, Highlight and Hidden comment with their shortcuts" width="1200" height="900" loading="lazy" decoding="async" />
+          <figcaption><strong>Format</strong> wraps text, <strong>Paragraph</strong> turns the line into a heading, list, checklist, quote or callout, and <strong>Insert</strong> adds an image, code block, divider, table or footnote.</figcaption>
+        </figure>
       </article>
     </div>
     <!-- @footer -->

@@ -34,11 +34,36 @@
 cd abstract
 cargo build --release
 ./target/release/abstract   # abstract.exe on Windows</code></pre>
+        <p>Pass a folder to open it as the active space:</p>
+        <pre><code>cargo run --release -- ~/notes</code></pre>
+        <p>To try a build without touching your real settings, point the XDG variables at a scratch directory (Linux and macOS):</p>
+        <pre><code>XDG_CONFIG_HOME=/tmp/abstract/config \
+XDG_STATE_HOME=/tmp/abstract/state \
+XDG_DATA_HOME=/tmp/abstract/data \
+  ./target/release/abstract /tmp/abstract/notes</code></pre>
         <h2>Development</h2>
         <pre><code>cargo fmt --check
 cargo clippy --all-targets -- -D warnings
 cargo test
 cargo build --release</code></pre>
+        <p>CI runs the same checks on Linux and macOS.</p>
+        <h2>Where things live</h2>
+        <table>
+          <thead>
+            <tr><th>Path</th><th>What it holds</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>src/app/</code></td><td>The window: sidebar, toolbar, search, find bar, tour and updates UI</td></tr>
+            <tr><td><code>src/editor.rs</code>, <code>src/buffer.rs</code></td><td>The live editor and its text buffer, selection and undo</td></tr>
+            <tr><td><code>src/md.rs</code>, <code>src/code.rs</code></td><td>Markdown parsing and concealment, code highlighting</td></tr>
+            <tr><td><code>src/table.rs</code>, <code>src/footnote.rs</code></td><td>Tables and footnotes</td></tr>
+            <tr><td><code>src/links.rs</code>, <code>src/search.rs</code>, <code>src/find.rs</code></td><td>Wiki-links and backlinks, space search, find &amp; replace</td></tr>
+            <tr><td><code>src/vault.rs</code>, <code>src/watch.rs</code>, <code>src/attach.rs</code></td><td>The note tree, file watching, attachments</td></tr>
+            <tr><td><code>src/store.rs</code>, <code>src/spaces.rs</code></td><td>Settings, session and the list of spaces</td></tr>
+            <tr><td><code>src/theme.rs</code>, <code>src/i18n.rs</code>, <code>src/keymap.rs</code></td><td>Themes, translations, shortcuts</td></tr>
+            <tr><td><code>assets/</code>, <code>packaging/</code></td><td>Bundled fonts and icons, and the AUR package files</td></tr>
+          </tbody>
+        </table>
       </article>
     </div>
     <!-- @footer -->

@@ -16,13 +16,31 @@
       </aside>
       <article class="docs-body">
         <h1>Links &amp; backlinks.</h1>
-        <p>Wiki-style linking between the notes in a space.</p>
+        <p>Wiki-style links between the notes in a space, stored as plain text you can read anywhere.</p>
         <h2>Wiki-links</h2>
-        <p>Type <code>[[note]]</code> to link to another note. Autocomplete suggests existing notes as you type the name.</p>
+        <p>Type <code>[[</code> and start a note's name. A list of matching notes opens under the cursor: <kbd>↑</kbd>/<kbd>↓</kbd> to choose, <kbd>Enter</kbd> to accept, <kbd>Esc</kbd> to close.</p>
+        <figure class="docs-fig">
+          <img src="/media/docs/autocomplete.webp" alt="Typing [[Mo in a note opens a suggestion list with the note Moodboard" width="1200" height="900" loading="lazy" decoding="async" />
+          <figcaption>Autocomplete suggests notes from the whole space as you type.</figcaption>
+        </figure>
+        <ul>
+          <li><code>[[Launch checklist]]</code> links by note name, without the <code>.md</code>, wherever the note lives in the tree.</li>
+          <li><code>[[Launch checklist|the checklist]]</code> shows <em>the checklist</em> as the link text.</li>
+          <li>Right-click → <strong>Add note link</strong> turns the selection into <code>[[…]]</code>. In the sidebar, <strong>Copy note link</strong> copies a ready-made link.</li>
+        </ul>
         <h2>Following a link</h2>
-        <p><kbd>Ctrl</kbd>/<kbd>⌘</kbd>-click follows a wiki-link. If the target note does not exist yet, it is created for you.</p>
+        <p><kbd>⌘</kbd>-click a wiki-link (<kbd>Ctrl</kbd>-click on Linux/Windows) to open the note. If no note has that name yet, abstract creates one with the name as its heading and opens it, so you can link first and write later.</p>
         <h2>Backlinks</h2>
-        <p>A backlinks panel under every note lists the notes that reference it — nothing to configure and no index to rebuild.</p>
+        <p>Under every note, <strong>Referenced by</strong> lists the notes that link to it. Click one to open it. Nothing to configure and no index to rebuild: the list comes from the files in the space.</p>
+        <figure class="docs-fig">
+          <img class="img-light" src="/media/docs/overview-light.webp" alt="A note with the Referenced by panel at the bottom listing a journal entry and another note" width="1200" height="900" loading="lazy" decoding="async" />
+          <img class="img-dark" src="/media/docs/overview-dark.webp" alt="The same note and backlinks panel in the dark theme" width="1200" height="900" loading="lazy" decoding="async" />
+          <figcaption>The backlinks panel sits at the bottom of the editor.</figcaption>
+        </figure>
+        <h2 id="renaming-keeps-links-working">Renaming keeps links working</h2>
+        <p>Rename a note with <kbd>F2</kbd>, from the sidebar, or by changing its heading, and every <code>[[old name]]</code> in the space becomes <code>[[new name]]</code>. Aliases are kept. If two notes share a name, abstract leaves the links alone rather than guess which one you meant.</p>
+        <h2>External links</h2>
+        <p>Select text and press <kbd>⌘</kbd><kbd>K</kbd> to turn it into <code>[text](url)</code>. Like every other marker, the URL part hides until the cursor is on the line.</p>
       </article>
     </div>
     <!-- @footer -->

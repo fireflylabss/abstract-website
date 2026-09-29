@@ -35,7 +35,22 @@ paru -S abstract-editor-bin  # prebuilt binary</code></pre>
         <pre><code>chmod +x abstract-&lt;version&gt;-linux-x86_64.AppImage
 ./abstract-&lt;version&gt;-linux-x86_64.AppImage</code></pre>
         <h2>Windows</h2>
-        <p><code>abstract-&lt;version&gt;-windows-x86_64.exe</code> — download and run. A <code>.zip</code> alternative is attached too; the icon is embedded in the exe.</p>
+        <p><code>abstract-&lt;version&gt;-windows-x86_64.exe</code> — download and run. It is portable, so there is no installer. A <code>.zip</code> with the README and license is attached too. SmartScreen may warn about an unknown publisher the first time: choose <strong>More info → Run anyway</strong>.</p>
+        <h2>Updates</h2>
+        <p>Once a day abstract checks GitHub for a newer release. When there is one, a notice appears in the app with a link to the release notes. <strong>Check for updates</strong> in the spaces menu turns the check off or on.</p>
+        <table>
+          <thead>
+            <tr><th>Installed from</th><th>What happens</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>macOS <code>.app</code>, Windows <code>.exe</code>, AppImage, Linux tarball</td><td>abstract downloads the update and installs it itself.</td></tr>
+            <tr><td><code>.deb</code>, <code>.rpm</code>, AUR, Homebrew</td><td>You get a notice. Update with your package manager.</td></tr>
+          </tbody>
+        </table>
+        <p>A self-update is only installed if the release's <code>SHA256SUMS</code> carries a valid minisign signature and the download matches its checksum. You can check a manual download the same way:</p>
+        <pre><code>sha256sum -c SHA256SUMS --ignore-missing   # shasum -a 256 -c on macOS</code></pre>
+        <h2>What changed</h2>
+        <p>Every release is listed in the <a href="/changelog/">changelog</a>.</p>
         <h2>From source</h2>
         <p>See <a href="/docs/build/">Build from source</a>.</p>
       </article>
