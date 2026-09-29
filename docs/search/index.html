@@ -16,11 +16,34 @@
       </aside>
       <article class="docs-body">
         <h1>Search.</h1>
-        <p>A palette over everything in the space.</p>
-        <h2>Open the palette</h2>
-        <p>Press <kbd>⌘</kbd><kbd>P</kbd> or <kbd>⌘</kbd><kbd>⇧</kbd><kbd>F</kbd> (<kbd>Ctrl</kbd> on Linux/Windows). The palette searches note titles and bodies across the whole space.</p>
-        <h2>Empty query</h2>
-        <p>With nothing typed, the palette lists your recently edited notes — the fastest way back to what you were doing.</p>
+        <p>One palette to find any note in the space, and a find bar for the note in front of you.</p>
+        <h2>Search the space</h2>
+        <p>Press <kbd>⌘</kbd><kbd>P</kbd> or <kbd>⌘</kbd><kbd>⇧</kbd><kbd>F</kbd> (<kbd>Ctrl</kbd> on Linux/Windows), or click the magnifier in the toolbar. Results match note titles and the text inside notes, with a snippet for body matches. <kbd>↑</kbd>/<kbd>↓</kbd> move, <kbd>Enter</kbd> opens, <kbd>Esc</kbd> closes.</p>
+        <figure class="docs-fig">
+          <img src="/media/docs/search.webp" alt="The search palette with the query launch, showing a title match and body matches with snippets" width="1200" height="900" loading="lazy" decoding="async" />
+          <figcaption>Searching <em>launch</em> finds the note named after it and every note that mentions it.</figcaption>
+        </figure>
+        <h2>Recent notes</h2>
+        <p>With an empty query, the palette lists the notes you edited most recently, so <kbd>⌘</kbd><kbd>P</kbd> <kbd>Enter</kbd> jumps back to what you were just working on.</p>
+        <figure class="docs-fig">
+          <img src="/media/docs/search-empty.webp" alt="The search palette with no query, listing recently edited notes" width="1200" height="900" loading="lazy" decoding="async" />
+          <figcaption>An empty palette is a list of recent notes.</figcaption>
+        </figure>
+        <p>To search for something already on the page, select it and choose <strong>Search for selection</strong> from the right-click menu.</p>
+        <h2>Find in a note</h2>
+        <p class="docs-note">Find &amp; replace lands in the release after v0.1.2.</p>
+        <p><kbd>⌘</kbd><kbd>F</kbd> opens the find bar above the note. If text is selected, it becomes the query. Every match is highlighted, and the bar shows which one you are on.</p>
+        <figure class="docs-fig">
+          <img src="/media/docs/find.webp" alt="The find and replace bar over a note, with a match count and every match highlighted in the text" width="1200" height="900" loading="lazy" decoding="async" />
+          <figcaption>The find bar with replace open.</figcaption>
+        </figure>
+        <ul>
+          <li><kbd>Enter</kbd> goes to the next match and <kbd>⇧</kbd><kbd>Enter</kbd> to the previous one. <kbd>F3</kbd> / <kbd>⇧</kbd><kbd>F3</kbd> (<kbd>⌘</kbd><kbd>G</kbd> / <kbd>⌘</kbd><kbd>⇧</kbd><kbd>G</kbd> on macOS) work from the editor too.</li>
+          <li>Search ignores case by default. The case button next to the query makes it case-sensitive.</li>
+          <li><kbd>Esc</kbd> closes the bar.</li>
+        </ul>
+        <h2>Replace</h2>
+        <p>Open the find bar with replace using <kbd>Ctrl</kbd><kbd>H</kbd> on Linux/Windows or <kbd>⌘</kbd><kbd>⌥</kbd><kbd>F</kbd> on macOS. In the replace field, <kbd>Enter</kbd> replaces the current match and moves on, and <kbd>⌘</kbd><kbd>Enter</kbd> replaces them all. Replace all is a single step, so one <kbd>⌘</kbd><kbd>Z</kbd> brings everything back.</p>
       </article>
     </div>
     <!-- @footer -->

@@ -16,15 +16,38 @@
       </aside>
       <article class="docs-body">
         <h1>Getting started.</h1>
-        <p>From zero to a saved note in under a minute.</p>
+        <p>From zero to a saved, linked note in a couple of minutes.</p>
+        <h2>Install</h2>
+        <p>Grab the build for your system from the <a href="/docs/install/">Install</a> page. On macOS, Gatekeeper may ask for one extra click on the first launch.</p>
         <h2>Open a folder</h2>
-        <p>abstract works on folders, not accounts. On first launch, open any directory — an existing notes folder or an empty one. That folder becomes a <strong>space</strong>. Press <kbd>⌘</kbd><kbd>O</kbd> (<kbd>Ctrl</kbd><kbd>O</kbd> on Linux/Windows) to switch spaces later.</p>
+        <p>abstract works on folders, not accounts. On first launch it opens a starter space called <strong>Pessoal</strong> in <code>~/.local/share/abstract/</code> (<code>%APPDATA%\abstract\</code> on Windows). To use your own notes, click the space name at the top of the sidebar and choose <strong>Open folder as space…</strong>, or press <kbd>⌘</kbd><kbd>O</kbd> (<kbd>Ctrl</kbd><kbd>O</kbd> on Linux/Windows).</p>
+        <figure class="docs-fig">
+          <img src="/media/docs/spaces-menu.webp" alt="The spaces menu open from the sidebar, listing two spaces with their paths, Open folder as space, Language and Check for updates" width="1200" height="900" loading="lazy" decoding="async" />
+          <figcaption>The spaces menu lists every folder you have opened. The same menu holds the language and update settings.</figcaption>
+        </figure>
+        <p>You can also pass a folder on the command line, which opens it as the active space:</p>
+        <pre><code>abstract ~/Documents/notes</code></pre>
         <h2>Write your first note</h2>
-        <p>Press <kbd>⌘</kbd><kbd>N</kbd> and start typing. The file is created on the first keystroke and named after the note's first heading. Writes are debounced — there is no save dialog, though <kbd>⌘</kbd><kbd>S</kbd> forces a write.</p>
+        <p>Press <kbd>⌘</kbd><kbd>N</kbd> and start typing. Begin with a heading:</p>
+        <pre><code># Weekly plan
+
+- [ ] Draft the release notes
+- [ ] Review **the docs**</code></pre>
+        <p>The file is created on the first keystroke and named after the first heading, so this note becomes <code>Weekly plan.md</code>. Change the heading later and the file follows it. There is no save button: writes happen a moment after you stop typing, and <kbd>⌘</kbd><kbd>S</kbd> forces one.</p>
+        <h2>Format as you type</h2>
+        <p>Markdown renders in place. Bold turns bold, checkboxes become clickable and code blocks get highlighted. The markers reappear only on the line your cursor is on. See <a href="/docs/markdown/">Markdown</a> for everything that renders.</p>
+        <h2>Link two notes</h2>
+        <p>Type <code>[[</code> and start a note's name. Pick it from the list, then <kbd>⌘</kbd>-click the link to jump there. The target note now shows your note under <strong>Referenced by</strong>. More in <a href="/docs/links/">Links &amp; backlinks</a>.</p>
+        <h2>Find it again</h2>
+        <p>Press <kbd>⌘</kbd><kbd>P</kbd> and type any word from a title or body. With an empty query the palette lists what you edited last. See <a href="/docs/search/">Search</a>.</p>
         <h2>Take the tour</h2>
-        <p>Press <kbd>F1</kbd> any time for the first-run tour. <kbd>Enter</kbd>/<kbd>→</kbd> advances, <kbd>←</kbd> goes back, <kbd>Esc</kbd> skips.</p>
+        <p>The first launch shows a six-step tour that points at the space switcher, the new note and folder buttons, the editor, autosave, the theme toggle and focus mode. Press <kbd>F1</kbd> to see it again.</p>
+        <figure class="docs-fig">
+          <img src="/media/docs/tour.webp" alt="The first tour step, a bubble next to the space switcher titled Spaces are real folders, with Skip and Next buttons" width="1200" height="900" loading="lazy" decoding="async" />
+          <figcaption>Step one of the tour. <kbd>Enter</kbd> or <kbd>→</kbd> advances, <kbd>←</kbd> goes back, <kbd>Esc</kbd> skips.</figcaption>
+        </figure>
         <h2>Make it yours</h2>
-        <p>Cycle the light/dark/system themes with <kbd>⌘</kbd><kbd>⇧</kbd><kbd>L</kbd>, and hide the sidebar with <kbd>⌘</kbd><kbd>\</kbd> when you want to focus.</p>
+        <p>Cycle the system, light and dark themes with <kbd>⌘</kbd><kbd>⇧</kbd><kbd>L</kbd> or the sun button in the toolbar. Hide the sidebar with <kbd>⌘</kbd><kbd>\</kbd> when you want only the page. Both choices, like everything else in abstract, are remembered next time.</p>
       </article>
     </div>
     <!-- @footer -->

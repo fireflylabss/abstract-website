@@ -17,16 +17,44 @@
       <article class="docs-body">
         <h1>abstract docs.</h1>
         <p>A minimal, local-first markdown notes editor, GPU-rendered with GPUI. Your notes are plain <code>.md</code> files in real folders on disk — no accounts, no sync daemon, no proprietary format. The folder is the app.</p>
+        <figure class="docs-fig">
+          <img class="img-light" src="/media/docs/overview-light.webp" alt="abstract with a space open: a folder tree in the sidebar and a rendered note with a callout, tasks, a code block and a backlinks panel" width="1200" height="900" decoding="async" />
+          <img class="img-dark" src="/media/docs/overview-dark.webp" alt="The same note in the dark theme" width="1200" height="900" decoding="async" />
+          <figcaption>The sidebar is the folder, the editor is the file, and the panel at the bottom lists every note that links here.</figcaption>
+        </figure>
         <h2>Where to start</h2>
         <ul>
-          <li><a href="/docs/install/">Install</a> — prebuilt downloads for macOS, Linux and Windows.</li>
-          <li><a href="/docs/getting-started/">Getting started</a> — open a folder, write your first note.</li>
-          <li><a href="/docs/spaces-and-notes/">Spaces &amp; notes</a> — how folders, files and the sidebar work.</li>
+          <li><a href="/docs/install/">Install</a> — downloads for macOS, Linux and Windows, and how updates work.</li>
+          <li><a href="/docs/getting-started/">Getting started</a> — open a folder and write your first note.</li>
+          <li><a href="/docs/spaces-and-notes/">Spaces &amp; notes</a> — folders, files, the sidebar and what lives on disk.</li>
+          <li><a href="/docs/markdown/">Markdown</a> — everything that renders, from tasks to callouts, tables and images.</li>
+          <li><a href="/docs/links/">Links &amp; backlinks</a> — <code>[[wiki-links]]</code> and how renames keep them working.</li>
+          <li><a href="/docs/search/">Search</a> — the palette across the space, and find &amp; replace in a note.</li>
+          <li><a href="/docs/themes/">Themes</a> — light, dark, system, and the interface language.</li>
           <li><a href="/docs/keyboard/">Keyboard</a> — every shortcut, per platform.</li>
+          <li><a href="/docs/build/">Build from source</a> — toolchain, dependencies and checks.</li>
         </ul>
-        <h2>What makes it different</h2>
-        <p>abstract stores nothing outside your folder. It renders markdown live as you type, watches the directory for edits made in other apps, restores your session exactly, and stays out of the way with a custom titlebar and two monochrome themes. The interface is available in English and Portuguese.</p>
-        <p>It is written in Rust on <a href="https://gpui.rs" target="_blank" rel="noreferrer">GPUI</a>, parses markdown with tree-sitter, and ships bundled Noto fonts so it renders identically on every platform. Apache-2.0.</p>
+        <h2>How it works</h2>
+        <ul>
+          <li><strong>A space is a folder.</strong> Open any directory and abstract shows it as a tree. There is no import step and no database.</li>
+          <li><strong>A note is a file.</strong> Each note is a <code>.md</code> file named after its first heading, saved as you type.</li>
+          <li><strong>Markdown stays markdown.</strong> Syntax renders in place and only shows while your cursor is on it. What is on disk is what you typed.</li>
+          <li><strong>Other apps are welcome.</strong> The folder is watched, so edits from another editor, a script or a sync client show up at once.</li>
+        </ul>
+        <h2>What is on disk</h2>
+        <p>A space is exactly what you see in your file manager. Pasted images go into an <code>attachments/</code> folder next to the note that uses them.</p>
+        <pre><code>Studio/
+├── Welcome.md
+├── Journal/
+│   └── 2026-09-29.md
+└── Projects/
+    ├── Launch checklist.md
+    ├── Website redesign.md
+    └── attachments/
+        └── moodboard.png</code></pre>
+        <p>abstract's own settings, the list of spaces and the last session are small text files kept outside your notes. <a href="/docs/spaces-and-notes/#where-abstract-keeps-its-own-files">Spaces &amp; notes</a> lists where.</p>
+        <h2>Built with</h2>
+        <p>abstract is written in Rust on <a href="https://gpui.rs" target="_blank" rel="noreferrer">GPUI</a>, parses markdown with tree-sitter, and ships bundled Noto Sans and Noto Sans Mono so it renders the same on Linux, macOS and Windows. It is licensed under Apache-2.0, and the interface is available in English and Portuguese.</p>
       </article>
     </div>
     <!-- @footer -->
