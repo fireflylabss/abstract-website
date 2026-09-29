@@ -214,7 +214,7 @@ button.link { appearance: none; border: 0; background: none; padding: 0; font: i
   font: inherit; font-size: var(--t-sm); padding: 5px 12px; border-radius: 999px; transition: background 0.2s, color 0.2s;
 }
 .seg [role=radio][aria-checked=true] { background: var(--fg); color: var(--bg); }
-.dl-dialog { border: 1px solid var(--line); border-radius: 18px; background: var(--bg); color: var(--fg); padding: 28px; width: min(92vw, 640px); max-height: min(88vh, 900px); }
+.dl-dialog { border: 1px solid var(--line); border-radius: 18px; background: var(--bg); color: var(--fg); padding: 28px; width: min(92vw, 640px); max-height: min(88vh, 900px); overscroll-behavior: contain; }
 .dl-dialog::backdrop { background: rgb(0 0 0 / 0.45); backdrop-filter: blur(6px); }
 .dl-dialog-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .dl-dialog-head h3 { margin: 0; font-size: var(--t-xl); letter-spacing: -0.02em; }

@@ -61,6 +61,9 @@ if (!lite) {
     requestAnimationFrame(raf);
   };
   requestAnimationFrame(raf);
+  document.querySelectorAll("dialog").forEach((d) => {
+    new MutationObserver(() => (d.open ? lenis.stop() : lenis.start())).observe(d, { attributes: true, attributeFilter: ["open"] });
+  });
 }
 
 /* ── latest release badge ─────────────────────────────────────────────── */
