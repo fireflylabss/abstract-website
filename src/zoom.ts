@@ -8,12 +8,10 @@ type Seg = { a: number; b: number; A: Cam; B: Cam };
 export type Stop = { id: string; part: string; h: string; p: string; z: number; free?: boolean };
 
 export const STOPS: Stop[] = [
-  { id: "p", part: "p", z: 1.9, h: "Markdown that renders as you type.", p: "Typora-style, powered by tree-sitter. Bold, italic, code and links render inline; the syntax only shows up while your cursor is on it." },
+  { id: "p", part: "p", z: 1.9, h: "Markdown that renders as you type.", p: "Bold, italic, code and links render inline. The syntax only shows up while your cursor is on it." },
   { id: "tasks", part: "tasks", z: 2.2, h: "Tasks you can click.", p: "Checkboxes toggle with a click and stay plain <code>- [x]</code> in the file. Code blocks get syntax highlighting." },
-  { id: "wl", part: "ul", z: 2.4, h: "Link notes to notes.", p: "<code>[[note]]</code> links with autocomplete. <kbd>⌘</kbd>-click follows one, creating the note if it does not exist yet." },
-  { id: "bl", part: "bl", z: 2.2, h: "See what links here.", p: "A backlinks panel under every note lists the notes that reference it. Nothing to configure." },
-  { id: "sb", part: "sb", z: 1.9, free: true, h: "Folders are spaces.", p: "The sidebar is your directory tree. Keep several spaces and switch with <kbd>⌘</kbd><kbd>O</kbd>; rename inline, drag nothing." },
-  { id: "words", part: "tb", z: 2.2, free: true, h: "Saved as you type.", p: "Writes are debounced. A note's file is created on the first keystroke and named after its first heading — no save dialog, ever." },
+  { id: "wl", part: "ul", z: 2.4, h: "Links, both ways.", p: "<code>[[note]]</code> links with autocomplete. <kbd>⌘</kbd>-click follows one, and a backlinks panel lists every note that points here." },
+  { id: "sb", part: "sb", z: 1.9, free: true, h: "A folder is a space.", p: "The sidebar is your directory tree and <kbd>⌘</kbd><kbd>O</kbd> switches spaces. Every note saves itself, named after its first heading." },
 ];
 
 const WW = 1200, WH = 760;
@@ -109,14 +107,14 @@ export function mountZoom(isStatic: boolean) {
     const hold = (S: Cam, d: number) => { timeline.push({ a: u, b: u + d, A: S, B: S }); u += d; };
     const move = (A: Cam, B: Cam, d: number) => { timeline.push({ a: u, b: u + d, A, B }); u += d; };
     hold(S0, 0.35);
-    move(S0, stops[0], 1.1);
+    move(S0, stops[0], 0.9);
     stops.forEach((S, i) => {
       stopCenters.push(u + 0.3);
       hold(S, 0.6);
       if (i < stops.length - 1) move(S, stops[i + 1], 0.5);
     });
-    move(stops[stops.length - 1], SE, 1.1);
-    hold(SE, 0.7);
+    move(stops[stops.length - 1], SE, 0.9);
+    hold(SE, 0.5);
     total = u;
     section.style.height = `${total * H + H}px`;
   }

@@ -4,33 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Search — abstract docs</title>
-    <meta name="theme-color" content="#f6f6f4" />
-    <link rel="icon" href="/media/logo.png" type="image/png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <script>
-      (() => { const t = localStorage.getItem("theme"); const p = t === "dark" || t === "light" ? t : "system"; const d = p === "system" ? matchMedia("(prefers-color-scheme: dark)").matches : p === "dark"; document.documentElement.dataset.theme = d ? "dark" : "light"; document.documentElement.dataset.themePref = p; if (matchMedia("(prefers-reduced-motion: reduce), (max-width: 860px), (hover: none) and (pointer: coarse)").matches) document.documentElement.classList.add("lite"); })();
-    </script>
+    <meta name="description" content="Search note titles and bodies in an abstract space with the command palette." />
+    <!-- @head -->
   </head>
   <body>
     <div class="grain" aria-hidden="true"></div>
     <!-- @topbar -->
     <div class="docs">
       <aside>
-        <nav class="docs-nav" aria-label="Docs">
-          <p class="docs-nav-heading">Docs</p>
-          <a href="/docs/">Overview</a>
-          <a href="/docs/getting-started/">Getting started</a>
-          <a href="/docs/spaces-and-notes/">Spaces &amp; notes</a>
-          <a href="/docs/markdown/">Markdown</a>
-          <a href="/docs/links/">Links &amp; backlinks</a>
-          <a href="/docs/search/" aria-current="page">Search</a>
-          <a href="/docs/themes/">Themes</a>
-          <a href="/docs/keyboard/">Keyboard</a>
-          <a href="/docs/install/">Install</a>
-          <a href="/docs/build/">Build from source</a>
-        </nav>
+        <!-- @docs-nav -->
       </aside>
       <article class="docs-body">
         <h1>Search.</h1>

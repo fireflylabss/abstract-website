@@ -1,3 +1,10 @@
+import "@fontsource/noto-sans/400.css";
+import "@fontsource/noto-sans/400-italic.css";
+import "@fontsource/noto-sans/500.css";
+import "@fontsource/noto-sans/600.css";
+import "@fontsource/noto-sans/700.css";
+import "@fontsource/noto-sans-mono/400.css";
+import "@fontsource/noto-sans-mono/500.css";
 import "./style.css";
 import "./zoom.css";
 import { animate, inView, stagger } from "motion";
@@ -76,9 +83,13 @@ if (!lite) {
       "linux-tar": /linux-x86_64\.tar\.gz$/,
       "linux-tar-arm64": /linux-aarch64\.tar\.gz$/,
       "linux-deb": /_amd64\.deb$/,
+      "linux-deb-arm64": /_arm64\.deb$/,
       "linux-rpm": /\.x86_64\.rpm$/,
+      "linux-rpm-arm64": /\.aarch64\.rpm$/,
       "linux-appimage": /linux-x86_64\.AppImage$/,
+      "linux-appimage-arm64": /linux-aarch64\.AppImage$/,
       "win-exe": /windows-x86_64\.exe$/,
+      "win-zip": /windows-x86_64\.zip$/,
     };
     for (const [key, re] of Object.entries(wanted)) {
       const asset = match(re);
@@ -104,7 +115,7 @@ if (!lite) {
   if (primary) {
     primary.classList.add("is-you");
     const tag = document.createElement("span");
-    tag.className = "plat-detect";
+    tag.className = "plat-detect label";
     tag.textContent = "Detected";
     primary.appendChild(tag);
   }

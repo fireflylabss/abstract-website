@@ -1,3 +1,10 @@
+import "@fontsource/noto-sans/400.css";
+import "@fontsource/noto-sans/400-italic.css";
+import "@fontsource/noto-sans/500.css";
+import "@fontsource/noto-sans/600.css";
+import "@fontsource/noto-sans/700.css";
+import "@fontsource/noto-sans-mono/400.css";
+import "@fontsource/noto-sans-mono/500.css";
 import "./style.css";
 import "./docs.css";
 import { setupTheme } from "./theme";
@@ -28,7 +35,7 @@ if (year) year.textContent = String(new Date().getFullYear());
       const toc = document.createElement("nav");
       toc.className = "toc";
       toc.setAttribute("aria-label", "On this page");
-      toc.innerHTML = `<p class="toc-heading">On this page</p><ol>${heads
+      toc.innerHTML = `<p class="toc-heading label">On this page</p><ol>${heads
         .map((h) => `<li><a href="#${h.id}">${h.textContent}</a></li>`)
         .join("")}</ol>`;
       container.appendChild(toc);

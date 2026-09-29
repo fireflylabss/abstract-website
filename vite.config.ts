@@ -1,8 +1,10 @@
 import { defineConfig } from "vite";
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
+import { dirname, relative, sep } from "node:path";
 
 const page = (p: string) => fileURLToPath(new URL(p, import.meta.url));
+const root = page("./");
 
 // Every page is `<route>/index.html` so URLs stay extension-less on any static host.
 const docs = [
@@ -19,18 +21,32 @@ const docs = [
 
 const base = process.env.BASE_PATH || "/";
 
-// Shared chrome: `<!-- @topbar -->` / `<!-- @footer -->` are filled from src/partials so every page stays in sync.
+// Shared chrome: `<!-- @name -->` markers are filled from src/partials so every page stays in sync.
 const partials = () => ({
   name: "partials",
   transformIndexHtml: {
     order: "pre" as const,
     handler: (html: string, ctx: { filename: string }) => {
       const isHome = ctx.filename === page("./index.html");
-      return html.replace(/<!-- @(topbar|footer) -->/g, (_, name: string) => {
-        const part = readFileSync(page(`./src/partials/${name}.html`), "utf8");
-        return isHome ? part.replace(/href="\/#/g, 'href="#') : part;
+      const route = "/" + relative(root, dirname(ctx.filename)).split(sep).join("/");
+      const self = route === "/" ? route : `${route}/`;
+      return html.replace(/<!-- @(head|topbar|footer|docs-nav) -->/g, (_, name: string) => {
+        const part = readFileSync(page(`./src/partials/${name}.html`), "utf8").trim();
+        const marked = part.replace(`href="${self}"`, `href="${self}" aria-current="page"`);
+        return isHome ? marked.replace(/href="\/#/g, 'href="#') : marked;
       });
     },
+  },
+});
+
+// Crawlers need absolute Open Graph URLs; the deploy workflow passes the site origin.
+const site = process.env.SITE_URL?.replace(/\/$/, "");
+const absoluteMeta = () => ({
+  name: "absolute-meta",
+  transformIndexHtml: {
+    order: "pre" as const,
+    handler: (html: string) =>
+      site ? html.replace(/(<meta property="og:(?:image|url)" content=")\/(?!\/)/g, `$1${site}/`) : html,
   },
 });
 
@@ -58,7 +74,7 @@ const legacyRedirects = () => ({
 
 export default defineConfig({
   base,
-  plugins: [partials(), rebaseLinks(), legacyRedirects()],
+  plugins: [partials(), rebaseLinks(), absoluteMeta(), legacyRedirects()],
   build: {
     rollupOptions: {
       input: {
