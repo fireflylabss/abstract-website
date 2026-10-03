@@ -69,6 +69,7 @@ syncMedia();
   const slides = [...(show?.querySelectorAll<HTMLElement>(".slide") ?? [])];
   const capH = document.getElementById("cap-h");
   const capP = document.getElementById("cap-p");
+  const capNum = document.getElementById("cap-num");
   const dotsEl = document.getElementById("dots");
   if (show && slides.length && capH && capP && dotsEl) {
     const INTERVAL = 5200;
@@ -98,6 +99,8 @@ syncMedia();
         }
       });
       dots.forEach((d, j) => d.classList.toggle("on", j === i));
+      if (capNum)
+        capNum.textContent = `${String(i + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
       const cap = CAPTIONS[i];
       if (cap) {
         capH.textContent = cap.h;
