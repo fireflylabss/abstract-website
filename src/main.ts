@@ -6,16 +6,12 @@ import "@fontsource/noto-sans/700.css";
 import "@fontsource/noto-sans-mono/400.css";
 import "@fontsource/noto-sans-mono/500.css";
 import "./style.css";
-import "./zoom.css";
 import { animate, inView, stagger } from "motion";
-import Lenis from "lenis";
-import "lenis/dist/lenis.css";
-import { mountZoom } from "./zoom";
 import { setupTheme } from "./theme";
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 // `html.lite` (set by the inline head script) means phones, touch devices or
-// reduced motion: static hero, no smooth scroll, blur filters or word reveals.
+// reduced motion: no smooth scroll, blur filters, word reveals or auto-rotation.
 const root = document.documentElement;
 const lite = reduced || root.classList.contains("lite");
 root.classList.toggle("lite", lite);
@@ -32,8 +28,7 @@ function syncMedia() {
     if (!v.src.endsWith(src)) {
       v.src = src;
       v.load();
-      const r = v.getBoundingClientRect();
-      if (!lite && r.bottom > 0 && r.top < innerHeight)
+      if (!lite && v.closest(".slide")?.classList.contains("on"))
         v.play().catch(() => { v.controls = true; });
     }
   });
@@ -50,23 +45,111 @@ syncMedia();
   solid();
 }
 
-/* ── scroll-driven zoom stage ─────────────────────────────────────────── */
-mountZoom(lite);
+/* ── feature rotation: one slide at a time, auto-advancing ────────────── */
+{
+  const CAPTIONS = [
+    {
+      h: "A folder is a space.",
+      p: "The sidebar is your directory tree — every note is a plain <code>.md</code> file, named after its first heading.",
+    },
+    {
+      h: "Search everything.",
+      p: "<kbd>⌘</kbd><kbd>P</kbd> opens a palette over note titles and bodies. Empty, it jumps back to what you edited last.",
+    },
+    {
+      h: "Focus mode.",
+      p: "<kbd>⌘</kbd><kbd>\\</kbd> hides the sidebar. Just you and the text, until you press it again.",
+    },
+    {
+      h: "Light, dark or system.",
+      p: "Two monochrome themes, no accent color fighting your text. <kbd>⌘</kbd><kbd>⇧</kbd><kbd>L</kbd> cycles, or it follows the system.",
+    },
+  ];
+  const show = document.getElementById("show");
+  const slides = [...(show?.querySelectorAll<HTMLElement>(".slide") ?? [])];
+  const capH = document.getElementById("cap-h");
+  const capP = document.getElementById("cap-p");
+  const dotsEl = document.getElementById("dots");
+  if (show && slides.length && capH && capP && dotsEl) {
+    const INTERVAL = 5200;
+    show.style.setProperty("--rot", `${INTERVAL}ms`);
+    const dots = slides.map((_, i) => {
+      const d = document.createElement("button");
+      d.className = "dot";
+      d.type = "button";
+      d.setAttribute("aria-label", CAPTIONS[i]?.h ?? `Slide ${i + 1}`);
+      d.addEventListener("click", () => { activate(i); play(); });
+      dotsEl.appendChild(d);
+      return d;
+    });
+    dots[0]?.classList.add("on");
 
-/* ── smooth scroll ────────────────────────────────────────────────────── */
-if (!lite) {
-  const lenis = new Lenis({ lerp: 0.1, anchors: { offset: -96 } });
-  const raf = (t: number) => {
-    lenis.raf(t);
-    requestAnimationFrame(raf);
-  };
-  requestAnimationFrame(raf);
-  document.querySelectorAll("dialog").forEach((d) => {
-    new MutationObserver(() => (d.open ? lenis.stop() : lenis.start())).observe(d, { attributes: true, attributeFilter: ["open"] });
-  });
+    let cur = 0;
+    let timer = 0;
+    const activate = (i: number) => {
+      cur = i;
+      slides.forEach((s, j) => {
+        const on = j === i;
+        s.classList.toggle("on", on);
+        const v = s.querySelector<HTMLVideoElement>("video");
+        if (v) {
+          if (on && !lite) v.play().catch(() => { v.controls = true; });
+          else v.pause();
+        }
+      });
+      dots.forEach((d, j) => d.classList.toggle("on", j === i));
+      const cap = CAPTIONS[i];
+      if (cap) {
+        capH.textContent = cap.h;
+        capP.innerHTML = cap.p;
+        if (!lite)
+          animate([capH, capP], { opacity: [0, 1], y: [6, 0] }, { duration: 0.45, ease: [0.22, 1, 0.36, 1] });
+      }
+    };
+    const play = () => {
+      show.classList.remove("paused");
+      if (lite) return;
+      clearInterval(timer);
+      show.classList.add("live");
+      timer = setInterval(() => activate((cur + 1) % slides.length), INTERVAL);
+    };
+    const pause = () => {
+      clearInterval(timer);
+      timer = 0;
+      show.classList.add("paused");
+    };
+    show.addEventListener("pointerenter", pause);
+    show.addEventListener("pointerleave", play);
+    show.addEventListener("focusin", pause);
+    show.addEventListener("focusout", play);
+    document.addEventListener("visibilitychange", () => (document.hidden ? pause() : play()));
+    play();
+  }
 }
 
-/* ── latest release badge ─────────────────────────────────────────────── */
+/* ── latest release badge + direct download links ─────────────────────── */
+const platform = /Mac|iPhone|iPad/i.test(navigator.userAgent)
+  ? "mac"
+  : /Win/i.test(navigator.userAgent)
+    ? "win"
+    : /Linux|X11/i.test(navigator.userAgent)
+      ? "linux"
+      : null;
+
+/* primary hero button: direct asset for the detected platform */
+{
+  const dl = document.getElementById("dl-main") as HTMLAnchorElement | null;
+  const preferred: Record<string, { key: string; name: string }> = {
+    mac: { key: "mac-arm", name: "macOS" },
+    win: { key: "win-exe", name: "Windows" },
+    linux: { key: "linux-appimage", name: "Linux" },
+  };
+  if (dl && platform && preferred[platform]) {
+    dl.dataset.asset = preferred[platform].key;
+    dl.textContent = `Download for ${preferred[platform].name}`;
+  }
+}
+
 (async () => {
   try {
     const res = await fetch("https://api.github.com/repos/fireflylabss/abstract/releases/latest", {
@@ -109,64 +192,21 @@ if (!lite) {
   }
 })();
 
-/* ── platform detection for download cards ────────────────────────────── */
+/* ── download dialog (data-open) + build pickers ──────────────────────── */
 {
-  const ua = navigator.userAgent;
-  const plat = /Mac|iPhone|iPad/i.test(ua) ? "mac" : /Win/i.test(ua) ? "win" : /Linux|X11/i.test(ua) ? "linux" : null;
-  const cards = [...document.querySelectorAll<HTMLElement>(".plat.dl")];
-  const primary = cards.find((c) => c.dataset.plat === plat);
-  if (primary) {
-    primary.classList.add("is-you");
-    const tag = document.createElement("span");
-    tag.className = "plat-detect label";
-    tag.textContent = "Detected";
-    primary.appendChild(tag);
-  }
-  document.querySelectorAll<HTMLButtonElement>("[data-open]").forEach((b) => {
+  document.querySelectorAll<HTMLElement>("[data-open]").forEach((b) => {
     const dialog = document.getElementById(b.dataset.open!) as HTMLDialogElement | null;
     if (!dialog) return;
-    b.addEventListener("click", () => dialog.showModal());
+    b.addEventListener("click", (e) => {
+      e.preventDefault();
+      dialog.showModal();
+    });
   });
   document.querySelectorAll<HTMLDialogElement>(".dl-dialog").forEach((dialog) => {
     dialog.querySelector(".dl-close")?.addEventListener("click", () => dialog.close());
     dialog.addEventListener("click", (e) => {
       if (e.target === dialog) dialog.close();
     });
-  });
-  cards.forEach((card) => {
-    card.querySelectorAll<HTMLButtonElement>(".seg [role=radio]").forEach((b) => {
-      b.addEventListener("click", () => {
-        card.querySelectorAll<HTMLButtonElement>(".seg [role=radio]").forEach((o) => {
-          o.setAttribute("aria-checked", String(o === b));
-        });
-        card.querySelectorAll<HTMLAnchorElement>("a[data-asset].btn").forEach((a) => {
-          a.hidden = a.dataset.asset !== b.dataset.for;
-        });
-      });
-    });
-  });
-}
-
-/* ── active nav link ──────────────────────────────────────────────────── */
-{
-  const links = [...document.querySelectorAll<HTMLAnchorElement>(".topnav a[href^='#']")];
-  const byId = new Map(links.map((a) => [a.hash.slice(1), a]));
-  const spy = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        const link = byId.get(e.target.id);
-        if (!link) continue;
-        if (e.isIntersecting) {
-          links.forEach((a) => a.removeAttribute("aria-current"));
-          link.setAttribute("aria-current", "true");
-        }
-      }
-    },
-    { rootMargin: "-40% 0px -55% 0px" },
-  );
-  byId.forEach((_, id) => {
-    const el = document.getElementById(id);
-    if (el) spy.observe(el);
   });
 }
 
@@ -214,14 +254,9 @@ if (!lite) {
         { opacity: 1, y: 0 },
         { duration: 0.8, delay: stagger(0.045), ease: [0.22, 1, 0.36, 1] },
       );
-      if (el.classList.contains("big")) {
-        words.forEach((w, i) => setTimeout(() => w.classList.add("on"), 300 + i * 70));
-      }
     },
     { margin: "0px 0px -15% 0px" },
   );
-} else {
-  document.querySelectorAll(".big .w").forEach((w) => w.classList.add("on"));
 }
 
 /* ── magnetic buttons ─────────────────────────────────────────────────── */
@@ -239,24 +274,12 @@ if (!lite && matchMedia("(pointer: fine)").matches) {
   });
 }
 
-/* ── videos: only play while visible (poster + tap to play on lite) ────── */
+/* ── videos on lite: poster + tap to play ─────────────────────────────── */
 if (lite) {
   document.querySelectorAll<HTMLVideoElement>(".clip video").forEach((v) => {
     v.removeAttribute("autoplay");
     v.controls = true;
   });
-} else {
-  const playWhenVisible = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        const v = e.target as HTMLVideoElement;
-        if (e.isIntersecting) v.play().catch(() => { v.controls = true; });
-        else v.pause();
-      }
-    },
-    { threshold: 0.2 },
-  );
-  document.querySelectorAll<HTMLVideoElement>(".clip video").forEach((v) => playWhenVisible.observe(v));
 }
 
 document.getElementById("year")!.textContent = String(new Date().getFullYear());
