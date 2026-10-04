@@ -26,7 +26,7 @@ export function setupTheme(reduced: boolean, onChange?: () => void) {
     const dark = resolveTheme(pref) === "dark";
     root.dataset.themePref = pref;
     root.dataset.theme = dark ? "dark" : "light";
-    if (metaTheme) metaTheme.content = dark ? "#0a0a0a" : "#f6f6f4";
+    if (metaTheme) metaTheme.content = dark ? "#16130f" : "#f4f1e8";
     buttons.forEach((b) =>
       b.setAttribute("aria-label", `Theme: ${pref} (click for ${NEXT[pref]})`),
     );

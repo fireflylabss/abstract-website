@@ -55,6 +55,27 @@
         <p>abstract's own settings, the list of spaces and the last session are small text files kept outside your notes. <a href="/docs/spaces-and-notes/#where-abstract-keeps-its-own-files">Spaces &amp; notes</a> lists where.</p>
         <h2>Built with</h2>
         <p>abstract is written in Rust on <a href="https://gpui.rs" target="_blank" rel="noreferrer">GPUI</a>, parses markdown with tree-sitter, and ships bundled Noto Sans and Noto Sans Mono so it renders the same on Linux, macOS and Windows. It is licensed under Apache-2.0, and the interface is available in English and Portuguese.</p>
+        <h2 id="faq">Frequently asked questions</h2>
+        <details class="q">
+          <summary>Where are my notes stored?</summary>
+          <p>As plain <code>.md</code> files inside the folder you opened as a space. No database, no proprietary format.</p>
+        </details>
+        <details class="q">
+          <summary>Does it sync?</summary>
+          <p>Not by itself. Put the folder inside whatever sync you already trust: Dropbox, iCloud Drive, Syncthing or git.</p>
+        </details>
+        <details class="q">
+          <summary>Can I use my existing markdown folder?</summary>
+          <p>Yes. Open it as a space and your notes are there. Edits made in other apps show up instantly.</p>
+        </details>
+        <details class="q">
+          <summary>Is it free?</summary>
+          <p>Yes. abstract is Apache-2.0 and the source is on GitHub.</p>
+        </details>
+        <details class="q">
+          <summary>Why does macOS say the app is damaged or from an unidentified developer?</summary>
+          <p>The app is ad-hoc signed. Right-click → Open on first launch, or run <code>xattr -dr com.apple.quarantine /Applications/abstract.app</code>.</p>
+        </details>
       </article>
     </div>
     <!-- @footer -->
