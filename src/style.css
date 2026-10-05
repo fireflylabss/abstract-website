@@ -311,8 +311,4 @@ footer > .wrap { position: relative; z-index: 1; padding-top: 72px; padding-bott
   .dl-arch { justify-content: flex-start; }
 }
 
-/* home: slim footer — the whole page is the pitch */
-body.home .foot-word, body.home .foot-brand, body.home .foot-cols { display: none; }
-body.home footer > .wrap { padding-top: 0; padding-bottom: 14px; }
-body.home .foot-bottom { border-top: 0; padding-top: 0; }
-body.home .foot-bottom > span:not(.credits) { display: none; }
+/* home: no footer — the whole page is the pitch */
