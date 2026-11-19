@@ -126,7 +126,7 @@ syncMedia();
       show.classList.remove("paused");
       clearInterval(timer);
       show.classList.add("live");
-      timer = setInterval(() => activate((cur + 1) % slides.length), INTERVAL);
+      timer = window.setInterval(() => activate((cur + 1) % slides.length), INTERVAL);
     };
     const pause = () => {
       clearInterval(timer);

@@ -1,4 +1,6 @@
 import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
 import { dirname, relative, sep } from "node:path";
@@ -74,7 +76,8 @@ const legacyRedirects = () => ({
 
 export default defineConfig({
   base,
-  plugins: [partials(), rebaseLinks(), absoluteMeta(), legacyRedirects()],
+  resolve: { alias: { "@": page("./src") } },
+  plugins: [react(), tailwindcss(), partials(), rebaseLinks(), absoluteMeta(), legacyRedirects()],
   build: {
     rollupOptions: {
       input: {
