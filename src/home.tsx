@@ -33,11 +33,17 @@ function FeatureVideo({ name, title }: { name: string; title: string }) {
 
 export function FeatureCarousel() {
   const { lite, dark } = useModes();
+  const region = useRef<HTMLElement>(null);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [hidden, setHidden] = useState(document.hidden);
+  useEffect(() => {
+    if (lite) return;
+    setFocused(region.current?.contains(document.activeElement) ?? false);
+    setHovered(region.current?.matches(":hover") ?? false);
+  }, [lite]);
   useEffect(() => {
     const sync = () => setHidden(document.hidden);
     document.addEventListener("visibilitychange", sync);
@@ -49,7 +55,7 @@ export function FeatureCarousel() {
     return () => window.clearInterval(timer);
   }, [lite, paused, hovered, focused, hidden]);
   const feature = features[index];
-  return <section className="feature" aria-label="App features" aria-roledescription="carousel"
+  return <section ref={region} className="feature" aria-label="App features" aria-roledescription="carousel"
     onPointerEnter={event => { if (event.pointerType === "mouse") setHovered(true); }} onPointerLeave={() => setHovered(false)}
     onFocus={() => setFocused(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
     {feature.video ? <FeatureVideo key={index} name={feature.video} title={feature.title} /> :

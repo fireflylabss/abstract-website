@@ -22,6 +22,8 @@ const media = (query: string) => {
 beforeEach(() => {
   medias.clear(); localStorage.clear();
   vi.stubGlobal("matchMedia", (query: string) => media(query));
+  vi.spyOn(HTMLMediaElement.prototype, "play").mockResolvedValue(undefined);
+  vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => {});
 });
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); vi.useRealTimers(); });
 const release: Release = { tag_name: "v1", name: "Version 1", html_url: "https://github.com/fireflylabss/abstract/releases/tag/v1", published_at: null, prerelease: false, draft: false, body: "## Changes\n- **Fast** notes\n- [Details](https://example.com)" };
@@ -51,11 +53,23 @@ it("does not resume the carousel while focused after leaving Lite", () => {
   vi.useFakeTimers();
   const view = render(<ModeProvider><FeatureCarousel /></ModeProvider>);
   const next = view.getByRole("button", { name: "Next feature" });
-  fireEvent.focus(next);
+  act(() => next.focus());
+  expect(document.activeElement).toBe(next);
   act(() => media(deviceQuery).change(true));
   act(() => media(deviceQuery).change(false));
   act(() => vi.advanceTimersByTime(10400));
   expect(view.getByRole("heading").textContent).toBe("A folder is a space.");
+});
+it("rechecks actual focus when a focused control disappears in Lite mode", () => {
+  vi.useFakeTimers();
+  const view = render(<ModeProvider><FeatureCarousel /></ModeProvider>);
+  const pause = view.getByRole("button", { name: "Pause feature rotation" });
+  act(() => pause.focus());
+  act(() => media(deviceQuery).change(true));
+  expect(document.activeElement).toBe(document.body);
+  act(() => media(deviceQuery).change(false));
+  act(() => vi.advanceTimersByTime(5200));
+  expect(view.getByRole("heading").textContent).toBe("Search everything.");
 });
 
 it("release API returns loading, populated and draft-filtered data", async () => {
