@@ -11,7 +11,7 @@ export function resolveTheme(pref: ThemePref): "light" | "dark" {
 
 const NEXT: Record<ThemePref, ThemePref> = { system: "light", light: "dark", dark: "system" };
 
-export function setupTheme(reduced: boolean, onChange?: () => void) {
+export function setupTheme(reduced: boolean | (() => boolean), onChange?: () => void) {
   const root = document.documentElement;
   const metaTheme = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
   const buttons = document.querySelectorAll<HTMLButtonElement>(".theme");
@@ -49,7 +49,8 @@ export function setupTheme(reduced: boolean, onChange?: () => void) {
         localStorage.setItem("theme", next);
         onChange?.();
       };
-      if (!document.startViewTransition || reduced || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const skipTransition = typeof reduced === "function" ? reduced() : reduced;
+      if (!document.startViewTransition || skipTransition || matchMedia("(prefers-reduced-motion: reduce)").matches) {
         swap();
         return;
       }

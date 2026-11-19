@@ -44,7 +44,7 @@ function syncMedia() {
   });
 }
 
-setupTheme(deviceLite.matches, syncMedia);
+setupTheme(() => lite, syncMedia);
 syncMedia();
 
 /* ── topbar ───────────────────────────────────────────────────────────── */
