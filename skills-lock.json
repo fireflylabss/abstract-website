@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "skills": {
+    "dot-cut": {
+      "source": "design.how",
+      "sourceUrl": "https://design.how/vault/dot-cut",
+      "sourceType": "well-known",
+      "computedHash": "f4d7cc333323ef8494d8e6ae9a3a8046438e2b163c8fcc819dd66ca00473d0e5",
+      "wellKnownDigest": "sha256:2ceed0f88e0a57cb82c52258d4052cd50dd9c6d027817a787395c8f9d2f998ab"
+    }
+  }
+}
