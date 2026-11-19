@@ -55,7 +55,7 @@ main.hero { flex: 1; display: flex; align-items: center; padding-block: calc(var
 .dots { display: flex; gap: var(--space-2); flex: none; }
 .dot { border: 0; padding: 0; width: var(--space-2); height: var(--space-2); background: var(--line-control); cursor: pointer; }
 .dot.on { background: var(--ink); }
-.dl-dialog { width: min(92vw, var(--overlay)); max-height: 88svh; padding: var(--space-6); border: 1px solid var(--line-frame); border-radius: var(--radius-frame); background: var(--surface-page); color: var(--text-1); box-shadow: var(--elev-overlay); }
+.dl-dialog { margin: auto; width: min(92vw, var(--overlay)); max-height: 88svh; padding: var(--space-6); border: 1px solid var(--line-frame); border-radius: var(--radius-frame); background: var(--surface-page); color: var(--text-1); box-shadow: var(--elev-overlay); }
 .dl-dialog::backdrop { background: var(--surface-overlay); }
 .dl-dialog-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-6); }
 .dl-dialog h3 { font: var(--type-heading); margin: 0; }
