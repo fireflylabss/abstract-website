@@ -1,0 +1,7 @@
+{
+  "scan": ["src"],
+  "ignore": ["src/components/quartz/**", "src/lib/quartz/**", "src/components/ui/**"],
+  "tokenFiles": ["src/dot-cut/scenes.ts", "src/brand.css"],
+  "legacyImports": ["(^|/)(style|docs|changelog)\\.css$", "(^|/)partials/", "(^|/)dot-cut/mount$", "(^|/)main$"],
+  "systemImports": ["^@/components/quartz/", "^@/lib/quartz/"]
+}
