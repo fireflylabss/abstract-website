@@ -22,7 +22,7 @@ export function mountDotCut(host: HTMLElement) {
     if (control) {
       control.hidden = motion.matches || deviceLite.matches;
       control.setAttribute("aria-pressed", String(paused));
-      control.setAttribute("aria-label", paused ? "Play hero animation" : "Pause hero animation");
+      control.setAttribute("aria-label", "Pause hero animation");
     }
     if (motion.matches || deviceLite.matches) {
       engine.stop();

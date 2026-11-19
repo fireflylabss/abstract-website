@@ -163,7 +163,7 @@ test("pause control stops and resumes, preserves pause when visibility changes, 
   assert.equal(h.control.hidden, false);
   h.control.dispatchEvent(new Event("click"));
   assert.equal(h.control.getAttribute("aria-pressed"), "true");
-  assert.equal(h.control.getAttribute("aria-label"), "Play hero animation");
+  assert.equal(h.control.getAttribute("aria-label"), "Pause hero animation");
   assert.equal(engine.starts, 1);
   h.visible(false);
   h.visible(true);
@@ -171,6 +171,7 @@ test("pause control stops and resumes, preserves pause when visibility changes, 
   h.control.dispatchEvent(new Event("click"));
   assert.equal(engine.starts, 2);
   assert.equal(h.control.getAttribute("aria-pressed"), "false");
+  assert.equal(h.control.getAttribute("aria-label"), "Pause hero animation");
   h.dispose();
   h.control.dispatchEvent(new Event("click"));
   assert.equal(engine.starts, 2);
