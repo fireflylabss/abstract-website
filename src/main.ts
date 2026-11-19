@@ -10,6 +10,7 @@ let lite = motion.matches || deviceLite.matches;
 const syncLite = () => {
   lite = motion.matches || deviceLite.matches;
   root.classList.toggle("lite", lite);
+  syncVideoControls();
 };
 syncLite();
 motion.addEventListener("change", syncLite);
@@ -280,7 +281,8 @@ if (!lite) {
 }
 
 /* ── videos on lite: poster + tap to play ─────────────────────────────── */
-if (lite) {
+function syncVideoControls() {
+  if (!lite) return;
   document.querySelectorAll<HTMLVideoElement>(".clip video").forEach((v) => {
     v.removeAttribute("autoplay");
     v.controls = true;
