@@ -7,7 +7,7 @@
     <meta name="description" content="Build abstract from source with the pinned Rust toolchain." />
     <!-- @head -->
   </head>
-  <body class="quartz">
+  <body>
     <div class="grain" aria-hidden="true"></div>
     <!-- @topbar -->
     <div class="docs">
@@ -19,30 +19,30 @@
         <p>The Rust toolchain is pinned via <code>rust-toolchain.toml</code> — rustup handles it automatically.</p>
         <h2>Dependencies</h2>
         <p><strong>macOS</strong></p>
-        <pre data-slot="code-block"><code>xcode-select --install</code></pre>
+        <pre><code>xcode-select --install</code></pre>
         <p><strong>Arch</strong></p>
-        <pre data-slot="code-block"><code>sudo pacman -S --needed rustup base-devel pkgconf libxkbcommon libxkbcommon-x11 \
+        <pre><code>sudo pacman -S --needed rustup base-devel pkgconf libxkbcommon libxkbcommon-x11 \
   libxcb xcb-util-wm xcb-util-image xcb-util-keysyms xcb-util-renderutil \
   wayland alsa-lib fontconfig</code></pre>
         <p><strong>Debian / Ubuntu</strong></p>
-        <pre data-slot="code-block"><code>sudo apt-get install libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
+        <pre><code>sudo apt-get install libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
   libxcb-icccm4-dev libxcb-image0-dev libxcb-render0-dev libxcb-shape0-dev \
   libxcb-xfixes0-dev libxcb-keysyms1-dev libwayland-dev pkg-config</code></pre>
         <p><strong>Windows</strong> — <a href="https://rustup.rs" target="_blank" rel="noreferrer">rustup</a> + Visual Studio Build Tools ("Desktop development with C++" workload).</p>
         <h2>Build &amp; run</h2>
-        <pre data-slot="code-block"><code>git clone https://github.com/fireflylabss/abstract
+        <pre><code>git clone https://github.com/fireflylabss/abstract
 cd abstract
 cargo build --release
 ./target/release/abstract   # abstract.exe on Windows</code></pre>
         <p>Pass a folder to open it as the active space:</p>
-        <pre data-slot="code-block"><code>cargo run --release -- ~/notes</code></pre>
+        <pre><code>cargo run --release -- ~/notes</code></pre>
         <p>To try a build without touching your real settings, point the XDG variables at a scratch directory (Linux and macOS):</p>
-        <pre data-slot="code-block"><code>XDG_CONFIG_HOME=/tmp/abstract/config \
+        <pre><code>XDG_CONFIG_HOME=/tmp/abstract/config \
 XDG_STATE_HOME=/tmp/abstract/state \
 XDG_DATA_HOME=/tmp/abstract/data \
   ./target/release/abstract /tmp/abstract/notes</code></pre>
         <h2>Development</h2>
-        <pre data-slot="code-block"><code>cargo fmt --check
+        <pre><code>cargo fmt --check
 cargo clippy --all-targets -- -D warnings
 cargo test
 cargo build --release</code></pre>

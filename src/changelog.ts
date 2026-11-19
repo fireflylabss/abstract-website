@@ -1,4 +1,3 @@
-import "./components/quartz/styles.css";
 import "./style.css";
 import "./changelog.css";
 import { setupTheme } from "./theme";
@@ -100,16 +99,16 @@ const fmtDate = (iso: string | null) =>
     box.innerHTML = releases
       .map((r) => {
         let badge = "";
-        if (r.prerelease) badge = '<span data-slot="badge" class="rel-badge">Pre-release</span>';
+        if (r.prerelease) badge = '<span class="rel-badge">Pre-release</span>';
         else if (!latestSeen) {
           latestSeen = true;
-          badge = '<span data-slot="badge" class="rel-badge latest">Latest</span>';
+          badge = '<span class="rel-badge latest">Latest</span>';
         }
         const title = r.name?.trim() || r.tag_name;
         const body = r.body?.trim()
           ? md(r.body)
           : '<p class="rel-empty">No notes for this release.</p>';
-        return `<article data-slot="card" class="rel" id="${esc(r.tag_name)}">
+        return `<article class="rel" id="${esc(r.tag_name)}">
   <header class="rel-head">
     <h2><a href="${esc(r.html_url)}" target="_blank" rel="noreferrer">${esc(title)}</a>${badge}</h2>
     <time datetime="${esc(r.published_at ?? "")}">${fmtDate(r.published_at)}</time>

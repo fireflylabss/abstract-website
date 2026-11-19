@@ -1,46 +1,26 @@
-/* Changelog page */
-.changelog { padding-block: calc(var(--topbar) + var(--space-8)); max-width: calc(var(--container) - var(--sidebar)); }
-.changelog h1 { font: var(--type-display); letter-spacing: var(--tracking-heading); margin: 0 0 var(--space-4); }
-.changelog .lede { color: var(--text-2); font: var(--type-body-lg); margin: 0 0 var(--space-10); }
-.changelog .lede a { color: var(--text-1); }
-
-.rel {
-  background: var(--surface-card);
-  border: 1px solid var(--line-frame);
-  border-radius: var(--radius-soft);
-  padding: var(--space-6) var(--space-8);
-  margin: 0 0 var(--space-5);
-}
-.rel-head {
-  display: flex; align-items: baseline; justify-content: space-between;
-  gap: var(--space-4); padding-bottom: var(--space-4); margin-bottom: var(--space-5);
-  border-bottom: 1px solid var(--line-frame);
-}
-.rel-head h2 { font: var(--type-heading); letter-spacing: var(--tracking-heading); margin: 0; display: flex; align-items: center; gap: var(--space-2); }
-.rel-head h2 a { color: var(--text-1); text-decoration: none; }
-.rel-head h2 a:hover { text-decoration: underline; }
-.rel-head time { color: var(--text-2); font: var(--type-label-sm); white-space: nowrap; }
-.rel-badge {
-  font: var(--type-label-sm);
-  color: var(--text-2); border: 1px solid var(--line-frame);
-  border-radius: var(--radius-soft); padding: var(--space-0-5) var(--space-2); vertical-align: middle;
-}
-.rel-badge.latest { color: var(--text-1); }
-.rel-body { color: var(--text-2); font: var(--type-body-lg); }
-.rel-body h3 { color: var(--text-1); font: var(--type-body-lg); margin: var(--space-5) 0 var(--space-2); }
-.rel-body h4 { color: var(--text-1); font: var(--type-body-lg); margin: var(--space-4) 0 var(--space-1); }
-.rel-body p { margin: var(--space-2) 0; }
-.rel-body ul { margin: var(--space-2) 0; padding-left: var(--space-5); }
-.rel-body li { margin: var(--space-1) 0; }
-.rel-body a { color: var(--text-1); overflow-wrap: anywhere; }
-.rel-body pre { overflow-x: auto; }
-.rel-empty { font-style: italic; }
-.rel-loading { color: var(--text-2); }
-.rel-loading a { color: var(--text-1); }
-
-.rel-body ul { list-style: disc; }
-.rel-head, .rel-head h2 { flex-wrap: wrap; }
+.changelog { max-width: 880px; padding-block: calc(var(--nav-height) + 40px) 80px; }
+.changelog h1 { margin: 0 0 20px; font-size: 48px; font-weight: 500; line-height: 1.05; letter-spacing: -.05em; }
+.changelog .lede { font-size: 17px; margin-bottom: 48px; }
+.changelog .lede a { color: var(--accent); }
+.rel { position: relative; padding: 0 0 40px; margin: 0 0 40px; border-bottom: 1px solid var(--line); }
+.rel::after { content: ""; position: absolute; bottom: -3px; left: 0; width: 36px; height: 6px; color: var(--accent); background: var(--dot-grid); background-size: 6px 6px; }
+.rel-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+.rel-head h2 { margin: 0; font-size: 28px; font-weight: 500; letter-spacing: -.035em; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.rel-head h2 a { color: var(--ink); }
+.rel-head time { color: var(--muted); font: 11px var(--visual-mono); white-space: nowrap; }
+.rel-badge { font: 10px var(--visual-mono); letter-spacing: 0; padding: 4px 7px; color: var(--accent); background: var(--accent-wash); border-radius: 2px; }
+.rel-body { color: var(--muted); font-size: 14px; }
+.rel-body h3, .rel-body h4 { color: var(--ink); font-weight: 500; font-size: 16px; letter-spacing: -.02em; margin: 24px 0 12px; }
+.rel-body p { margin: 12px 0; }
+.rel-body ul, .rel-body ol { padding-inline-start: 20px; }
+.rel-body li { margin-block: 8px; }
+.rel-body li::marker { color: var(--accent); }
+.rel-body a { color: var(--accent); overflow-wrap: anywhere; text-decoration: underline; text-underline-offset: 3px; }
+.rel-body pre { overflow-x: auto; padding: 16px; background: var(--surface); }
+.rel-empty, .rel-loading { color: var(--muted); }
+.rel-loading a { color: var(--accent); text-decoration: underline; }
 @media (max-width: 860px) {
-  .changelog { padding-top: calc(var(--topbar) + var(--space-10)); }
-  .rel { padding: var(--space-4); }
+  .changelog { padding-top: calc(var(--nav-height) + 28px); }
+  .changelog h1 { font-size: 38px; }
+  .changelog .lede { font-size: 15px; }
 }

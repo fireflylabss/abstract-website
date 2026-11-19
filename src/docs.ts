@@ -1,4 +1,3 @@
-import "./components/quartz/styles.css";
 import "./style.css";
 import "./docs.css";
 import { setupTheme } from "./theme";

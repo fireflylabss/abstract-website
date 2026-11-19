@@ -1,7 +1,16 @@
-import "./components/quartz/styles.css";
 import "./style.css";
 import { animate, inView, stagger } from "motion";
 import { setupTheme } from "./theme";
+import { mountDotCut } from "./dot-cut/mount";
+
+const field = document.querySelector<HTMLElement>("[data-dot-cut]");
+if (field) {
+  const dispose = mountDotCut(field);
+  addEventListener("pagehide", event => {
+    if (!event.persisted) dispose();
+  });
+  if (import.meta.hot) import.meta.hot.dispose(dispose);
+}
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 // `html.lite` (set by the inline head script) means phones, touch devices or
@@ -251,21 +260,6 @@ if (!lite) {
     },
     { margin: "0px 0px -15% 0px" },
   );
-}
-
-/* ── magnetic buttons ─────────────────────────────────────────────────── */
-if (!lite && matchMedia("(pointer: fine)").matches) {
-  document.querySelectorAll<HTMLElement>(".btn").forEach((btn) => {
-    btn.addEventListener("pointermove", (e) => {
-      const r = btn.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width - 0.5) * 8;
-      const y = ((e.clientY - r.top) / r.height - 0.5) * 8;
-      animate(btn, { x, y }, { duration: 0.3 });
-    });
-    btn.addEventListener("pointerleave", () => {
-      animate(btn, { x: 0, y: 0 }, { duration: 0.4 });
-    });
-  });
 }
 
 /* ── videos on lite: poster + tap to play ─────────────────────────────── */

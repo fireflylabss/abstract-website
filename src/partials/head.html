@@ -1,5 +1,5 @@
     <meta name="theme-color" content="Canvas" />
-    <link rel="icon" href="/media/logo.png" type="image/png" />
+    <link rel="icon" href="/media/logo.svg" type="image/svg+xml" />
     <script>
       (() => { const t = localStorage.getItem("theme"); const p = t === "dark" || t === "light" ? t : "system"; const d = p === "system" ? matchMedia("(prefers-color-scheme: dark)").matches : p === "dark"; document.documentElement.dataset.theme = d ? "dark" : "light"; document.documentElement.dataset.themePref = p; if (matchMedia("(prefers-reduced-motion: reduce), (max-width: 860px), (hover: none) and (pointer: coarse)").matches) document.documentElement.classList.add("lite"); })();
     </script>

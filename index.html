@@ -9,14 +9,15 @@
     <meta property="og:description" content="Your notes outlive the app. A local-first markdown notes editor, GPU-rendered." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="/" />
-    <meta property="og:image" content="/media/hero-light.png" />
+    <meta property="og:image" content="/media/abstract-og.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <!-- @head -->
   </head>
-  <body class="quartz home">
+  <body class="home">
     <!-- @topbar -->
 
     <main class="hero wrap">
+      <div class="dot-field" data-dot-cut role="img" aria-label="Abstract: a field of touching circles with A, markdown symbols and geometric patterns cut out of it."></div>
       <div class="hero-grid">
         <div class="hero-copy">
           <h1 class="headline" data-split>Your notes <em>outlive the app.</em></h1>
@@ -25,8 +26,8 @@
             folders, on your disk. No accounts, no sync daemon, no proprietary format. The folder is the app.
           </p>
           <div class="cta">
-            <a data-slot="button" class="btn" id="dl-main" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Download Abstract</a>
-            <button data-slot="button" class="btn btn-ghost" type="button" data-open="dl-all">All platforms →</button>
+            <a class="btn" id="dl-main" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Download Abstract</a>
+            <button class="btn btn-ghost" type="button" data-open="dl-all">All platforms →</button>
           </div>
           <p class="credits">made at <a href="https://github.com/fireflylabss" target="_blank" rel="noreferrer">fireflylabs</a></p>
         </div>
@@ -66,25 +67,25 @@
       <div class="dl-group">
         <h4 class="label">macOS</h4>
         <ul class="dl-list">
-          <li><span>.dmg <small>Drag to Applications</small></span><span class="dl-arch"><a data-slot="button" class="btn btn-sm" data-asset="mac-arm" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Apple Silicon</a><a data-slot="button" class="btn btn-sm" data-asset="mac-intel" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Intel</a></span></li>
+          <li><span>.dmg <small>Drag to Applications</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="mac-arm" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Apple Silicon</a><a class="btn btn-sm" data-asset="mac-intel" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Intel</a></span></li>
         </ul>
         <p class="dl-note">Ad-hoc signed: right-click → Open on first launch, or run <code>xattr -dr com.apple.quarantine /Applications/abstract.app</code>.</p>
       </div>
       <div class="dl-group">
         <h4 class="label">Linux</h4>
         <ul class="dl-list">
-          <li><span>AppImage <small>Portable: <code>chmod +x</code> and run</small></span><span class="dl-arch"><a data-slot="button" class="btn btn-sm" data-asset="linux-appimage" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a><a data-slot="button" class="btn btn-sm" data-asset="linux-appimage-arm64" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">arm64</a></span></li>
-          <li><span>.deb <small>Debian, Ubuntu, Mint</small></span><span class="dl-arch"><a data-slot="button" class="btn btn-sm" data-asset="linux-deb" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a><a data-slot="button" class="btn btn-sm" data-asset="linux-deb-arm64" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">arm64</a></span></li>
-          <li><span>.rpm <small>Fedora, openSUSE</small></span><span class="dl-arch"><a data-slot="button" class="btn btn-sm" data-asset="linux-rpm" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a><a data-slot="button" class="btn btn-sm" data-asset="linux-rpm-arm64" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">arm64</a></span></li>
-          <li><span>.tar.gz <small>Plain binary</small></span><span class="dl-arch"><a data-slot="button" class="btn btn-sm" data-asset="linux-tar" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a><a data-slot="button" class="btn btn-sm" data-asset="linux-tar-arm64" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">arm64</a></span></li>
-          <li><span>AUR <small>Arch, CachyOS: <code>paru -S abstract-editor-bin</code></small></span><span class="dl-arch"><a data-slot="button" class="btn btn-sm" href="https://aur.archlinux.org/packages/abstract-editor-bin" target="_blank" rel="noreferrer">Open</a></span></li>
+          <li><span>AppImage <small>Portable: <code>chmod +x</code> and run</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="linux-appimage" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a><a class="btn btn-sm" data-asset="linux-appimage-arm64" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">arm64</a></span></li>
+          <li><span>.deb <small>Debian, Ubuntu, Mint</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="linux-deb" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a><a class="btn btn-sm" data-asset="linux-deb-arm64" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">arm64</a></span></li>
+          <li><span>.rpm <small>Fedora, openSUSE</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="linux-rpm" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a><a class="btn btn-sm" data-asset="linux-rpm-arm64" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">arm64</a></span></li>
+          <li><span>.tar.gz <small>Plain binary</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="linux-tar" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a><a class="btn btn-sm" data-asset="linux-tar-arm64" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">arm64</a></span></li>
+          <li><span>AUR <small>Arch, CachyOS: <code>paru -S abstract-editor-bin</code></small></span><span class="dl-arch"><a class="btn btn-sm" href="https://aur.archlinux.org/packages/abstract-editor-bin" target="_blank" rel="noreferrer">Open</a></span></li>
         </ul>
       </div>
       <div class="dl-group">
         <h4 class="label">Windows</h4>
         <ul class="dl-list">
-          <li><span>Installer <small>.exe, download and run</small></span><span class="dl-arch"><a data-slot="button" class="btn btn-sm" data-asset="win-exe" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a></span></li>
-          <li><span>.zip <small>Portable</small></span><span class="dl-arch"><a data-slot="button" class="btn btn-sm" data-asset="win-zip" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a></span></li>
+          <li><span>Installer <small>.exe, download and run</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="win-exe" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a></span></li>
+          <li><span>.zip <small>Portable</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="win-zip" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a></span></li>
         </ul>
       </div>
       <div class="dl-foot">
