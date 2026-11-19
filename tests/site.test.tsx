@@ -4,7 +4,7 @@ import { ModeProvider, useModes, deviceQuery, reducedQuery } from "../src/modes"
 import { assetUrl, preferredPlatform, useReleases, type Release } from "../src/releases";
 import { ReleaseList } from "../src/changelog-page";
 import { releaseMarkdown } from "../src/markdown";
-import { allDocs } from "../src/docs-page";
+import { allDocs, DocsPage } from "../src/docs-page";
 import { Content, safeHref, textContent } from "../src/content";
 import { FeatureCarousel } from "../src/home";
 import { docsLinks } from "../src/site";
@@ -128,6 +128,21 @@ it("renders only the screenshot matching the current theme", () => {
   act(() => media("(prefers-color-scheme: dark)").change(true));
   expect(view.getAllByRole("img")).toHaveLength(1);
   expect(view.getByRole("img").getAttribute("src")).toContain("overview-dark");
+});
+it.each([["#faq", 1], ["", 0], ["#%bad", 0]] as const)("restores docs fragments after React mounts: %s", (hash, calls) => {
+  const original = Element.prototype.scrollIntoView;
+  const scroll = vi.fn();
+  Object.defineProperty(Element.prototype, "scrollIntoView", { configurable: true, value: scroll });
+  vi.stubGlobal("IntersectionObserver", class { observe() {} disconnect() {} });
+  history.replaceState(null, "", "/docs/" + hash);
+  try {
+    const view = render(<DocsPage route="/docs/" />);
+    expect(scroll).toHaveBeenCalledTimes(calls);
+    if (calls) expect(scroll.mock.contexts[0]).toBe(view.container.querySelector("#faq"));
+  } finally {
+    history.replaceState(null, "", "/");
+    Object.defineProperty(Element.prototype, "scrollIntoView", { configurable: true, value: original });
+  }
 });
 it("selects direct assets when available, otherwise keeps release links", () => {
   expect(assetUrl(undefined, "mac-arm")).toMatch(/releases\/latest$/);

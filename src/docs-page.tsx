@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Item } from "@/components/quartz/ui/item";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/quartz/ui/collapsible";
 import { Content, slug, textContent, type ContentNode } from "./content";
@@ -15,6 +15,12 @@ function DocsNavigation({ route }: { route: string }) {
 
 export function DocsPage({ route }: { route: string }) {
   const nodes = allDocs[route] ?? allDocs["/docs/"];
+  useLayoutEffect(() => {
+    if (!location.hash) return;
+    let id = location.hash.slice(1);
+    try { id = decodeURIComponent(id); } catch {}
+    document.getElementById(id)?.scrollIntoView();
+  }, [route]);
   const headings = nodes.filter(node => typeof node !== "string" && node.tag === "h2").map(node => ({
     title: textContent(node), id: typeof node === "string" ? "" : node.attrs?.id ?? slug(textContent(node)),
   }));
