@@ -116,9 +116,13 @@ syncMedia();
           animate([capH, capP], { opacity: [0, 1], y: [6, 0] }, { duration: 0.45, ease: [0.22, 1, 0.36, 1] });
       }
     };
+    const canPlay = () => !lite && !document.hidden && !show.matches(":hover") && !show.contains(document.activeElement);
     const play = () => {
+      if (!canPlay()) {
+        pause();
+        return;
+      }
       show.classList.remove("paused");
-      if (lite) return;
       clearInterval(timer);
       show.classList.add("live");
       timer = setInterval(() => activate((cur + 1) % slides.length), INTERVAL);
@@ -131,13 +135,16 @@ syncMedia();
     show.addEventListener("pointerenter", pause);
     show.addEventListener("pointerleave", play);
     show.addEventListener("focusin", pause);
-    show.addEventListener("focusout", play);
+    show.addEventListener("focusout", event => {
+      if (event.relatedTarget instanceof Node && show.contains(event.relatedTarget)) return;
+      play();
+    });
     document.addEventListener("visibilitychange", () => (document.hidden ? pause() : play()));
     const syncPlayback = () => {
       if (lite) {
         pause();
         slides.forEach(slide => slide.querySelector("video")?.pause());
-      } else if (!document.hidden) {
+      } else if (canPlay()) {
         play();
         slides[cur]?.querySelector("video")?.play().catch(() => {});
       }
