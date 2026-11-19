@@ -107,6 +107,7 @@ syncMedia();
           else v.pause();
         }
       });
+      syncVideoControls();
       dots.forEach((d, j) => d.classList.toggle("on", j === i));
       const cap = CAPTIONS[i];
       if (cap) {
@@ -289,10 +290,11 @@ if (!lite) {
 
 /* ── videos on lite: poster + tap to play ─────────────────────────────── */
 function syncVideoControls() {
-  if (!lite) return;
   document.querySelectorAll<HTMLVideoElement>(".clip video").forEach((v) => {
+    const active = v.closest(".slide")?.classList.contains("on") ?? false;
     v.removeAttribute("autoplay");
-    v.controls = true;
+    v.controls = lite && active;
+    v.inert = !active;
   });
 }
 
