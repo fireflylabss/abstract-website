@@ -3,6 +3,7 @@ import { FONT_VAR, PALETTES } from "./scenes";
 
 export function mountDotCut(host: HTMLElement) {
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
+  const deviceLite = matchMedia("(max-width: 860px), (hover: none) and (pointer: coarse)");
   const fine = matchMedia("(pointer: fine)");
   const control = host.parentElement?.querySelector<HTMLButtonElement>("[data-dot-pause]");
   const styles = getComputedStyle(host);
@@ -19,11 +20,11 @@ export function mountDotCut(host: HTMLElement) {
   const sync = () => {
     if (!engine?.ok) return;
     if (control) {
-      control.hidden = motion.matches || document.documentElement.classList.contains("lite");
+      control.hidden = motion.matches || deviceLite.matches;
       control.setAttribute("aria-pressed", String(paused));
       control.setAttribute("aria-label", paused ? "Play hero animation" : "Pause hero animation");
     }
-    if (motion.matches || document.documentElement.classList.contains("lite")) {
+    if (motion.matches || deviceLite.matches) {
       engine.stop();
       if (!still) {
         engine.destroy();
@@ -44,6 +45,7 @@ export function mountDotCut(host: HTMLElement) {
   observer.observe(host);
   document.addEventListener("visibilitychange", sync);
   motion.addEventListener("change", sync);
+  deviceLite.addEventListener("change", sync);
   const onToggle = () => {
     paused = !paused;
     sync();
@@ -68,6 +70,7 @@ export function mountDotCut(host: HTMLElement) {
     observer.disconnect();
     document.removeEventListener("visibilitychange", sync);
     motion.removeEventListener("change", sync);
+    deviceLite.removeEventListener("change", sync);
     control?.removeEventListener("click", onToggle);
     host.removeEventListener("pointermove", onMove);
     host.removeEventListener("pointerleave", onLeave);

@@ -49,7 +49,7 @@ export function setupTheme(reduced: boolean, onChange?: () => void) {
         localStorage.setItem("theme", next);
         onChange?.();
       };
-      if (!document.startViewTransition || reduced) {
+      if (!document.startViewTransition || reduced || matchMedia("(prefers-reduced-motion: reduce)").matches) {
         swap();
         return;
       }

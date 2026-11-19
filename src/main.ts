@@ -3,6 +3,18 @@ import { animate, inView, stagger } from "motion";
 import { setupTheme } from "./theme";
 import { mountDotCut } from "./dot-cut/mount";
 
+const motion = matchMedia("(prefers-reduced-motion: reduce)");
+const deviceLite = matchMedia("(max-width: 860px), (hover: none) and (pointer: coarse)");
+const root = document.documentElement;
+let lite = motion.matches || deviceLite.matches;
+const syncLite = () => {
+  lite = motion.matches || deviceLite.matches;
+  root.classList.toggle("lite", lite);
+};
+syncLite();
+motion.addEventListener("change", syncLite);
+deviceLite.addEventListener("change", syncLite);
+
 const field = document.querySelector<HTMLElement>("[data-dot-cut]");
 if (field) {
   const dispose = mountDotCut(field);
@@ -12,12 +24,6 @@ if (field) {
   if (import.meta.hot) import.meta.hot.dispose(dispose);
 }
 
-const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-// `html.lite` (set by the inline head script) means phones, touch devices or
-// reduced motion: no smooth scroll, blur filters, word reveals or auto-rotation.
-const root = document.documentElement;
-const lite = reduced || root.classList.contains("lite");
-root.classList.toggle("lite", lite);
 const asset = (p: string) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
 
 /* ── theme + media sync ───────────────────────────────────────────────── */
@@ -37,7 +43,7 @@ function syncMedia() {
   });
 }
 
-setupTheme(lite, syncMedia);
+setupTheme(deviceLite.matches, syncMedia);
 syncMedia();
 
 /* ── topbar ───────────────────────────────────────────────────────────── */
@@ -126,6 +132,17 @@ syncMedia();
     show.addEventListener("focusin", pause);
     show.addEventListener("focusout", play);
     document.addEventListener("visibilitychange", () => (document.hidden ? pause() : play()));
+    const syncPlayback = () => {
+      if (lite) {
+        pause();
+        slides.forEach(slide => slide.querySelector("video")?.pause());
+      } else if (!document.hidden) {
+        play();
+        slides[cur]?.querySelector("video")?.play().catch(() => {});
+      }
+    };
+    motion.addEventListener("change", syncPlayback);
+    deviceLite.addEventListener("change", syncPlayback);
     play();
   }
 }

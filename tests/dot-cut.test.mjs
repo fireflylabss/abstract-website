@@ -28,6 +28,8 @@ function harness({ reduced = false, lite = false, fine = true, ok = true } = {})
   }
   const motion = new EventTarget();
   motion.matches = reduced;
+  const device = new EventTarget();
+  device.matches = lite;
   let intersect;
   let disconnected = false;
   let fontsReady;
@@ -47,7 +49,7 @@ function harness({ reduced = false, lite = false, fine = true, ok = true } = {})
     exports, document,
     require: name => name === "./engine" ? { DotCut: Engine } : { FONT_VAR: "--visual-sans", PALETTES: [["#8aa9ff", "#1f45f5"]] },
     getComputedStyle: () => ({ getPropertyValue: () => "" }),
-    matchMedia: query => query.includes("pointer") ? { matches: fine } : motion,
+    matchMedia: query => query.includes("reduced-motion") ? motion : query.includes("pointer: fine") ? { matches: fine } : device,
     IntersectionObserver: class {
       constructor(callback) { intersect = callback; }
       observe() {}
@@ -56,7 +58,7 @@ function harness({ reduced = false, lite = false, fine = true, ok = true } = {})
   });
   const dispose = exports.mountDotCut(host);
   return {
-    instances, motion, document, host, control, dispose,
+    instances, motion, device, document, host, control, dispose,
     ready: async () => { fontsReady(); await Promise.resolve(); },
     visible: value => intersect([{ isIntersecting: value, intersectionRatio: value ? 1 : 0 }]),
     disconnected: () => disconnected,
@@ -112,6 +114,21 @@ test("live reduced-motion changes replace animated scene with first settled fram
   h.motion.matches = false;
   h.motion.dispatchEvent(new Event("change"));
   assert.equal(h.instances[1].starts, 1);
+  h.dispose();
+});
+
+test("device Lite stays settled when reduced motion is turned off", async () => {
+  const h = harness({ reduced: true, lite: true });
+  await h.ready();
+  h.visible(true);
+  h.motion.matches = false;
+  h.motion.dispatchEvent(new Event("change"));
+  assert.equal(h.instances.at(-1).starts, 0);
+  assert.equal(h.control.hidden, true);
+  h.device.matches = false;
+  h.device.dispatchEvent(new Event("change"));
+  assert.equal(h.instances.at(-1).starts, 1);
+  assert.equal(h.control.hidden, false);
   h.dispose();
 });
 
