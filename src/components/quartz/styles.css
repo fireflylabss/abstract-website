@@ -22,6 +22,7 @@
 @source "../../pages";
 @source "../../src";
 @source "../../components";
+@source "../..";
 @source "../../lib/quartz";
 @source not "../../lib/quartz/lint";
 
@@ -539,4 +540,3 @@
     animation-range: 0 var(--fade-edge), calc(100% - var(--fade-edge)) 100%;
   }
 }
-
