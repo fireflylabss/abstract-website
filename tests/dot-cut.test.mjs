@@ -36,6 +36,11 @@ function harness({ reduced = false, lite = false, fine = true, ok = true } = {})
   document.documentElement = { classList: { contains: () => lite } };
   document.fonts = { ready: new Promise(resolve => { fontsReady = resolve; }) };
   const host = new EventTarget();
+  const control = new EventTarget();
+  const attributes = new Map();
+  control.setAttribute = (name, value) => attributes.set(name, value);
+  control.getAttribute = name => attributes.get(name);
+  host.parentElement = { querySelector: () => control };
   host.getBoundingClientRect = () => ({ left: 10, top: 20 });
   const exports = {};
   vm.runInNewContext(source, {
@@ -51,7 +56,7 @@ function harness({ reduced = false, lite = false, fine = true, ok = true } = {})
   });
   const dispose = exports.mountDotCut(host);
   return {
-    instances, motion, document, host, dispose,
+    instances, motion, document, host, control, dispose,
     ready: async () => { fontsReady(); await Promise.resolve(); },
     visible: value => intersect([{ isIntersecting: value, intersectionRatio: value ? 1 : 0 }]),
     disconnected: () => disconnected,
@@ -131,6 +136,27 @@ test("unmounted before fonts load does not build an engine", async () => {
   h.dispose();
   await h.ready();
   assert.equal(h.instances.length, 0);
+});
+
+test("pause control stops and resumes, preserves pause when visibility changes, and cleans up", async () => {
+  const h = harness();
+  await h.ready();
+  h.visible(true);
+  const engine = h.instances[0];
+  assert.equal(h.control.hidden, false);
+  h.control.dispatchEvent(new Event("click"));
+  assert.equal(h.control.getAttribute("aria-pressed"), "true");
+  assert.equal(h.control.getAttribute("aria-label"), "Play hero animation");
+  assert.equal(engine.starts, 1);
+  h.visible(false);
+  h.visible(true);
+  assert.equal(engine.starts, 1);
+  h.control.dispatchEvent(new Event("click"));
+  assert.equal(engine.starts, 2);
+  assert.equal(h.control.getAttribute("aria-pressed"), "false");
+  h.dispose();
+  h.control.dispatchEvent(new Event("click"));
+  assert.equal(engine.starts, 2);
 });
 
 test("unavailable canvas context does not start and still disposes", async () => {
