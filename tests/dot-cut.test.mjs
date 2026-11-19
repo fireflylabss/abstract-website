@@ -161,7 +161,9 @@ test("pause control stops and resumes, preserves pause when visibility changes, 
   h.visible(true);
   const engine = h.instances[0];
   assert.equal(h.control.hidden, false);
+  const stopsBeforePause = engine.stops;
   h.control.dispatchEvent(new Event("click"));
+  assert.equal(engine.stops, stopsBeforePause + 1);
   assert.equal(h.control.getAttribute("aria-pressed"), "true");
   assert.equal(h.control.getAttribute("aria-label"), "Pause hero animation");
   assert.equal(engine.starts, 1);
