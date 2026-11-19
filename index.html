@@ -11,97 +11,11 @@
     <meta property="og:url" content="/" />
     <meta property="og:image" content="/media/abstract-og.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <!-- @head -->
+    <meta name="theme-color" content="Canvas" />
+    <link rel="icon" href="/media/logo.svg" type="image/svg+xml" />
   </head>
-  <body class="quartz home">
-    <div id="root">
-    <!-- @topbar -->
-
-    <main class="hero wrap">
-      <div class="dot-hero">
-        <div class="dot-field" data-dot-cut role="img" aria-label="Abstract: a field of touching circles with A, markdown symbols and geometric patterns cut out of it."></div>
-        <button class="dot-control icon-btn" data-dot-pause type="button" aria-label="Pause hero animation" aria-pressed="false" hidden>
-          <svg class="pause" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 3h3v10H4zm5 0h3v10H9z"/></svg>
-          <svg class="play" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="m5 2 9 6-9 6z"/></svg>
-        </button>
-      </div>
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <h1 class="headline" data-split>Your notes <em>outlive the app.</em></h1>
-          <p class="lede">
-            A minimal notes editor that treats your notes as what they are: plain <code>.md</code> files in real
-            folders, on your disk. No accounts, no sync daemon, no proprietary format. The folder is the app.
-          </p>
-          <div class="cta">
-            <a class="btn" id="dl-main" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Download Abstract</a>
-            <button class="btn btn-ghost" type="button" data-open="dl-all">All platforms →</button>
-          </div>
-        </div>
-
-        <div class="show" id="show" data-reveal>
-          <div class="clip media">
-            <figure class="slide on">
-              <img class="img-light" src="/media/hero-light.png" alt="" width="1100" height="720" />
-              <img class="img-dark" src="/media/hero-dark.png" alt="" width="1100" height="720" />
-            </figure>
-            <figure class="slide">
-              <video class="vid" data-light="/media/clip-search.mp4" data-dark="/media/clip-search-dark.mp4" data-poster-light="/media/clip-search.jpg" data-poster-dark="/media/clip-search-dark.jpg" muted loop playsinline preload="metadata" title="Searching notes with the command palette"></video>
-            </figure>
-            <figure class="slide">
-              <video class="vid" data-light="/media/clip-focus.mp4" data-dark="/media/clip-focus-dark.mp4" data-poster-light="/media/clip-focus.jpg" data-poster-dark="/media/clip-focus-dark.jpg" muted loop playsinline preload="metadata" title="Focus mode hiding the sidebar"></video>
-            </figure>
-            <figure class="slide">
-              <video class="vid" data-light="/media/clip-theme.mp4" data-dark="/media/clip-theme-dark.mp4" data-poster-light="/media/clip-theme.jpg" data-poster-dark="/media/clip-theme-dark.jpg" muted loop playsinline preload="metadata" title="Switching between light and dark themes"></video>
-            </figure>
-          </div>
-          <div class="cap-row">
-            <div class="cap">
-              <h2 id="cap-h">A folder is a space.</h2>
-              <p id="cap-p">The sidebar is your directory tree — every note is a plain <code>.md</code> file, named after its first heading.</p>
-            </div>
-            <div class="dots" id="dots" aria-label="Feature slides"></div>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <dialog class="dl-dialog" id="dl-all" aria-labelledby="dl-all-title">
-      <div class="dl-dialog-head">
-        <h3 id="dl-all-title">All downloads</h3>
-        <button class="icon-btn dl-close" type="button" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-      </div>
-      <div class="dl-group">
-        <h4 class="label">macOS</h4>
-        <ul class="dl-list">
-          <li><span>.dmg <small>Drag to Applications</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="mac-arm" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Apple Silicon</a><a class="btn btn-sm" data-asset="mac-intel" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">Intel</a></span></li>
-        </ul>
-        <p class="dl-note">Ad-hoc signed: right-click → Open on first launch, or run <code>xattr -dr com.apple.quarantine /Applications/abstract.app</code>.</p>
-      </div>
-      <div class="dl-group">
-        <h4 class="label">Linux</h4>
-        <ul class="dl-list">
-          <li><span>AppImage <small>Portable: <code>chmod +x</code> and run</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="linux-appimage" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a><a class="btn btn-sm" data-asset="linux-appimage-arm64" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">arm64</a></span></li>
-          <li><span>.deb <small>Debian, Ubuntu, Mint</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="linux-deb" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a><a class="btn btn-sm" data-asset="linux-deb-arm64" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">arm64</a></span></li>
-          <li><span>.rpm <small>Fedora, openSUSE</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="linux-rpm" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a><a class="btn btn-sm" data-asset="linux-rpm-arm64" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">arm64</a></span></li>
-          <li><span>.tar.gz <small>Plain binary</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="linux-tar" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a><a class="btn btn-sm" data-asset="linux-tar-arm64" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">arm64</a></span></li>
-          <li><span>AUR <small>Arch, CachyOS: <code>paru -S abstract-editor-bin</code></small></span><span class="dl-arch"><a class="btn btn-sm" href="https://aur.archlinux.org/packages/abstract-editor-bin" target="_blank" rel="noreferrer">Open</a></span></li>
-        </ul>
-      </div>
-      <div class="dl-group">
-        <h4 class="label">Windows</h4>
-        <ul class="dl-list">
-          <li><span>Installer <small>.exe, download and run</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="win-exe" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a></span></li>
-          <li><span>.zip <small>Portable</small></span><span class="dl-arch"><a class="btn btn-sm" data-asset="win-zip" href="https://github.com/fireflylabss/abstract/releases/latest" target="_blank" rel="noreferrer">x86_64</a></span></li>
-        </ul>
-      </div>
-      <div class="dl-foot">
-        <a class="link" href="/docs/install/">Install guide →</a>
-        <a class="link" href="/docs/build/">Build from source →</a>
-      </div>
-    </dialog>
-
-
-    </div>
+  <body class="quartz">
+    <div id="root"></div>
     <script type="module" src="/src/react-main.tsx"></script>
   </body>
 </html>

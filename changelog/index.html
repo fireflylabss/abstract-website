@@ -5,22 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Changelog — abstract</title>
     <meta name="description" content="Release notes for abstract, the local-first markdown notes editor." />
-    <!-- @head -->
+    <meta name="theme-color" content="Canvas" />
+    <link rel="icon" href="/media/logo.svg" type="image/svg+xml" />
   </head>
-  <body>
-    <div class="grain" aria-hidden="true"></div>
-
-    <!-- @topbar -->
-
-    <main class="wrap changelog">
-      <h1>Changelog.</h1>
-      <p class="lede">Every release of abstract, straight from
-        <a href="https://github.com/fireflylabss/abstract/releases" target="_blank" rel="noreferrer">GitHub Releases</a>.</p>
-      <div id="releases"><p class="rel-loading">Loading releases…</p></div>
-    </main>
-
-    <!-- @footer -->
-
-    <script type="module" src="/src/changelog.ts"></script>
+  <body class="quartz">
+    <div id="root"></div>
+    <script type="module" src="/src/react-main.tsx"></script>
   </body>
 </html>

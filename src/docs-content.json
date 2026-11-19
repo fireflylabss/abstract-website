@@ -1,0 +1,6318 @@
+{
+  "/docs/build/": [
+    "\n        ",
+    {
+      "tag": "h1",
+      "children": [
+        "Build from source."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "The Rust toolchain is pinned via ",
+        {
+          "tag": "code",
+          "children": [
+            "rust-toolchain.toml"
+          ]
+        },
+        " — rustup handles it automatically."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Dependencies"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        {
+          "tag": "strong",
+          "children": [
+            "macOS"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "xcode-select --install"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        {
+          "tag": "strong",
+          "children": [
+            "Arch"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "sudo pacman -S --needed rustup base-devel pkgconf libxkbcommon libxkbcommon-x11 \\\n  libxcb xcb-util-wm xcb-util-image xcb-util-keysyms xcb-util-renderutil \\\n  wayland alsa-lib fontconfig"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        {
+          "tag": "strong",
+          "children": [
+            "Debian / Ubuntu"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "sudo apt-get install libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \\\n  libxcb-icccm4-dev libxcb-image0-dev libxcb-render0-dev libxcb-shape0-dev \\\n  libxcb-xfixes0-dev libxcb-keysyms1-dev libwayland-dev pkg-config"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        {
+          "tag": "strong",
+          "children": [
+            "Windows"
+          ]
+        },
+        " — ",
+        {
+          "tag": "a",
+          "children": [
+            "rustup"
+          ],
+          "attrs": {
+            "href": "https://rustup.rs",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        },
+        " + Visual Studio Build Tools (\"Desktop development with C++\" workload)."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Build & run"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "git clone https://github.com/fireflylabss/abstract\ncd abstract\ncargo build --release\n./target/release/abstract   # abstract.exe on Windows"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Pass a folder to open it as the active space:"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "cargo run --release -- ~/notes"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "To try a build without touching your real settings, point the XDG variables at a scratch directory (Linux and macOS):"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "XDG_CONFIG_HOME=/tmp/abstract/config \\\nXDG_STATE_HOME=/tmp/abstract/state \\\nXDG_DATA_HOME=/tmp/abstract/data \\\n  ./target/release/abstract /tmp/abstract/notes"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Development"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "cargo fmt --check\ncargo clippy --all-targets -- -D warnings\ncargo test\ncargo build --release"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "CI runs the same checks on Linux and macOS."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Where things live"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "table",
+      "children": [
+        "\n          ",
+        {
+          "tag": "thead",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "th",
+                  "children": [
+                    "Path"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "What it holds"
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "tbody",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/app/"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "The window: sidebar, toolbar, search, find bar, tour and updates UI"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/editor.rs"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/buffer.rs"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "The live editor and its text buffer, selection and undo"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/md.rs"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/code.rs"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Markdown parsing and concealment, code highlighting"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/table.rs"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/footnote.rs"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Tables and footnotes"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/links.rs"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/search.rs"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/find.rs"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Wiki-links and backlinks, space search, find & replace"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/vault.rs"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/watch.rs"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/attach.rs"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "The note tree, file watching, attachments"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/store.rs"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/spaces.rs"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Settings, session and the list of spaces"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/theme.rs"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/i18n.rs"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "src/keymap.rs"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Themes, translations, shortcuts"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "assets/"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "packaging/"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Bundled fonts and icons, and the AUR package files"
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n      "
+  ],
+  "/docs/getting-started/": [
+    "\n        ",
+    {
+      "tag": "h1",
+      "children": [
+        "Getting started."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "From zero to a saved, linked note in a couple of minutes."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Install"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Grab the build for your system from the ",
+        {
+          "tag": "a",
+          "children": [
+            "Install"
+          ],
+          "attrs": {
+            "href": "/docs/install/"
+          }
+        },
+        " page. On macOS, Gatekeeper may ask for one extra click on the first launch."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Open a folder"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "abstract works on folders, not accounts. On first launch it opens a starter space called ",
+        {
+          "tag": "strong",
+          "children": [
+            "Pessoal"
+          ]
+        },
+        " in ",
+        {
+          "tag": "code",
+          "children": [
+            "~/.local/share/abstract/"
+          ]
+        },
+        " (",
+        {
+          "tag": "code",
+          "children": [
+            "%APPDATA%\\abstract\\"
+          ]
+        },
+        " on Windows). To use your own notes, click the space name at the top of the sidebar and choose ",
+        {
+          "tag": "strong",
+          "children": [
+            "Open folder as space…"
+          ]
+        },
+        ", or press ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "O"
+          ]
+        },
+        " (",
+        {
+          "tag": "kbd",
+          "children": [
+            "Ctrl"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "O"
+          ]
+        },
+        " on Linux/Windows)."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/spaces-menu.webp",
+            "alt": "The spaces menu open from the sidebar, listing two spaces with their paths, Open folder as space, Language and Check for updates",
+            "width": "1200",
+            "height": "900"
+          }
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            "The spaces menu lists every folder you have opened. The same menu holds the language and update settings."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "You can also pass a folder on the command line, which opens it as the active space:"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "abstract ~/Documents/notes"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Write your first note"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Press ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "N"
+          ]
+        },
+        " and start typing. Begin with a heading:"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "# Weekly plan\n\n- [ ] Draft the release notes\n- [ ] Review **the docs**"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "The file is created on the first keystroke and named after the first heading, so this note becomes ",
+        {
+          "tag": "code",
+          "children": [
+            "Weekly plan.md"
+          ]
+        },
+        ". Change the heading later and the file follows it. There is no save button: writes happen a moment after you stop typing, and ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "S"
+          ]
+        },
+        " forces one."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Format as you type"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Markdown renders in place. Bold turns bold, checkboxes become clickable and code blocks get highlighted. The markers reappear only on the line your cursor is on. See ",
+        {
+          "tag": "a",
+          "children": [
+            "Markdown"
+          ],
+          "attrs": {
+            "href": "/docs/markdown/"
+          }
+        },
+        " for everything that renders."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Link two notes"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Type ",
+        {
+          "tag": "code",
+          "children": [
+            "[["
+          ]
+        },
+        " and start a note's name. Pick it from the list, then ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        "-click the link to jump there. The target note now shows your note under ",
+        {
+          "tag": "strong",
+          "children": [
+            "Referenced by"
+          ]
+        },
+        ". More in ",
+        {
+          "tag": "a",
+          "children": [
+            "Links & backlinks"
+          ],
+          "attrs": {
+            "href": "/docs/links/"
+          }
+        },
+        "."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Find it again"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Press ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "P"
+          ]
+        },
+        " and type any word from a title or body. With an empty query the palette lists what you edited last. See ",
+        {
+          "tag": "a",
+          "children": [
+            "Search"
+          ],
+          "attrs": {
+            "href": "/docs/search/"
+          }
+        },
+        "."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Take the tour"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "The first launch shows a six-step tour that points at the space switcher, the new note and folder buttons, the editor, autosave, the theme toggle and focus mode. Press ",
+        {
+          "tag": "kbd",
+          "children": [
+            "F1"
+          ]
+        },
+        " to see it again."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/tour.webp",
+            "alt": "The first tour step, a bubble next to the space switcher titled Spaces are real folders, with Skip and Next buttons",
+            "width": "1200",
+            "height": "900"
+          }
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            "Step one of the tour. ",
+            {
+              "tag": "kbd",
+              "children": [
+                "Enter"
+              ]
+            },
+            " or ",
+            {
+              "tag": "kbd",
+              "children": [
+                "→"
+              ]
+            },
+            " advances, ",
+            {
+              "tag": "kbd",
+              "children": [
+                "←"
+              ]
+            },
+            " goes back, ",
+            {
+              "tag": "kbd",
+              "children": [
+                "Esc"
+              ]
+            },
+            " skips."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Make it yours"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Cycle the system, light and dark themes with ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "⇧"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "L"
+          ]
+        },
+        " or the sun button in the toolbar. Hide the sidebar with ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "\\"
+          ]
+        },
+        " when you want only the page. Both choices, like everything else in abstract, are remembered next time."
+      ]
+    },
+    "\n      "
+  ],
+  "/docs/": [
+    "\n        ",
+    {
+      "tag": "h1",
+      "children": [
+        "abstract docs."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "A minimal, local-first markdown notes editor, GPU-rendered with GPUI. Your notes are plain ",
+        {
+          "tag": "code",
+          "children": [
+            ".md"
+          ]
+        },
+        " files in real folders on disk — no accounts, no sync daemon, no proprietary format. The folder is the app."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/overview-light.webp",
+            "alt": "abstract with a space open: a folder tree in the sidebar and a rendered note with a callout, tasks, a code block and a backlinks panel",
+            "width": "1200",
+            "height": "900"
+          },
+          "theme": "light"
+        },
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/overview-dark.webp",
+            "alt": "The same note in the dark theme",
+            "width": "1200",
+            "height": "900"
+          },
+          "theme": "dark"
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            "The sidebar is the folder, the editor is the file, and the panel at the bottom lists every note that links here."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Where to start"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "ul",
+      "children": [
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "a",
+              "children": [
+                "Install"
+              ],
+              "attrs": {
+                "href": "/docs/install/"
+              }
+            },
+            " — downloads for macOS, Linux and Windows, and how updates work."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "a",
+              "children": [
+                "Getting started"
+              ],
+              "attrs": {
+                "href": "/docs/getting-started/"
+              }
+            },
+            " — open a folder and write your first note."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "a",
+              "children": [
+                "Spaces & notes"
+              ],
+              "attrs": {
+                "href": "/docs/spaces-and-notes/"
+              }
+            },
+            " — folders, files, the sidebar and what lives on disk."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "a",
+              "children": [
+                "Markdown"
+              ],
+              "attrs": {
+                "href": "/docs/markdown/"
+              }
+            },
+            " — everything that renders, from tasks to callouts, tables and images."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "a",
+              "children": [
+                "Links & backlinks"
+              ],
+              "attrs": {
+                "href": "/docs/links/"
+              }
+            },
+            " — ",
+            {
+              "tag": "code",
+              "children": [
+                "[[wiki-links]]"
+              ]
+            },
+            " and how renames keep them working."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "a",
+              "children": [
+                "Search"
+              ],
+              "attrs": {
+                "href": "/docs/search/"
+              }
+            },
+            " — the palette across the space, and find & replace in a note."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "a",
+              "children": [
+                "Themes"
+              ],
+              "attrs": {
+                "href": "/docs/themes/"
+              }
+            },
+            " — light, dark, system, and the interface language."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "a",
+              "children": [
+                "Keyboard"
+              ],
+              "attrs": {
+                "href": "/docs/keyboard/"
+              }
+            },
+            " — every shortcut, per platform."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "a",
+              "children": [
+                "Build from source"
+              ],
+              "attrs": {
+                "href": "/docs/build/"
+              }
+            },
+            " — toolchain, dependencies and checks."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "How it works"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "ul",
+      "children": [
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "strong",
+              "children": [
+                "A space is a folder."
+              ]
+            },
+            " Open any directory and abstract shows it as a tree. There is no import step and no database."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "strong",
+              "children": [
+                "A note is a file."
+              ]
+            },
+            " Each note is a ",
+            {
+              "tag": "code",
+              "children": [
+                ".md"
+              ]
+            },
+            " file named after its first heading, saved as you type."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "strong",
+              "children": [
+                "Markdown stays markdown."
+              ]
+            },
+            " Syntax renders in place and only shows while your cursor is on it. What is on disk is what you typed."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "strong",
+              "children": [
+                "Other apps are welcome."
+              ]
+            },
+            " The folder is watched, so edits from another editor, a script or a sync client show up at once."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "What is on disk"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "A space is exactly what you see in your file manager. Pasted images go into an ",
+        {
+          "tag": "code",
+          "children": [
+            "attachments/"
+          ]
+        },
+        " folder next to the note that uses them."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "Studio/\n├── Welcome.md\n├── Journal/\n│   └── 2026-09-29.md\n└── Projects/\n    ├── Launch checklist.md\n    ├── Website redesign.md\n    └── attachments/\n        └── moodboard.png"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "abstract's own settings, the list of spaces and the last session are small text files kept outside your notes. ",
+        {
+          "tag": "a",
+          "children": [
+            "Spaces & notes"
+          ],
+          "attrs": {
+            "href": "/docs/spaces-and-notes/#where-abstract-keeps-its-own-files"
+          }
+        },
+        " lists where."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Built with"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "abstract is written in Rust on ",
+        {
+          "tag": "a",
+          "children": [
+            "GPUI"
+          ],
+          "attrs": {
+            "href": "https://gpui.rs",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        },
+        ", parses markdown with tree-sitter, and ships bundled Noto Sans and Noto Sans Mono so it renders the same on Linux, macOS and Windows. It is licensed under Apache-2.0, and the interface is available in English and Portuguese."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Frequently asked questions"
+      ],
+      "attrs": {
+        "id": "faq"
+      }
+    },
+    "\n        ",
+    {
+      "tag": "details",
+      "children": [
+        "\n          ",
+        {
+          "tag": "summary",
+          "children": [
+            "Where are my notes stored?"
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "p",
+          "children": [
+            "As plain ",
+            {
+              "tag": "code",
+              "children": [
+                ".md"
+              ]
+            },
+            " files inside the folder you opened as a space. No database, no proprietary format."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "details",
+      "children": [
+        "\n          ",
+        {
+          "tag": "summary",
+          "children": [
+            "Does it sync?"
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "p",
+          "children": [
+            "Not by itself. Put the folder inside whatever sync you already trust: Dropbox, iCloud Drive, Syncthing or git."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "details",
+      "children": [
+        "\n          ",
+        {
+          "tag": "summary",
+          "children": [
+            "Can I use my existing markdown folder?"
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "p",
+          "children": [
+            "Yes. Open it as a space and your notes are there. Edits made in other apps show up instantly."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "details",
+      "children": [
+        "\n          ",
+        {
+          "tag": "summary",
+          "children": [
+            "Is it free?"
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "p",
+          "children": [
+            "Yes. abstract is Apache-2.0 and the source is on GitHub."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "details",
+      "children": [
+        "\n          ",
+        {
+          "tag": "summary",
+          "children": [
+            "Why does macOS say the app is damaged or from an unidentified developer?"
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "p",
+          "children": [
+            "The app is ad-hoc signed. Right-click → Open on first launch, or run ",
+            {
+              "tag": "code",
+              "children": [
+                "xattr -dr com.apple.quarantine /Applications/abstract.app"
+              ]
+            },
+            "."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n      "
+  ],
+  "/docs/install/": [
+    "\n        ",
+    {
+      "tag": "h1",
+      "children": [
+        "Install."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Prebuilt artifacts are attached to each ",
+        {
+          "tag": "a",
+          "children": [
+            "GitHub Release"
+          ],
+          "attrs": {
+            "href": "https://github.com/fireflylabss/abstract/releases",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        },
+        "."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "macOS"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "abstract-<version>-macos-aarch64.dmg"
+          ]
+        },
+        " (Apple Silicon) or ",
+        {
+          "tag": "code",
+          "children": [
+            "...-macos-x86_64.dmg"
+          ]
+        },
+        " (Intel) — open and drag abstract to Applications. A ",
+        {
+          "tag": "code",
+          "children": [
+            ".app.zip"
+          ]
+        },
+        " alternative is attached too. Builds are ad-hoc signed (no Apple Developer ID), so Gatekeeper blocks the first launch: right-click → ",
+        {
+          "tag": "strong",
+          "children": [
+            "Open"
+          ]
+        },
+        ", or run:"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "xattr -dr com.apple.quarantine /Applications/abstract.app"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Linux"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "abstract-<version>-linux-x86_64.tar.gz"
+          ]
+        },
+        " (binary + docs), a ",
+        {
+          "tag": "code",
+          "children": [
+            ".deb"
+          ]
+        },
+        ", an ",
+        {
+          "tag": "code",
+          "children": [
+            ".rpm"
+          ]
+        },
+        ", or an ",
+        {
+          "tag": "code",
+          "children": [
+            ".AppImage"
+          ]
+        },
+        ". aarch64 builds are attached as ",
+        {
+          "tag": "code",
+          "children": [
+            "abstract-<version>-linux-aarch64.*"
+          ]
+        },
+        ". Works on Wayland and X11."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h3",
+      "children": [
+        "Arch / CachyOS (AUR)"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "paru -S abstract-editor      # build from source\nparu -S abstract-editor-bin  # prebuilt binary"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h3",
+      "children": [
+        "Debian / Ubuntu"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Download the ",
+        {
+          "tag": "code",
+          "children": [
+            ".deb"
+          ]
+        },
+        " from the latest release, then:"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "sudo dpkg -i abstract-editor_<version>_amd64.deb"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h3",
+      "children": [
+        "Fedora / RHEL"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Download the ",
+        {
+          "tag": "code",
+          "children": [
+            ".rpm"
+          ]
+        },
+        " from the latest release, then:"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "sudo dnf install ./abstract-editor-<version>-1.x86_64.rpm"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h3",
+      "children": [
+        "AppImage"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "chmod +x abstract-<version>-linux-x86_64.AppImage\n./abstract-<version>-linux-x86_64.AppImage"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Windows"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "abstract-<version>-windows-x86_64.exe"
+          ]
+        },
+        " — download and run. It is portable, so there is no installer. A ",
+        {
+          "tag": "code",
+          "children": [
+            ".zip"
+          ]
+        },
+        " with the README and license is attached too. SmartScreen may warn about an unknown publisher the first time: choose ",
+        {
+          "tag": "strong",
+          "children": [
+            "More info → Run anyway"
+          ]
+        },
+        "."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Updates"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Once a day abstract checks GitHub for a newer release. When there is one, a notice appears in the app with a link to the release notes. ",
+        {
+          "tag": "strong",
+          "children": [
+            "Check for updates"
+          ]
+        },
+        " in the spaces menu turns the check off or on."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "table",
+      "children": [
+        "\n          ",
+        {
+          "tag": "thead",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "th",
+                  "children": [
+                    "Installed from"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "What happens"
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "tbody",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "macOS ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        ".app"
+                      ]
+                    },
+                    ", Windows ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        ".exe"
+                      ]
+                    },
+                    ", AppImage, Linux tarball"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "abstract downloads the update and installs it itself."
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        ".deb"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        ".rpm"
+                      ]
+                    },
+                    ", AUR, Homebrew"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "You get a notice. Update with your package manager."
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "A self-update is only installed if the release's ",
+        {
+          "tag": "code",
+          "children": [
+            "SHA256SUMS"
+          ]
+        },
+        " carries a valid minisign signature and the download matches its checksum. You can check a manual download the same way:"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "sha256sum -c SHA256SUMS --ignore-missing   # shasum -a 256 -c on macOS"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "What changed"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Every release is listed in the ",
+        {
+          "tag": "a",
+          "children": [
+            "changelog"
+          ],
+          "attrs": {
+            "href": "/changelog/"
+          }
+        },
+        "."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "From source"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "See ",
+        {
+          "tag": "a",
+          "children": [
+            "Build from source"
+          ],
+          "attrs": {
+            "href": "/docs/build/"
+          }
+        },
+        "."
+      ]
+    },
+    "\n      "
+  ],
+  "/docs/keyboard/": [
+    "\n        ",
+    {
+      "tag": "h1",
+      "children": [
+        "Keyboard."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        {
+          "tag": "kbd",
+          "children": [
+            "Ctrl"
+          ]
+        },
+        " on Linux/Windows, ",
+        {
+          "tag": "kbd",
+          "children": [
+            "Cmd"
+          ]
+        },
+        " on macOS. Every command is also in a menu, so nothing here has to be memorized."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "App & notes"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "table",
+      "children": [
+        "\n          ",
+        {
+          "tag": "thead",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "th",
+                  "children": [
+                    "Action"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "Linux / Windows"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "macOS"
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "tbody",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "New note"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+N"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+N"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "New folder"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Shift+N"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Shift+N"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Open or switch space"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+O"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+O"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Save now"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+S"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+S"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Rename note"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "F2"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "F2"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Delete note"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Shift+Backspace"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Shift+Backspace"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Cycle theme"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Shift+L"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Shift+L"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Toggle sidebar"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+\\"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+\\"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Tour"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "F1"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "F1"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Quit"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "—"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Q"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Search & find"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "table",
+      "children": [
+        "\n          ",
+        {
+          "tag": "thead",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "th",
+                  "children": [
+                    "Action"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "Linux / Windows"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "macOS"
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "tbody",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Search notes"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+P"
+                      ]
+                    },
+                    " or ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Shift+F"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+P"
+                      ]
+                    },
+                    " or ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Shift+F"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Find in note"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+F"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+F"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Find & replace"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+H"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Alt+F"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Next match"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "F3"
+                      ]
+                    },
+                    " or ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Enter"
+                      ]
+                    },
+                    " in the bar"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+G"
+                      ]
+                    },
+                    " or ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Enter"
+                      ]
+                    },
+                    " in the bar"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Previous match"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Shift+F3"
+                      ]
+                    },
+                    " or ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Shift+Enter"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Shift+G"
+                      ]
+                    },
+                    " or ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Shift+Enter"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Replace all"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Enter"
+                      ]
+                    },
+                    " in the replace field"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Enter"
+                      ]
+                    },
+                    " in the replace field"
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Formatting"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "table",
+      "children": [
+        "\n          ",
+        {
+          "tag": "thead",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "th",
+                  "children": [
+                    "Action"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "Linux / Windows"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "macOS"
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "tbody",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Bold"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+B"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+B"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Italic"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+I"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+I"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Strikethrough"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Shift+X"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Shift+X"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Inline code"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+E"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+E"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Highlight"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Shift+H"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Shift+H"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Hidden comment"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+/"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+/"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "External link"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+K"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+K"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Paste as plain text"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Shift+V"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Shift+V"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Editing"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "table",
+      "children": [
+        "\n          ",
+        {
+          "tag": "thead",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "th",
+                  "children": [
+                    "Action"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "Linux / Windows"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "macOS"
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "tbody",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Undo / redo"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Z"
+                      ]
+                    },
+                    " / ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Shift+Z"
+                      ]
+                    },
+                    " or ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Y"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Z"
+                      ]
+                    },
+                    " / ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+Shift+Z"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Jump by word"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+←/→"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Alt+←/→"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Select by word"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Shift+←/→"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Alt+Shift+←/→"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Start / end of line"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Home"
+                      ]
+                    },
+                    " / ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "End"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+←/→"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Start / end of note"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+Home"
+                      ]
+                    },
+                    " / ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl+End"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd+↑/↓"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Follow link or footnote"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Ctrl"
+                      ]
+                    },
+                    "-click"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Cmd"
+                      ]
+                    },
+                    "-click"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Next table cell"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Tab"
+                      ]
+                    },
+                    " / ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Shift+Tab"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Tab"
+                      ]
+                    },
+                    " / ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Shift+Tab"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Tour"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        {
+          "tag": "kbd",
+          "children": [
+            "Enter"
+          ]
+        },
+        " or ",
+        {
+          "tag": "kbd",
+          "children": [
+            "→"
+          ]
+        },
+        " next, ",
+        {
+          "tag": "kbd",
+          "children": [
+            "←"
+          ]
+        },
+        " back, ",
+        {
+          "tag": "kbd",
+          "children": [
+            "Esc"
+          ]
+        },
+        " skip."
+      ]
+    },
+    "\n      "
+  ],
+  "/docs/links/": [
+    "\n        ",
+    {
+      "tag": "h1",
+      "children": [
+        "Links & backlinks."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Wiki-style links between the notes in a space, stored as plain text you can read anywhere."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Wiki-links"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Type ",
+        {
+          "tag": "code",
+          "children": [
+            "[["
+          ]
+        },
+        " and start a note's name. A list of matching notes opens under the cursor: ",
+        {
+          "tag": "kbd",
+          "children": [
+            "↑"
+          ]
+        },
+        "/",
+        {
+          "tag": "kbd",
+          "children": [
+            "↓"
+          ]
+        },
+        " to choose, ",
+        {
+          "tag": "kbd",
+          "children": [
+            "Enter"
+          ]
+        },
+        " to accept, ",
+        {
+          "tag": "kbd",
+          "children": [
+            "Esc"
+          ]
+        },
+        " to close."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/autocomplete.webp",
+            "alt": "Typing [[Mo in a note opens a suggestion list with the note Moodboard",
+            "width": "1200",
+            "height": "900"
+          }
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            "Autocomplete suggests notes from the whole space as you type."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "ul",
+      "children": [
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "code",
+              "children": [
+                "[[Launch checklist]]"
+              ]
+            },
+            " links by note name, without the ",
+            {
+              "tag": "code",
+              "children": [
+                ".md"
+              ]
+            },
+            ", wherever the note lives in the tree."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "code",
+              "children": [
+                "[[Launch checklist|the checklist]]"
+              ]
+            },
+            " shows ",
+            {
+              "tag": "em",
+              "children": [
+                "the checklist"
+              ]
+            },
+            " as the link text."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            "Right-click → ",
+            {
+              "tag": "strong",
+              "children": [
+                "Add note link"
+              ]
+            },
+            " turns the selection into ",
+            {
+              "tag": "code",
+              "children": [
+                "[[…]]"
+              ]
+            },
+            ". In the sidebar, ",
+            {
+              "tag": "strong",
+              "children": [
+                "Copy note link"
+              ]
+            },
+            " copies a ready-made link."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Following a link"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        "-click a wiki-link (",
+        {
+          "tag": "kbd",
+          "children": [
+            "Ctrl"
+          ]
+        },
+        "-click on Linux/Windows) to open the note. If no note has that name yet, abstract creates one with the name as its heading and opens it, so you can link first and write later."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Backlinks"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Under every note, ",
+        {
+          "tag": "strong",
+          "children": [
+            "Referenced by"
+          ]
+        },
+        " lists the notes that link to it. Click one to open it. Nothing to configure and no index to rebuild: the list comes from the files in the space."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/overview-light.webp",
+            "alt": "A note with the Referenced by panel at the bottom listing a journal entry and another note",
+            "width": "1200",
+            "height": "900"
+          },
+          "theme": "light"
+        },
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/overview-dark.webp",
+            "alt": "The same note and backlinks panel in the dark theme",
+            "width": "1200",
+            "height": "900"
+          },
+          "theme": "dark"
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            "The backlinks panel sits at the bottom of the editor."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Renaming keeps links working"
+      ],
+      "attrs": {
+        "id": "renaming-keeps-links-working"
+      }
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Rename a note with ",
+        {
+          "tag": "kbd",
+          "children": [
+            "F2"
+          ]
+        },
+        ", from the sidebar, or by changing its heading, and every ",
+        {
+          "tag": "code",
+          "children": [
+            "[[old name]]"
+          ]
+        },
+        " in the space becomes ",
+        {
+          "tag": "code",
+          "children": [
+            "[[new name]]"
+          ]
+        },
+        ". Aliases are kept. If two notes share a name, abstract leaves the links alone rather than guess which one you meant."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "External links"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Select text and press ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "K"
+          ]
+        },
+        " to turn it into ",
+        {
+          "tag": "code",
+          "children": [
+            "[text](url)"
+          ]
+        },
+        ". Like every other marker, the URL part hides until the cursor is on the line."
+      ]
+    },
+    "\n      "
+  ],
+  "/docs/markdown/": [
+    "\n        ",
+    {
+      "tag": "h1",
+      "children": [
+        "Markdown."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Live rendering powered by tree-sitter: the syntax hides itself until your selection touches it."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Live rendering"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "abstract shows the rendered note and the markdown source in one place. Markers like ",
+        {
+          "tag": "code",
+          "children": [
+            "**"
+          ]
+        },
+        ", ",
+        {
+          "tag": "code",
+          "children": [
+            "#"
+          ]
+        },
+        " and ",
+        {
+          "tag": "code",
+          "children": [
+            "[[ ]]"
+          ]
+        },
+        " are hidden while you read and come back on the line your cursor or selection is on, so you can always edit the exact characters. What is saved is plain markdown that any other editor can open."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Syntax at a glance"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "table",
+      "children": [
+        "\n          ",
+        {
+          "tag": "thead",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "th",
+                  "children": [
+                    "Write"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "Get"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "Shortcut"
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "tbody",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "# Title"
+                      ]
+                    },
+                    " to ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "###### Title"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Headings"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Paragraph menu"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "**bold**"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "children": [
+                        "Bold"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "⌘"
+                      ]
+                    },
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "B"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "*italic*"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "em",
+                      "children": [
+                        "Italic"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "⌘"
+                      ]
+                    },
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "I"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "~~done~~"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "s",
+                      "children": [
+                        "Strikethrough"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "⌘"
+                      ]
+                    },
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "⇧"
+                      ]
+                    },
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "X"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "`code`"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Inline code"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "⌘"
+                      ]
+                    },
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "E"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "==key point=="
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Highlight"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "⌘"
+                      ]
+                    },
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "⇧"
+                      ]
+                    },
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "H"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "%%note to self%%"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Hidden comment, dimmed"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "⌘"
+                      ]
+                    },
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "/"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "[text](https://…)"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "External link"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "⌘"
+                      ]
+                    },
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "K"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "[[Note]]"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "a",
+                      "children": [
+                        "Wiki-link"
+                      ],
+                      "attrs": {
+                        "href": "/docs/links/"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "—"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "- item"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "1. item"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Lists, indented with ",
+                    {
+                      "tag": "kbd",
+                      "children": [
+                        "Tab"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Paragraph menu"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "- [ ] task"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Clickable checkbox"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Paragraph menu"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "> quote"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Block quote"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Paragraph menu"
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "---"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Divider"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "Insert menu"
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "On Linux and Windows, use ",
+        {
+          "tag": "kbd",
+          "children": [
+            "Ctrl"
+          ]
+        },
+        " instead of ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        ". Each formatting shortcut wraps the current selection in its markers."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Tasks & code"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Click a checkbox to toggle it. The file keeps a plain ",
+        {
+          "tag": "code",
+          "children": [
+            "- [x]"
+          ]
+        },
+        ", and finished tasks are struck through. Fenced code blocks get syntax highlighting when you name the language:"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "```rust\nfn main() {\n    println!(\"hello\");\n}\n```"
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Highlighted languages: Rust, JavaScript and TypeScript, Python, Go, C and C++, shell, JSON, YAML and TOML. Other blocks still render in a monospace box."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Callouts"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Start a block quote with a type in brackets to get a tinted box with a title. ",
+        {
+          "tag": "strong",
+          "children": [
+            "Paragraph → Callout"
+          ]
+        },
+        " in the right-click menu toggles one."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "pre",
+      "children": [
+        {
+          "tag": "code",
+          "children": [
+            "> [!tip] Keep it monochrome\n> One accent color competes with the text."
+          ]
+        }
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "table",
+      "children": [
+        "\n          ",
+        {
+          "tag": "thead",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "th",
+                  "children": [
+                    "Type"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "Also accepts"
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "tbody",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "note"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    "anything not listed below, e.g. ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "info"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "tip"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "hint"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "success"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "check"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "done"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "important"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "warning"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "caution"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "attention"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "question"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "help"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "faq"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "danger"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "error"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "bug"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "failure"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "fail"
+                      ]
+                    },
+                    ", ",
+                    {
+                      "tag": "code",
+                      "children": [
+                        "missing"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Images & attachments"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Paste an image from the clipboard or drop one onto the editor. abstract copies it into an ",
+        {
+          "tag": "code",
+          "children": [
+            "attachments/"
+          ]
+        },
+        " folder next to the note and inserts a relative link such as ",
+        {
+          "tag": "code",
+          "children": [
+            "![](attachments/image-1790692154123.png)"
+          ]
+        },
+        ". ",
+        {
+          "tag": "strong",
+          "children": [
+            "Insert → Image…"
+          ]
+        },
+        " opens a file picker instead."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/images.webp",
+            "alt": "A note titled Moodboard with an image rendered inline below a paragraph",
+            "width": "1200",
+            "height": "900"
+          }
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            "Images render inline under their line. Put the cursor on the line to see the markdown again."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "ul",
+      "children": [
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "code",
+              "children": [
+                "![alt](path)"
+              ]
+            },
+            " resolves relative to the note."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "code",
+              "children": [
+                "![[image.png]]"
+              ]
+            },
+            " also looks in the note's ",
+            {
+              "tag": "code",
+              "children": [
+                "attachments/"
+              ]
+            },
+            ", the space root and the root's ",
+            {
+              "tag": "code",
+              "children": [
+                "attachments/"
+              ]
+            },
+            "."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            "Remote ",
+            {
+              "tag": "code",
+              "children": [
+                "https://"
+              ]
+            },
+            " images are not downloaded. The editor never goes online to render a note."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            "Dropped files that are not images become links, and a dropped note from the same space becomes a ",
+            {
+              "tag": "code",
+              "children": [
+                "[[wiki-link]]"
+              ]
+            },
+            "."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Tables"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Tables and footnotes land in the release after v0.1.2."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "GitHub-style pipe tables render as a monospace block with dimmed pipes, so columns line up. ",
+        {
+          "tag": "kbd",
+          "children": [
+            "Tab"
+          ]
+        },
+        " and ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⇧"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "Tab"
+          ]
+        },
+        " realign the columns and move to the next or previous cell, and ",
+        {
+          "tag": "kbd",
+          "children": [
+            "Tab"
+          ]
+        },
+        " in the last cell adds a row. ",
+        {
+          "tag": "strong",
+          "children": [
+            "Insert → Table"
+          ]
+        },
+        " adds a two-column table."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/tables.webp",
+            "alt": "A note with a three-column pipe table of items, owners and statuses, with a bold header row",
+            "width": "1200",
+            "height": "900"
+          }
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            "The header row is bold and the pipes are dimmed. On disk it is an ordinary markdown table."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Footnotes"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Write ",
+        {
+          "tag": "code",
+          "children": [
+            "[^1]"
+          ]
+        },
+        " in the text and ",
+        {
+          "tag": "code",
+          "children": [
+            "[^1]: The source."
+          ]
+        },
+        " anywhere below. The reference shows as ",
+        {
+          "tag": "code",
+          "children": [
+            "[1]"
+          ]
+        },
+        ", and ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        "-click jumps between it and its definition. ",
+        {
+          "tag": "strong",
+          "children": [
+            "Insert → Footnote"
+          ]
+        },
+        " adds the next number and puts the definition at the end of the note."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "The right-click menu"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Everything above is also in the editor's context menu, next to cut, copy, ",
+        {
+          "tag": "strong",
+          "children": [
+            "Paste as plain text"
+          ]
+        },
+        " (",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "⇧"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "V"
+          ]
+        },
+        "), ",
+        {
+          "tag": "strong",
+          "children": [
+            "Add note link"
+          ]
+        },
+        ", ",
+        {
+          "tag": "strong",
+          "children": [
+            "Add external link"
+          ]
+        },
+        " and ",
+        {
+          "tag": "strong",
+          "children": [
+            "Search for selection"
+          ]
+        },
+        "."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/editor-menu.webp",
+            "alt": "The editor context menu with the Format submenu open, listing Bold, Italic, Strikethrough, Code, Highlight and Hidden comment with their shortcuts",
+            "width": "1200",
+            "height": "900"
+          }
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            {
+              "tag": "strong",
+              "children": [
+                "Format"
+              ]
+            },
+            " wraps text, ",
+            {
+              "tag": "strong",
+              "children": [
+                "Paragraph"
+              ]
+            },
+            " turns the line into a heading, list, checklist, quote or callout, and ",
+            {
+              "tag": "strong",
+              "children": [
+                "Insert"
+              ]
+            },
+            " adds an image, code block, divider, table or footnote."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n      "
+  ],
+  "/docs/search/": [
+    "\n        ",
+    {
+      "tag": "h1",
+      "children": [
+        "Search."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "One palette to find any note in the space, and a find bar for the note in front of you."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Search the space"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Press ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "P"
+          ]
+        },
+        " or ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "⇧"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "F"
+          ]
+        },
+        " (",
+        {
+          "tag": "kbd",
+          "children": [
+            "Ctrl"
+          ]
+        },
+        " on Linux/Windows), or click the magnifier in the toolbar. Results match note titles and the text inside notes, with a snippet for body matches. ",
+        {
+          "tag": "kbd",
+          "children": [
+            "↑"
+          ]
+        },
+        "/",
+        {
+          "tag": "kbd",
+          "children": [
+            "↓"
+          ]
+        },
+        " move, ",
+        {
+          "tag": "kbd",
+          "children": [
+            "Enter"
+          ]
+        },
+        " opens, ",
+        {
+          "tag": "kbd",
+          "children": [
+            "Esc"
+          ]
+        },
+        " closes."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/search.webp",
+            "alt": "The search palette with the query launch, showing a title match and body matches with snippets",
+            "width": "1200",
+            "height": "900"
+          }
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            "Searching ",
+            {
+              "tag": "em",
+              "children": [
+                "launch"
+              ]
+            },
+            " finds the note named after it and every note that mentions it."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Recent notes"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "With an empty query, the palette lists the notes you edited most recently, so ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "P"
+          ]
+        },
+        " ",
+        {
+          "tag": "kbd",
+          "children": [
+            "Enter"
+          ]
+        },
+        " jumps back to what you were just working on."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/search-empty.webp",
+            "alt": "The search palette with no query, listing recently edited notes",
+            "width": "1200",
+            "height": "900"
+          }
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            "An empty palette is a list of recent notes."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "To search for something already on the page, select it and choose ",
+        {
+          "tag": "strong",
+          "children": [
+            "Search for selection"
+          ]
+        },
+        " from the right-click menu."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Find in a note"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Find & replace lands in the release after v0.1.2."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "F"
+          ]
+        },
+        " opens the find bar above the note. If text is selected, it becomes the query. Every match is highlighted, and the bar shows which one you are on."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/find.webp",
+            "alt": "The find and replace bar over a note, with a match count and every match highlighted in the text",
+            "width": "1200",
+            "height": "900"
+          }
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            "The find bar with replace open."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "ul",
+      "children": [
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "kbd",
+              "children": [
+                "Enter"
+              ]
+            },
+            " goes to the next match and ",
+            {
+              "tag": "kbd",
+              "children": [
+                "⇧"
+              ]
+            },
+            {
+              "tag": "kbd",
+              "children": [
+                "Enter"
+              ]
+            },
+            " to the previous one. ",
+            {
+              "tag": "kbd",
+              "children": [
+                "F3"
+              ]
+            },
+            " / ",
+            {
+              "tag": "kbd",
+              "children": [
+                "⇧"
+              ]
+            },
+            {
+              "tag": "kbd",
+              "children": [
+                "F3"
+              ]
+            },
+            " (",
+            {
+              "tag": "kbd",
+              "children": [
+                "⌘"
+              ]
+            },
+            {
+              "tag": "kbd",
+              "children": [
+                "G"
+              ]
+            },
+            " / ",
+            {
+              "tag": "kbd",
+              "children": [
+                "⌘"
+              ]
+            },
+            {
+              "tag": "kbd",
+              "children": [
+                "⇧"
+              ]
+            },
+            {
+              "tag": "kbd",
+              "children": [
+                "G"
+              ]
+            },
+            " on macOS) work from the editor too."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            "Search ignores case by default. The case button next to the query makes it case-sensitive."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            {
+              "tag": "kbd",
+              "children": [
+                "Esc"
+              ]
+            },
+            " closes the bar."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Replace"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Open the find bar with replace using ",
+        {
+          "tag": "kbd",
+          "children": [
+            "Ctrl"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "H"
+          ]
+        },
+        " on Linux/Windows or ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "⌥"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "F"
+          ]
+        },
+        " on macOS. In the replace field, ",
+        {
+          "tag": "kbd",
+          "children": [
+            "Enter"
+          ]
+        },
+        " replaces the current match and moves on, and ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "Enter"
+          ]
+        },
+        " replaces them all. Replace all is a single step, so one ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "Z"
+          ]
+        },
+        " brings everything back."
+      ]
+    },
+    "\n      "
+  ],
+  "/docs/spaces-and-notes/": [
+    "\n        ",
+    {
+      "tag": "h1",
+      "children": [
+        "Spaces & notes."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "A space is a directory. A note is a file. Everything else follows from that."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Spaces"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Each space is a folder on your disk. Keep several — work, personal, one per project — and switch between them from the space name at the top of the sidebar, or with ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "O"
+          ]
+        },
+        " (",
+        {
+          "tag": "kbd",
+          "children": [
+            "Ctrl"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "O"
+          ]
+        },
+        " on Linux/Windows). ",
+        {
+          "tag": "strong",
+          "children": [
+            "Open folder as space…"
+          ]
+        },
+        " adds a new one. Links, backlinks and search all work within the active space."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "The sidebar"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "The sidebar is the folder's real tree. Folders expand in place, and the count next to ",
+        {
+          "tag": "strong",
+          "children": [
+            "Notes"
+          ]
+        },
+        " is the number of notes in the space. Hidden files (names starting with ",
+        {
+          "tag": "code",
+          "children": [
+            "."
+          ]
+        },
+        ") and symlinked folders are skipped. The ",
+        {
+          "tag": "kbd",
+          "children": [
+            "+"
+          ]
+        },
+        " and folder buttons at the top create a note or a folder, and ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "\\"
+          ]
+        },
+        " hides the whole sidebar."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/sidebar-menu.webp",
+            "alt": "Right-click menu on a note in the sidebar with Open, Rename, Duplicate, Copy note link, Copy path, Copy relative path, Show in Finder, Open with default app and Move to Trash",
+            "width": "1200",
+            "height": "900"
+          }
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            "Right-click a note or folder for everything else. Folders also get ",
+            {
+              "tag": "strong",
+              "children": [
+                "New note here"
+              ]
+            },
+            " and ",
+            {
+              "tag": "strong",
+              "children": [
+                "New folder here"
+              ]
+            },
+            "."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h3",
+      "children": [
+        "Moving things"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Drag a note or folder onto another folder, or onto the ",
+        {
+          "tag": "strong",
+          "children": [
+            "Notes"
+          ]
+        },
+        " header to move it to the top level. When a note moves, its relative image paths are rewritten so pictures keep showing."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Creating & naming notes"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Press ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "N"
+          ]
+        },
+        " for a note or ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "⇧"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "N"
+          ]
+        },
+        " for a folder. A note's file is created on the first keystroke and named after its first heading:"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "ul",
+      "children": [
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            "Characters that are not allowed in file names (",
+            {
+              "tag": "code",
+              "children": [
+                "/ \\ : * ? \" < > |"
+              ]
+            },
+            ") are dropped, and names stop at 80 characters."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            "If the name is taken, abstract adds a number: ",
+            {
+              "tag": "code",
+              "children": [
+                "Ideas.md"
+              ]
+            },
+            ", ",
+            {
+              "tag": "code",
+              "children": [
+                "Ideas 2.md"
+              ]
+            },
+            "."
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "li",
+          "children": [
+            "While the file name still matches the heading, editing the heading renames the file. Give the file a different name and it stops following."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Rename with ",
+        {
+          "tag": "kbd",
+          "children": [
+            "F2"
+          ]
+        },
+        ", from the sidebar menu, or by editing the title. Every ",
+        {
+          "tag": "code",
+          "children": [
+            "[[link]]"
+          ]
+        },
+        " to the note is updated across the space. See ",
+        {
+          "tag": "a",
+          "children": [
+            "Links & backlinks"
+          ],
+          "attrs": {
+            "href": "/docs/links/#renaming-keeps-links-working"
+          }
+        },
+        "."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Saving"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Writes are debounced as you type and each save replaces the file atomically, so a crash never leaves half a note behind. ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "S"
+          ]
+        },
+        " writes immediately. The word count in the toolbar opens ",
+        {
+          "tag": "strong",
+          "children": [
+            "Note details"
+          ]
+        },
+        ": save state, words, characters, reading time, the selection's word count, when the file last changed, and buttons to reveal or copy its path."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Deleting"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "⇧"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "⌫"
+          ]
+        },
+        " (",
+        {
+          "tag": "kbd",
+          "children": [
+            "Ctrl"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "Shift"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "Backspace"
+          ]
+        },
+        "), the trash button in the toolbar, or ",
+        {
+          "tag": "strong",
+          "children": [
+            "Move to Trash"
+          ]
+        },
+        " in the sidebar sends the file to the system trash. Nothing is erased for good, so you can restore it from Trash or Recycle Bin."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "External edits"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "The space folder is watched live (inotify on Linux, FSEvents on macOS, ReadDirectoryChanges on Windows). Edit, rename or delete files in Finder, another editor, a script or a sync client and the tree and the open note update right away. Any tool that syncs plain files can sit alongside it."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Session restore"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Quit and reopen and you are back where you were: the same space and note, the cursor and scroll position, the window size and position, and whether the sidebar was open."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Where abstract keeps its own files"
+      ],
+      "attrs": {
+        "id": "where-abstract-keeps-its-own-files"
+      }
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Nothing is written inside your notes folder except your notes and their attachments. abstract's own state is a few ",
+        {
+          "tag": "code",
+          "children": [
+            "key = value"
+          ]
+        },
+        " text files:"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "table",
+      "children": [
+        "\n          ",
+        {
+          "tag": "thead",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "th",
+                  "children": [
+                    "File"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "Linux / macOS"
+                  ]
+                },
+                {
+                  "tag": "th",
+                  "children": [
+                    "Windows"
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n          ",
+        {
+          "tag": "tbody",
+          "children": [
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Settings (theme, language, updates, tour)"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "~/.config/abstract/settings"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "%APPDATA%\\abstract\\settings"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "List of spaces"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "~/.config/abstract/spaces"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "%APPDATA%\\abstract\\spaces"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Session (window, open note, cursor)"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "~/.local/state/abstract/session"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "%LOCALAPPDATA%\\abstract\\session"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n            ",
+            {
+              "tag": "tr",
+              "children": [
+                {
+                  "tag": "td",
+                  "children": [
+                    "Starter space"
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "~/.local/share/abstract/Pessoal"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "td",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        "%APPDATA%\\abstract\\Pessoal"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "\n          "
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "On Linux and macOS, ",
+        {
+          "tag": "code",
+          "children": [
+            "XDG_CONFIG_HOME"
+          ]
+        },
+        ", ",
+        {
+          "tag": "code",
+          "children": [
+            "XDG_STATE_HOME"
+          ]
+        },
+        " and ",
+        {
+          "tag": "code",
+          "children": [
+            "XDG_DATA_HOME"
+          ]
+        },
+        " override these locations."
+      ]
+    },
+    "\n      "
+  ],
+  "/docs/themes/": [
+    "\n        ",
+    {
+      "tag": "h1",
+      "children": [
+        "Themes."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Two monochrome themes, one bundled font family and two interface languages."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Light, dark or system"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Click the sun button in the toolbar or press ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "⇧"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "L"
+          ]
+        },
+        " (",
+        {
+          "tag": "kbd",
+          "children": [
+            "Ctrl"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "Shift"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "L"
+          ]
+        },
+        ") to cycle ",
+        {
+          "tag": "strong",
+          "children": [
+            "System → Light → Dark"
+          ]
+        },
+        ". System follows your OS appearance and switches live when it changes. The choice is saved in the settings file and restored on the next launch."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "figure",
+      "children": [
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/overview-light.webp",
+            "alt": "A note in the light theme: near-white background with black text",
+            "width": "1200",
+            "height": "900"
+          }
+        },
+        "\n          ",
+        {
+          "tag": "img",
+          "children": [],
+          "attrs": {
+            "src": "/media/docs/overview-dark.webp",
+            "alt": "The same note in the dark theme: near-black background with light gray text",
+            "width": "1200",
+            "height": "900"
+          }
+        },
+        "\n          ",
+        {
+          "tag": "figcaption",
+          "children": [
+            "The same note in the light and dark themes."
+          ]
+        },
+        "\n        "
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Monochrome by design"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Both themes are grays from edge to edge. Headings, links and emphasis are set apart by weight and spacing, not by color. The few tints that remain carry meaning: callout types, highlights and the find bar's matches."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Fonts"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "abstract ships Noto Sans for text and Noto Sans Mono for code and tables, bundled inside the app. Notes look the same on every machine, with no dependency on installed system fonts."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Focus mode"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "Hide the sidebar with ",
+        {
+          "tag": "kbd",
+          "children": [
+            "⌘"
+          ]
+        },
+        {
+          "tag": "kbd",
+          "children": [
+            "\\"
+          ]
+        },
+        " or the sidebar button in the toolbar and the note gets the whole window. Press it again to bring the tree back. The state is remembered with the rest of the session."
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "h2",
+      "children": [
+        "Language"
+      ]
+    },
+    "\n        ",
+    {
+      "tag": "p",
+      "children": [
+        "The interface is available in English and Brazilian Portuguese. By default abstract follows the system: a locale starting with ",
+        {
+          "tag": "code",
+          "children": [
+            "pt"
+          ]
+        },
+        " gets Portuguese, anything else gets English. To choose, open the spaces menu at the top of the sidebar and click ",
+        {
+          "tag": "strong",
+          "children": [
+            "Language"
+          ]
+        },
+        " to cycle ",
+        {
+          "tag": "strong",
+          "children": [
+            "System → English → Português"
+          ]
+        },
+        ". The change applies at once, without a restart."
+      ]
+    },
+    "\n      "
+  ]
+}

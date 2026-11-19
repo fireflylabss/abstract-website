@@ -1,0 +1,467 @@
+[
+  {
+    "tag": "div",
+    "children": [
+      "\n        ",
+      {
+        "tag": "h4",
+        "children": [
+          "macOS"
+        ]
+      },
+      "\n        ",
+      {
+        "tag": "ul",
+        "children": [
+          "\n          ",
+          {
+            "tag": "li",
+            "children": [
+              {
+                "tag": "span",
+                "children": [
+                  ".dmg ",
+                  {
+                    "tag": "small",
+                    "children": [
+                      "Drag to Applications"
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "span",
+                "children": [
+                  {
+                    "tag": "a",
+                    "children": [
+                      "Apple Silicon"
+                    ],
+                    "attrs": {
+                      "data-asset": "mac-arm",
+                      "href": "https://github.com/fireflylabss/abstract/releases/latest",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  },
+                  {
+                    "tag": "a",
+                    "children": [
+                      "Intel"
+                    ],
+                    "attrs": {
+                      "data-asset": "mac-intel",
+                      "href": "https://github.com/fireflylabss/abstract/releases/latest",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  }
+                ]
+              }
+            ]
+          },
+          "\n        "
+        ]
+      },
+      "\n        ",
+      {
+        "tag": "p",
+        "children": [
+          "Ad-hoc signed: right-click → Open on first launch, or run ",
+          {
+            "tag": "code",
+            "children": [
+              "xattr -dr com.apple.quarantine /Applications/abstract.app"
+            ]
+          },
+          "."
+        ]
+      },
+      "\n      "
+    ]
+  },
+  {
+    "tag": "div",
+    "children": [
+      "\n        ",
+      {
+        "tag": "h4",
+        "children": [
+          "Linux"
+        ]
+      },
+      "\n        ",
+      {
+        "tag": "ul",
+        "children": [
+          "\n          ",
+          {
+            "tag": "li",
+            "children": [
+              {
+                "tag": "span",
+                "children": [
+                  "AppImage ",
+                  {
+                    "tag": "small",
+                    "children": [
+                      "Portable: ",
+                      {
+                        "tag": "code",
+                        "children": [
+                          "chmod +x"
+                        ]
+                      },
+                      " and run"
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "span",
+                "children": [
+                  {
+                    "tag": "a",
+                    "children": [
+                      "x86_64"
+                    ],
+                    "attrs": {
+                      "data-asset": "linux-appimage",
+                      "href": "https://github.com/fireflylabss/abstract/releases/latest",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  },
+                  {
+                    "tag": "a",
+                    "children": [
+                      "arm64"
+                    ],
+                    "attrs": {
+                      "data-asset": "linux-appimage-arm64",
+                      "href": "https://github.com/fireflylabss/abstract/releases/latest",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  }
+                ]
+              }
+            ]
+          },
+          "\n          ",
+          {
+            "tag": "li",
+            "children": [
+              {
+                "tag": "span",
+                "children": [
+                  ".deb ",
+                  {
+                    "tag": "small",
+                    "children": [
+                      "Debian, Ubuntu, Mint"
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "span",
+                "children": [
+                  {
+                    "tag": "a",
+                    "children": [
+                      "x86_64"
+                    ],
+                    "attrs": {
+                      "data-asset": "linux-deb",
+                      "href": "https://github.com/fireflylabss/abstract/releases/latest",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  },
+                  {
+                    "tag": "a",
+                    "children": [
+                      "arm64"
+                    ],
+                    "attrs": {
+                      "data-asset": "linux-deb-arm64",
+                      "href": "https://github.com/fireflylabss/abstract/releases/latest",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  }
+                ]
+              }
+            ]
+          },
+          "\n          ",
+          {
+            "tag": "li",
+            "children": [
+              {
+                "tag": "span",
+                "children": [
+                  ".rpm ",
+                  {
+                    "tag": "small",
+                    "children": [
+                      "Fedora, openSUSE"
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "span",
+                "children": [
+                  {
+                    "tag": "a",
+                    "children": [
+                      "x86_64"
+                    ],
+                    "attrs": {
+                      "data-asset": "linux-rpm",
+                      "href": "https://github.com/fireflylabss/abstract/releases/latest",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  },
+                  {
+                    "tag": "a",
+                    "children": [
+                      "arm64"
+                    ],
+                    "attrs": {
+                      "data-asset": "linux-rpm-arm64",
+                      "href": "https://github.com/fireflylabss/abstract/releases/latest",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  }
+                ]
+              }
+            ]
+          },
+          "\n          ",
+          {
+            "tag": "li",
+            "children": [
+              {
+                "tag": "span",
+                "children": [
+                  ".tar.gz ",
+                  {
+                    "tag": "small",
+                    "children": [
+                      "Plain binary"
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "span",
+                "children": [
+                  {
+                    "tag": "a",
+                    "children": [
+                      "x86_64"
+                    ],
+                    "attrs": {
+                      "data-asset": "linux-tar",
+                      "href": "https://github.com/fireflylabss/abstract/releases/latest",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  },
+                  {
+                    "tag": "a",
+                    "children": [
+                      "arm64"
+                    ],
+                    "attrs": {
+                      "data-asset": "linux-tar-arm64",
+                      "href": "https://github.com/fireflylabss/abstract/releases/latest",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  }
+                ]
+              }
+            ]
+          },
+          "\n          ",
+          {
+            "tag": "li",
+            "children": [
+              {
+                "tag": "span",
+                "children": [
+                  "AUR ",
+                  {
+                    "tag": "small",
+                    "children": [
+                      "Arch, CachyOS: ",
+                      {
+                        "tag": "code",
+                        "children": [
+                          "paru -S abstract-editor-bin"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "span",
+                "children": [
+                  {
+                    "tag": "a",
+                    "children": [
+                      "Open"
+                    ],
+                    "attrs": {
+                      "href": "https://aur.archlinux.org/packages/abstract-editor-bin",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  }
+                ]
+              }
+            ]
+          },
+          "\n        "
+        ]
+      },
+      "\n      "
+    ]
+  },
+  {
+    "tag": "div",
+    "children": [
+      "\n        ",
+      {
+        "tag": "h4",
+        "children": [
+          "Windows"
+        ]
+      },
+      "\n        ",
+      {
+        "tag": "ul",
+        "children": [
+          "\n          ",
+          {
+            "tag": "li",
+            "children": [
+              {
+                "tag": "span",
+                "children": [
+                  "Installer ",
+                  {
+                    "tag": "small",
+                    "children": [
+                      ".exe, download and run"
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "span",
+                "children": [
+                  {
+                    "tag": "a",
+                    "children": [
+                      "x86_64"
+                    ],
+                    "attrs": {
+                      "data-asset": "win-exe",
+                      "href": "https://github.com/fireflylabss/abstract/releases/latest",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  }
+                ]
+              }
+            ]
+          },
+          "\n          ",
+          {
+            "tag": "li",
+            "children": [
+              {
+                "tag": "span",
+                "children": [
+                  ".zip ",
+                  {
+                    "tag": "small",
+                    "children": [
+                      "Portable"
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "span",
+                "children": [
+                  {
+                    "tag": "a",
+                    "children": [
+                      "x86_64"
+                    ],
+                    "attrs": {
+                      "data-asset": "win-zip",
+                      "href": "https://github.com/fireflylabss/abstract/releases/latest",
+                      "target": "_blank",
+                      "rel": "noreferrer"
+                    },
+                    "action": true
+                  }
+                ]
+              }
+            ]
+          },
+          "\n        "
+        ]
+      },
+      "\n      "
+    ]
+  },
+  {
+    "tag": "div",
+    "children": [
+      "\n        ",
+      {
+        "tag": "a",
+        "children": [
+          "Install guide →"
+        ],
+        "attrs": {
+          "href": "/docs/install/"
+        }
+      },
+      "\n        ",
+      {
+        "tag": "a",
+        "children": [
+          "Build from source →"
+        ],
+        "attrs": {
+          "href": "/docs/build/"
+        }
+      },
+      "\n      "
+    ]
+  }
+]

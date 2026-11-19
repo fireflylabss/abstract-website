@@ -1,0 +1,5 @@
+.quartz {
+  --brand-blue: #1f45f5;
+  --brand-blue-soft: #8aa9ff;
+}
+.brand-mark { color: light-dark(var(--brand-blue), var(--brand-blue-soft)); }

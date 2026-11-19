@@ -5,68 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Build from source — abstract docs</title>
     <meta name="description" content="Build abstract from source with the pinned Rust toolchain." />
-    <!-- @head -->
+    <meta name="theme-color" content="Canvas" />
+    <link rel="icon" href="/media/logo.svg" type="image/svg+xml" />
   </head>
-  <body>
-    <div class="grain" aria-hidden="true"></div>
-    <!-- @topbar -->
-    <div class="docs">
-      <aside>
-        <!-- @docs-nav -->
-      </aside>
-      <article class="docs-body">
-        <h1>Build from source.</h1>
-        <p>The Rust toolchain is pinned via <code>rust-toolchain.toml</code> — rustup handles it automatically.</p>
-        <h2>Dependencies</h2>
-        <p><strong>macOS</strong></p>
-        <pre><code>xcode-select --install</code></pre>
-        <p><strong>Arch</strong></p>
-        <pre><code>sudo pacman -S --needed rustup base-devel pkgconf libxkbcommon libxkbcommon-x11 \
-  libxcb xcb-util-wm xcb-util-image xcb-util-keysyms xcb-util-renderutil \
-  wayland alsa-lib fontconfig</code></pre>
-        <p><strong>Debian / Ubuntu</strong></p>
-        <pre><code>sudo apt-get install libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
-  libxcb-icccm4-dev libxcb-image0-dev libxcb-render0-dev libxcb-shape0-dev \
-  libxcb-xfixes0-dev libxcb-keysyms1-dev libwayland-dev pkg-config</code></pre>
-        <p><strong>Windows</strong> — <a href="https://rustup.rs" target="_blank" rel="noreferrer">rustup</a> + Visual Studio Build Tools ("Desktop development with C++" workload).</p>
-        <h2>Build &amp; run</h2>
-        <pre><code>git clone https://github.com/fireflylabss/abstract
-cd abstract
-cargo build --release
-./target/release/abstract   # abstract.exe on Windows</code></pre>
-        <p>Pass a folder to open it as the active space:</p>
-        <pre><code>cargo run --release -- ~/notes</code></pre>
-        <p>To try a build without touching your real settings, point the XDG variables at a scratch directory (Linux and macOS):</p>
-        <pre><code>XDG_CONFIG_HOME=/tmp/abstract/config \
-XDG_STATE_HOME=/tmp/abstract/state \
-XDG_DATA_HOME=/tmp/abstract/data \
-  ./target/release/abstract /tmp/abstract/notes</code></pre>
-        <h2>Development</h2>
-        <pre><code>cargo fmt --check
-cargo clippy --all-targets -- -D warnings
-cargo test
-cargo build --release</code></pre>
-        <p>CI runs the same checks on Linux and macOS.</p>
-        <h2>Where things live</h2>
-        <table>
-          <thead>
-            <tr><th>Path</th><th>What it holds</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><code>src/app/</code></td><td>The window: sidebar, toolbar, search, find bar, tour and updates UI</td></tr>
-            <tr><td><code>src/editor.rs</code>, <code>src/buffer.rs</code></td><td>The live editor and its text buffer, selection and undo</td></tr>
-            <tr><td><code>src/md.rs</code>, <code>src/code.rs</code></td><td>Markdown parsing and concealment, code highlighting</td></tr>
-            <tr><td><code>src/table.rs</code>, <code>src/footnote.rs</code></td><td>Tables and footnotes</td></tr>
-            <tr><td><code>src/links.rs</code>, <code>src/search.rs</code>, <code>src/find.rs</code></td><td>Wiki-links and backlinks, space search, find &amp; replace</td></tr>
-            <tr><td><code>src/vault.rs</code>, <code>src/watch.rs</code>, <code>src/attach.rs</code></td><td>The note tree, file watching, attachments</td></tr>
-            <tr><td><code>src/store.rs</code>, <code>src/spaces.rs</code></td><td>Settings, session and the list of spaces</td></tr>
-            <tr><td><code>src/theme.rs</code>, <code>src/i18n.rs</code>, <code>src/keymap.rs</code></td><td>Themes, translations, shortcuts</td></tr>
-            <tr><td><code>assets/</code>, <code>packaging/</code></td><td>Bundled fonts and icons, and the AUR package files</td></tr>
-          </tbody>
-        </table>
-      </article>
-    </div>
-    <!-- @footer -->
-    <script type="module" src="/src/docs.ts"></script>
+  <body class="quartz">
+    <div id="root"></div>
+    <script type="module" src="/src/react-main.tsx"></script>
   </body>
 </html>

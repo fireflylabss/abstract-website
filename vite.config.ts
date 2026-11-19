@@ -2,11 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath } from "node:url";
-import { readFileSync } from "node:fs";
-import { dirname, relative, sep } from "node:path";
 
 const page = (p: string) => fileURLToPath(new URL(p, import.meta.url));
-const root = page("./");
 
 // Every page is `<route>/index.html` so URLs stay extension-less on any static host.
 const docs = [
@@ -23,22 +20,13 @@ const docs = [
 
 const base = process.env.BASE_PATH || "/";
 
-// Shared chrome: `<!-- @name -->` markers are filled from src/partials so every page stays in sync.
-const partials = () => ({
-  name: "partials",
-  transformIndexHtml: {
-    order: "pre" as const,
-    handler: (html: string, ctx: { filename: string }) => {
-      const isHome = ctx.filename === page("./index.html");
-      const route = "/" + relative(root, dirname(ctx.filename)).split(sep).join("/");
-      const self = route === "/" ? route : `${route}/`;
-      return html.replace(/<!-- @(head|topbar|footer|docs-nav) -->/g, (_, name: string) => {
-        const part = readFileSync(page(`./src/partials/${name}.html`), "utf8").trim();
-        const marked = part.replace(`href="${self}"`, `href="${self}" aria-current="page"`);
-        return isHome ? marked.replace(/href="\/#/g, 'href="#') : marked;
-      });
-    },
-  },
+const themePrepaint = () => ({
+  name: "theme-prepaint",
+  transformIndexHtml: () => [{
+    tag: "script",
+    injectTo: "head-prepend" as const,
+    children: `(() => { let p = "system"; try { const t = localStorage.getItem("theme"); if (t === "dark" || t === "light") p = t; } catch {} document.documentElement.dataset.themePref = p; document.documentElement.dataset.theme = (p === "dark" || (p === "system" && matchMedia("(prefers-color-scheme: dark)").matches)) ? "dark" : "light"; })();`,
+  }],
 });
 
 // Crawlers need absolute Open Graph URLs; the deploy workflow passes the site origin.
@@ -77,7 +65,7 @@ const legacyRedirects = () => ({
 export default defineConfig({
   base,
   resolve: { alias: { "@": page("./src") } },
-  plugins: [react(), tailwindcss(), partials(), rebaseLinks(), absoluteMeta(), legacyRedirects()],
+  plugins: [react(), tailwindcss(), themePrepaint(), rebaseLinks(), absoluteMeta(), legacyRedirects()],
   build: {
     rollupOptions: {
       input: {
