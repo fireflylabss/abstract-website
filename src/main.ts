@@ -1,10 +1,4 @@
-import "@fontsource/noto-sans/400.css";
-import "@fontsource/noto-sans/400-italic.css";
-import "@fontsource/noto-sans/500.css";
-import "@fontsource/noto-sans/600.css";
-import "@fontsource/noto-sans/700.css";
-import "@fontsource/noto-sans-mono/400.css";
-import "@fontsource/noto-sans-mono/500.css";
+import "./components/quartz/styles.css";
 import "./style.css";
 import { animate, inView, stagger } from "motion";
 import { setupTheme } from "./theme";

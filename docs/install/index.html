@@ -7,7 +7,7 @@
     <meta name="description" content="Install abstract on macOS, Linux or Windows from the prebuilt GitHub release artifacts." />
     <!-- @head -->
   </head>
-  <body>
+  <body class="quartz">
     <div class="grain" aria-hidden="true"></div>
     <!-- @topbar -->
     <div class="docs">
@@ -19,20 +19,20 @@
         <p>Prebuilt artifacts are attached to each <a href="https://github.com/fireflylabss/abstract/releases" target="_blank" rel="noreferrer">GitHub Release</a>.</p>
         <h2>macOS</h2>
         <p><code>abstract-&lt;version&gt;-macos-aarch64.dmg</code> (Apple Silicon) or <code>...-macos-x86_64.dmg</code> (Intel) — open and drag abstract to Applications. A <code>.app.zip</code> alternative is attached too. Builds are ad-hoc signed (no Apple Developer ID), so Gatekeeper blocks the first launch: right-click → <strong>Open</strong>, or run:</p>
-        <pre><code>xattr -dr com.apple.quarantine /Applications/abstract.app</code></pre>
+        <pre data-slot="code-block"><code>xattr -dr com.apple.quarantine /Applications/abstract.app</code></pre>
         <h2>Linux</h2>
         <p><code>abstract-&lt;version&gt;-linux-x86_64.tar.gz</code> (binary + docs), a <code>.deb</code>, an <code>.rpm</code>, or an <code>.AppImage</code>. aarch64 builds are attached as <code>abstract-&lt;version&gt;-linux-aarch64.*</code>. Works on Wayland and X11.</p>
         <h3>Arch / CachyOS (AUR)</h3>
-        <pre><code>paru -S abstract-editor      # build from source
+        <pre data-slot="code-block"><code>paru -S abstract-editor      # build from source
 paru -S abstract-editor-bin  # prebuilt binary</code></pre>
         <h3>Debian / Ubuntu</h3>
         <p>Download the <code>.deb</code> from the latest release, then:</p>
-        <pre><code>sudo dpkg -i abstract-editor_&lt;version&gt;_amd64.deb</code></pre>
+        <pre data-slot="code-block"><code>sudo dpkg -i abstract-editor_&lt;version&gt;_amd64.deb</code></pre>
         <h3>Fedora / RHEL</h3>
         <p>Download the <code>.rpm</code> from the latest release, then:</p>
-        <pre><code>sudo dnf install ./abstract-editor-&lt;version&gt;-1.x86_64.rpm</code></pre>
+        <pre data-slot="code-block"><code>sudo dnf install ./abstract-editor-&lt;version&gt;-1.x86_64.rpm</code></pre>
         <h3>AppImage</h3>
-        <pre><code>chmod +x abstract-&lt;version&gt;-linux-x86_64.AppImage
+        <pre data-slot="code-block"><code>chmod +x abstract-&lt;version&gt;-linux-x86_64.AppImage
 ./abstract-&lt;version&gt;-linux-x86_64.AppImage</code></pre>
         <h2>Windows</h2>
         <p><code>abstract-&lt;version&gt;-windows-x86_64.exe</code> — download and run. It is portable, so there is no installer. A <code>.zip</code> with the README and license is attached too. SmartScreen may warn about an unknown publisher the first time: choose <strong>More info → Run anyway</strong>.</p>
@@ -48,7 +48,7 @@ paru -S abstract-editor-bin  # prebuilt binary</code></pre>
           </tbody>
         </table>
         <p>A self-update is only installed if the release's <code>SHA256SUMS</code> carries a valid minisign signature and the download matches its checksum. You can check a manual download the same way:</p>
-        <pre><code>sha256sum -c SHA256SUMS --ignore-missing   # shasum -a 256 -c on macOS</code></pre>
+        <pre data-slot="code-block"><code>sha256sum -c SHA256SUMS --ignore-missing   # shasum -a 256 -c on macOS</code></pre>
         <h2>What changed</h2>
         <p>Every release is listed in the <a href="/changelog/">changelog</a>.</p>
         <h2>From source</h2>

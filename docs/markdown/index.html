@@ -7,7 +7,7 @@
     <meta name="description" content="How abstract renders markdown live as you type, powered by tree-sitter." />
     <!-- @head -->
   </head>
-  <body>
+  <body class="quartz">
     <div class="grain" aria-hidden="true"></div>
     <!-- @topbar -->
     <div class="docs">
@@ -26,24 +26,24 @@
           </thead>
           <tbody>
             <tr><td><code># Title</code> to <code>###### Title</code></td><td>Headings</td><td>Paragraph menu</td></tr>
-            <tr><td><code>**bold**</code></td><td><strong>Bold</strong></td><td><kbd>⌘</kbd><kbd>B</kbd></td></tr>
-            <tr><td><code>*italic*</code></td><td><em>Italic</em></td><td><kbd>⌘</kbd><kbd>I</kbd></td></tr>
-            <tr><td><code>~~done~~</code></td><td><s>Strikethrough</s></td><td><kbd>⌘</kbd><kbd>⇧</kbd><kbd>X</kbd></td></tr>
-            <tr><td><code>`code`</code></td><td>Inline code</td><td><kbd>⌘</kbd><kbd>E</kbd></td></tr>
-            <tr><td><code>==key point==</code></td><td>Highlight</td><td><kbd>⌘</kbd><kbd>⇧</kbd><kbd>H</kbd></td></tr>
-            <tr><td><code>%%note to self%%</code></td><td>Hidden comment, dimmed</td><td><kbd>⌘</kbd><kbd>/</kbd></td></tr>
-            <tr><td><code>[text](https://…)</code></td><td>External link</td><td><kbd>⌘</kbd><kbd>K</kbd></td></tr>
+            <tr><td><code>**bold**</code></td><td><strong>Bold</strong></td><td><kbd data-slot="kbd">⌘</kbd><kbd data-slot="kbd">B</kbd></td></tr>
+            <tr><td><code>*italic*</code></td><td><em>Italic</em></td><td><kbd data-slot="kbd">⌘</kbd><kbd data-slot="kbd">I</kbd></td></tr>
+            <tr><td><code>~~done~~</code></td><td><s>Strikethrough</s></td><td><kbd data-slot="kbd">⌘</kbd><kbd data-slot="kbd">⇧</kbd><kbd data-slot="kbd">X</kbd></td></tr>
+            <tr><td><code>`code`</code></td><td>Inline code</td><td><kbd data-slot="kbd">⌘</kbd><kbd data-slot="kbd">E</kbd></td></tr>
+            <tr><td><code>==key point==</code></td><td>Highlight</td><td><kbd data-slot="kbd">⌘</kbd><kbd data-slot="kbd">⇧</kbd><kbd data-slot="kbd">H</kbd></td></tr>
+            <tr><td><code>%%note to self%%</code></td><td>Hidden comment, dimmed</td><td><kbd data-slot="kbd">⌘</kbd><kbd data-slot="kbd">/</kbd></td></tr>
+            <tr><td><code>[text](https://…)</code></td><td>External link</td><td><kbd data-slot="kbd">⌘</kbd><kbd data-slot="kbd">K</kbd></td></tr>
             <tr><td><code>[[Note]]</code></td><td><a href="/docs/links/">Wiki-link</a></td><td>—</td></tr>
-            <tr><td><code>- item</code>, <code>1. item</code></td><td>Lists, indented with <kbd>Tab</kbd></td><td>Paragraph menu</td></tr>
+            <tr><td><code>- item</code>, <code>1. item</code></td><td>Lists, indented with <kbd data-slot="kbd">Tab</kbd></td><td>Paragraph menu</td></tr>
             <tr><td><code>- [ ] task</code></td><td>Clickable checkbox</td><td>Paragraph menu</td></tr>
             <tr><td><code>&gt; quote</code></td><td>Block quote</td><td>Paragraph menu</td></tr>
             <tr><td><code>---</code></td><td>Divider</td><td>Insert menu</td></tr>
           </tbody>
         </table>
-        <p>On Linux and Windows, use <kbd>Ctrl</kbd> instead of <kbd>⌘</kbd>. Each formatting shortcut wraps the current selection in its markers.</p>
+        <p>On Linux and Windows, use <kbd data-slot="kbd">Ctrl</kbd> instead of <kbd data-slot="kbd">⌘</kbd>. Each formatting shortcut wraps the current selection in its markers.</p>
         <h2>Tasks &amp; code</h2>
         <p>Click a checkbox to toggle it. The file keeps a plain <code>- [x]</code>, and finished tasks are struck through. Fenced code blocks get syntax highlighting when you name the language:</p>
-        <pre><code>```rust
+        <pre data-slot="code-block"><code>```rust
 fn main() {
     println!("hello");
 }
@@ -51,7 +51,7 @@ fn main() {
         <p>Highlighted languages: Rust, JavaScript and TypeScript, Python, Go, C and C++, shell, JSON, YAML and TOML. Other blocks still render in a monospace box.</p>
         <h2>Callouts</h2>
         <p>Start a block quote with a type in brackets to get a tinted box with a title. <strong>Paragraph → Callout</strong> in the right-click menu toggles one.</p>
-        <pre><code>&gt; [!tip] Keep it monochrome
+        <pre data-slot="code-block"><code>&gt; [!tip] Keep it monochrome
 &gt; One accent color competes with the text.</code></pre>
         <table>
           <thead>
@@ -78,15 +78,15 @@ fn main() {
         </ul>
         <h2>Tables</h2>
         <p class="docs-note">Tables and footnotes land in the release after v0.1.2.</p>
-        <p>GitHub-style pipe tables render as a monospace block with dimmed pipes, so columns line up. <kbd>Tab</kbd> and <kbd>⇧</kbd><kbd>Tab</kbd> realign the columns and move to the next or previous cell, and <kbd>Tab</kbd> in the last cell adds a row. <strong>Insert → Table</strong> adds a two-column table.</p>
+        <p>GitHub-style pipe tables render as a monospace block with dimmed pipes, so columns line up. <kbd data-slot="kbd">Tab</kbd> and <kbd data-slot="kbd">⇧</kbd><kbd data-slot="kbd">Tab</kbd> realign the columns and move to the next or previous cell, and <kbd data-slot="kbd">Tab</kbd> in the last cell adds a row. <strong>Insert → Table</strong> adds a two-column table.</p>
         <figure class="docs-fig">
           <img src="/media/docs/tables.webp" alt="A note with a three-column pipe table of items, owners and statuses, with a bold header row" width="1200" height="900" loading="lazy" decoding="async" />
           <figcaption>The header row is bold and the pipes are dimmed. On disk it is an ordinary markdown table.</figcaption>
         </figure>
         <h2>Footnotes</h2>
-        <p>Write <code>[^1]</code> in the text and <code>[^1]: The source.</code> anywhere below. The reference shows as <code>[1]</code>, and <kbd>⌘</kbd>-click jumps between it and its definition. <strong>Insert → Footnote</strong> adds the next number and puts the definition at the end of the note.</p>
+        <p>Write <code>[^1]</code> in the text and <code>[^1]: The source.</code> anywhere below. The reference shows as <code>[1]</code>, and <kbd data-slot="kbd">⌘</kbd>-click jumps between it and its definition. <strong>Insert → Footnote</strong> adds the next number and puts the definition at the end of the note.</p>
         <h2>The right-click menu</h2>
-        <p>Everything above is also in the editor's context menu, next to cut, copy, <strong>Paste as plain text</strong> (<kbd>⌘</kbd><kbd>⇧</kbd><kbd>V</kbd>), <strong>Add note link</strong>, <strong>Add external link</strong> and <strong>Search for selection</strong>.</p>
+        <p>Everything above is also in the editor's context menu, next to cut, copy, <strong>Paste as plain text</strong> (<kbd data-slot="kbd">⌘</kbd><kbd data-slot="kbd">⇧</kbd><kbd data-slot="kbd">V</kbd>), <strong>Add note link</strong>, <strong>Add external link</strong> and <strong>Search for selection</strong>.</p>
         <figure class="docs-fig">
           <img src="/media/docs/editor-menu.webp" alt="The editor context menu with the Format submenu open, listing Bold, Italic, Strikethrough, Code, Highlight and Hidden comment with their shortcuts" width="1200" height="900" loading="lazy" decoding="async" />
           <figcaption><strong>Format</strong> wraps text, <strong>Paragraph</strong> turns the line into a heading, list, checklist, quote or callout, and <strong>Insert</strong> adds an image, code block, divider, table or footnote.</figcaption>
